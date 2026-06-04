@@ -139,7 +139,6 @@ export const adminAPI = {
   getDashboardStats: () => api.get('/admin/dashboard'),
   getListingStats: () => api.get('/admin/listings/stats'),
   getUserStats: () => api.get('/admin/users/stats'),
-  getUsers: (params) => api.get('/admin/users', { params }),
   getListings: (params) => api.get('/admin/listings', { params }),
   getListingById: (id) => api.get(`/admin/listings/${id}`),
   editListing: (id, data) => api.put(`/admin/listings/${id}`, data),
@@ -147,7 +146,10 @@ export const adminAPI = {
   rejectListing: (id, reason) => api.post(`/admin/listings/${id}/reject`, { rejectionReason: reason }),
   deleteListing: (id) => api.delete(`/admin/listings/${id}`),
   featureListing: (id, days) => api.post(`/admin/listings/${id}/feature`, null, { params: { days } }),
+  bulkApproveListings: (ids) => api.post('/admin/listings/bulk-approve', { ids }),
+  bulkDeleteListings: (ids) => api.post('/admin/listings/bulk-delete', { ids }),
   getJobs: (params) => api.get('/admin/jobs', { params }),
+  getJobApplications: (jobId, params) => api.get(`/jobs/${jobId}/applications`, { params }),
   approveJob: (id) => api.post(`/admin/jobs/${id}/approve`),
   rejectJob: (id, reason) => api.post(`/admin/jobs/${id}/reject`, { rejectionReason: reason }),
   deleteJob: (id) => api.delete(`/admin/jobs/${id}`),
@@ -163,6 +165,7 @@ export const adminAPI = {
   suspendUser: (userId, reason) => api.post(`/admin/users/${userId}/suspend`, { reason }),
   activateUser: (userId) => api.post(`/admin/users/${userId}/activate`),
   deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
+  changeUserRole: (userId, data) => api.put(`/admin/users/${userId}/roles`, data),
 
   // Payments
   getPayments: (params) => api.get('/admin/payments', { params }),

@@ -102,6 +102,46 @@ public class AdminController {
         adminService.deleteListing(id);
         return ResponseEntity.ok(ApiResponse.success("Listing deleted successfully", null));
     }
+
+    @PostMapping("/listings/bulk-approve")
+    @Operation(summary = "Bulk approve listings", description = "Approves multiple listings at once")
+    public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> bulkApproveListings(
+            @RequestBody java.util.Map<String, java.util.List<Long>> request) {
+        java.util.List<Long> ids = request.get("ids");
+        int successCount = 0, failedCount = 0;
+        for (Long id : ids) {
+            try {
+                adminService.approveListing(id, null, java.util.Collections.emptyList());
+                successCount++;
+            } catch (Exception e) {
+                failedCount++;
+            }
+        }
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        result.put("successCount", successCount);
+        result.put("failedCount", failedCount);
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
+    @PostMapping("/listings/bulk-delete")
+    @Operation(summary = "Bulk delete listings", description = "Deletes multiple listings at once")
+    public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> bulkDeleteListings(
+            @RequestBody java.util.Map<String, java.util.List<Long>> request) {
+        java.util.List<Long> ids = request.get("ids");
+        int successCount = 0, failedCount = 0;
+        for (Long id : ids) {
+            try {
+                adminService.deleteListing(id);
+                successCount++;
+            } catch (Exception e) {
+                failedCount++;
+            }
+        }
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        result.put("successCount", successCount);
+        result.put("failedCount", failedCount);
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
     
     @PostMapping("/listings/{id}/feature")
     @Operation(summary = "Feature listing", description = "Marks a listing as featured")
@@ -206,6 +246,19 @@ public class AdminController {
     public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long userId) {
         adminService.deleteUser(userId);
         return ResponseEntity.ok(ApiResponse.success("User deleted successfully", null));
+    }
+
+    @PutMapping("/users/{userId}/roles")
+    @Operation(summary = "Update user roles", description = "Replaces all existing roles for a user with the provided list")
+    public ResponseEntity<ApiResponse<Void>> updateUserRoles(
+            @PathVariable Long userId,
+            @RequestBody java.util.Map<String, java.util.List<String>> request) {
+        java.util.List<String> roles = request.get("roles");
+        if (roles == null || roles.isEmpty()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("At least one role is required"));
+        }
+        adminService.updateUserRoles(userId, roles);
+        return ResponseEntity.ok(ApiResponse.success("User roles updated successfully", null));
     }
     
     // Verification Management

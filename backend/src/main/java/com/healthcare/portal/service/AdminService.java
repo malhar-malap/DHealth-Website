@@ -24,13 +24,14 @@ public class AdminService {
     private final JobApplicationRepository jobApplicationRepository;
     private final BuyerVerificationRepository buyerVerificationRepository;
     private final PaymentRepository paymentRepository;
+    private final UserRoleRepository userRoleRepository;
     private final ListingService listingService;
     private final JobService jobService;
     private final UserService userService;
     private final EmailService emailService;
 
     @Autowired
-    public AdminService(UserRepository userRepository, ListingRepository listingRepository, JobRepository jobRepository, InquiryRepository inquiryRepository, JobApplicationRepository jobApplicationRepository, BuyerVerificationRepository buyerVerificationRepository, PaymentRepository paymentRepository, ListingService listingService, JobService jobService, UserService userService, EmailService emailService) {
+    public AdminService(UserRepository userRepository, ListingRepository listingRepository, JobRepository jobRepository, InquiryRepository inquiryRepository, JobApplicationRepository jobApplicationRepository, BuyerVerificationRepository buyerVerificationRepository, PaymentRepository paymentRepository, UserRoleRepository userRoleRepository, ListingService listingService, JobService jobService, UserService userService, EmailService emailService) {
         this.userRepository = userRepository;
         this.listingRepository = listingRepository;
         this.jobRepository = jobRepository;
@@ -38,6 +39,7 @@ public class AdminService {
         this.jobApplicationRepository = jobApplicationRepository;
         this.buyerVerificationRepository = buyerVerificationRepository;
         this.paymentRepository = paymentRepository;
+        this.userRoleRepository = userRoleRepository;
         this.listingService = listingService;
         this.jobService = jobService;
         this.userService = userService;
@@ -318,6 +320,26 @@ public class AdminService {
     @Transactional
     public void deleteUser(Long userId) {
         userService.deleteUser(userId);
+    }
+
+    @Transactional
+    public void updateUserRoles(Long userId, java.util.List<String> roles) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+        // Remove all existing roles
+        java.util.List<UserRole> existingRoles = userRoleRepository.findByUser(user);
+        userRoleRepository.deleteAll(existingRoles);
+        userRoleRepository.flush();
+
+        // Add the new roles
+        for (String roleStr : roles) {
+            UserRole.Role roleEnum = UserRole.Role.valueOf(roleStr.toUpperCase());
+            UserRole userRole = new UserRole();
+            userRole.setUser(user);
+            userRole.setRole(roleEnum);
+            userRoleRepository.save(userRole);
+        }
     }
     
     // Verification Management
