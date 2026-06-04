@@ -8,8 +8,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=your_mysql_root_password
-      - MYSQL_DATABASE=your_database_name
+      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - MYSQL_DATABASE=healthcare_portal
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -23,10 +23,13 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/your_database_name?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/healthcare_portal?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=your_mysql_root_password
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
       - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
       - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
       - SPRING_MAIL_HOST=${SPRING_MAIL_HOST}
@@ -35,11 +38,8 @@ services:
       - SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
     volumes:
       - ./backend/uploads:/app/uploads
-    # This matches the target application configuration for Hostinger SSL
-    command: >
-      java -jar app.jar 
-      --spring.mail.properties.mail.smtp.ssl.enable=true 
-      --spring.mail.properties.mail.smtp.starttls.enable=false
+    # Keeps mail properties safe and separated with proper spacing
+    command: java -jar app.jar --spring.mail.properties.mail.smtp.ssl.enable=true --spring.mail.properties.mail.smtp.starttls.enable=false
 
   frontend:
     build:
