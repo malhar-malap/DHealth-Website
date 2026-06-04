@@ -570,7 +570,7 @@ const AdminListingsPage = () => {
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-primary opacity-60">Sample Image</label>
                 {approveImageUrl ? (
                   <div className="relative group">
-                    <img src={`http://dhacquisitions.co:8080${approveImageUrl}`} alt="Sample" className="w-full h-48 object-cover rounded-[1.2rem] border border-ethereal-surface" />
+                    <img src={`https://dhacquisitions.co${approveImageUrl}`} alt="Sample" className="w-full h-48 object-cover rounded-[1.2rem] border border-ethereal-surface" />
                     <button onClick={() => setApproveImageUrl('')}
                       className="absolute top-3 right-3 p-2 bg-gray-900/80 text-white rounded-xl hover:bg-rose-600 transition-all opacity-0 group-hover:opacity-100">
                       <FiX className="w-4 h-4" />

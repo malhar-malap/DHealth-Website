@@ -33,6 +33,8 @@ services:
       - SPRING_MAIL_PORT=${SPRING_MAIL_PORT}
       - SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME}
       - SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
+    volumes:
+      - ./backend/uploads:/app/uploads
     # This matches the target application configuration for Hostinger SSL
     command: >
       java -jar app.jar 
