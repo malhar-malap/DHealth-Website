@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DH Acquisitions — Healthcare Marketplace Project Module Breakdown</title>
+  <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #0284c7;
+  --primary-dark: #0369a1;
+  --primary-light: #f0f9ff;
+  --text-dark: #0f172a;
+  --text-medium: #334155;
+  --text-light: #64748b;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --border-color: #e2e8f0;
+  
+  /* Alert Colors */
+  --note-border: #3b82f6;
+  --note-bg: #eff6ff;
+  --tip-border: #10b981;
+  --tip-bg: #ecfdf5;
+  --important-border: #8b5cf6;
+  --important-bg: #f5f3ff;
+  --warning-border: #f59e0b;
+  --warning-bg: #fffbeb;
+  --caution-border: #ef4444;
+  --caution-bg: #fef2f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-medium);
+  line-height: 1.6;
+  background-color: var(--bg-main);
+  margin: 0;
+  padding: 40px 20px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  padding: 50px 60px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1 {
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 15px;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--text-medium);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-left: 24px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+tr:nth-child(even) {
+  background-color: #fafbfb;
+}
+
+/* Alerts / Blockquotes */
+blockquote {
+  margin: 20px 0;
+  padding: 16px 24px;
+  border-left: 4px solid var(--primary);
+  background-color: var(--bg-main);
+  border-radius: 0 8px 8px 0;
+}
+
+blockquote.alert {
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  border-left-width: 5px;
+}
+
+blockquote.alert p:first-of-type {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+}
+
+blockquote.alert p:first-of-type::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Alert Varieties */
+blockquote.alert-note {
+  border-color: var(--border-color);
+  border-left-color: var(--note-border);
+  background-color: var(--note-bg);
+}
+blockquote.alert-note p:first-of-type { color: var(--note-border); }
+
+blockquote.alert-tip {
+  border-color: var(--border-color);
+  border-left-color: var(--tip-border);
+  background-color: var(--tip-bg);
+}
+blockquote.alert-tip p:first-of-type { color: var(--tip-border); }
+
+blockquote.alert-important {
+  border-color: var(--border-color);
+  border-left-color: var(--important-border);
+  background-color: var(--important-bg);
+}
+blockquote.alert-important p:first-of-type { color: var(--important-border); }
+
+blockquote.alert-warning {
+  border-color: var(--border-color);
+  border-left-color: var(--warning-border);
+  background-color: var(--warning-bg);
+}
+blockquote.alert-warning p:first-of-type { color: var(--warning-border); }
+
+blockquote.alert-caution {
+  border-color: var(--border-color);
+  border-left-color: var(--caution-border);
+  background-color: var(--caution-bg);
+}
+blockquote.alert-caution p:first-of-type { color: var(--caution-border); }
+
+/* Horizontal Rule */
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 40px 0;
+}
+
+/* Footer style */
+.doc-footer {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Print Specific Optimizations */
+@media print {
+  body {
+    background-color: #fff;
+    padding: 0;
+    font-size: 10pt;
+  }
+  
+  .container {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  tr, blockquote {
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  @page {
+    size: A4;
+    margin: 20mm 15mm 20mm 15mm;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DH Acquisitions — Healthcare Marketplace</h1>
+<h2>Project Module Breakdown &amp; Scope Document</h2>
+<hr>
+<p><strong>Prepared by:</strong> Malhar<br><strong>Date:</strong> 3rd June 2026<br><strong>Project:</strong> DH Acquisitions Marketplace — Web Application<br><strong>Client:</strong> DH Acquisitions<br><strong>Version:</strong> 1.0</p>
+<hr>
+<h2>📋 Table of Contents</h2>
+<ol>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#technology-stack">Technology Stack</a></li>
+<li><a href="#module-breakdown">Module Breakdown</a></li>
+<li><a href="#deliverables-summary">Deliverables Summary</a></li>
+<li><a href="#pricing-summary">Pricing Summary</a></li>
+<li><a href="#terms--conditions">Terms &amp; Conditions</a></li>
+</ol>
+<hr>
+<h2>Project Overview</h2>
+<p>DH Acquisitions Marketplace is a <strong>full-stack web application</strong> designed to serve as a comprehensive platform for buying, selling, and leasing healthcare businesses — including hospitals, pharmaceutical companies, diagnostic centres, and medical equipment. The platform also features an integrated <strong>job board</strong> for healthcare professionals.</p>
+<p><strong>Key highlights:</strong></p>
+<ul>
+<li>Multi-role user system (Buyer, Seller, Employer, Job Seeker, Admin)</li>
+<li>4 healthcare business categories with specialised listing forms</li>
+<li>Integrated payment gateway for premium features</li>
+<li>Full-featured admin control panel</li>
+<li>Email notification system</li>
+<li>Production-grade deployment with Docker</li>
+</ul>
+<hr>
+<h2>Technology Stack</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Frontend</strong></td>
+<td>React 18, Tailwind CSS, React Router v6, Recharts</td>
+</tr>
+<tr>
+<td><strong>Backend</strong></td>
+<td>Java 17, Spring Boot 3.2, Spring Security, Spring Data JPA</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>MySQL 8 (20+ tables, indexed, with SQL views)</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>JWT (JSON Web Tokens) with role-based access control</td>
+</tr>
+<tr>
+<td><strong>Payments</strong></td>
+<td>Razorpay Payment Gateway (Live Integration)</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>Spring Mail (Gmail SMTP)</td>
+</tr>
+<tr>
+<td><strong>File Storage</strong></td>
+<td>Server-side file upload &amp; management</td>
+</tr>
+<tr>
+<td><strong>API Docs</strong></td>
+<td>Springdoc OpenAPI (Swagger UI)</td>
+</tr>
+<tr>
+<td><strong>DevOps</strong></td>
+<td>Docker, Docker Compose, Nginx reverse proxy</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Module Breakdown</h2>
+<hr>
+<h3>Module 1 — User Authentication &amp; Registration</h3>
+<p>Complete user onboarding system with secure authentication.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.1</td>
+<td>User Registration</td>
+<td>Multi-role registration form with field validation (Buyer, Seller, Employer, Job Seeker)</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>User Login</td>
+<td>Secure JWT-based login with encrypted password storage (BCrypt)</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>Forgot Password</td>
+<td>Email-based password reset flow with OTP verification</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>Reset Password</td>
+<td>Secure token-validated password reset page</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>Session Management</td>
+<td>Persistent JWT tokens with automatic expiry &amp; refresh handling</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>Role-Based Access</td>
+<td>Route protection — different views &amp; permissions per user role</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Login, Register, Forgot Password, Reset Password</p>
+<hr>
+<h3>Module 2 — User Profile &amp; Account Management</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.1</td>
+<td>Profile Dashboard</td>
+<td>Personalised dashboard showing user&#39;s listings, jobs, and activity</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Profile Editing</td>
+<td>Update name, email, phone, company name, city, profile photo</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Profile Photo Upload</td>
+<td>Image upload with server-side storage and URL management</td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>Buyer Verification</td>
+<td>Document upload (Aadhaar / PAN / Passport) for verified buyer badge</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>CV Management</td>
+<td>Upload &amp; manage CV for job applications</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Dashboard, Profile Settings</p>
+<hr>
+<h3>Module 3 — Healthcare Marketplace (Core Module)</h3>
+<p>The primary module — supports 4 healthcare business categories, each with unique listing forms and detail schemas.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3.1</td>
+<td><strong>Hospital Listings</strong></td>
+<td>List hospitals for sale/lease with details: bed count, type, NABH accreditation, monthly revenue, OPD count, land area, year established</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td><strong>Pharma Company Listings</strong></td>
+<td>Full/partial stake sale with details: annual turnover, stake %, GMP/FDA/WHO certifications, SKU count, manufacturing capacity</td>
+</tr>
+<tr>
+<td>3.3</td>
+<td><strong>Diagnostic Centre Listings</strong></td>
+<td>Pathology labs, imaging centres with details: diagnostic type, machines, daily footfall, NABL accreditation, tests offered</td>
+</tr>
+<tr>
+<td>3.4</td>
+<td><strong>Medical Equipment Listings</strong></td>
+<td>New/used equipment with details: equipment type, brand, model, manufacture year, condition rating, warranty, service history</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>Multi-Image Upload</td>
+<td>Upload up to 10 images per listing with primary image selection</td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>Listing Search &amp; Filters</td>
+<td>Filter by category, city, price range, deal type with pagination</td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>Listing Detail Page</td>
+<td>Full listing view with image gallery, specifications, seller info, and inquiry form</td>
+</tr>
+<tr>
+<td>3.8</td>
+<td>Confidential Listings</td>
+<td>Option to hide seller identity — display alternate title for privacy</td>
+</tr>
+<tr>
+<td>3.9</td>
+<td>Listing Management</td>
+<td>Create, edit, withdraw listings from seller dashboard</td>
+</tr>
+<tr>
+<td>3.10</td>
+<td>Partial Properties</td>
+<td>Browse partial stake / investment opportunities</td>
+</tr>
+<tr>
+<td>3.11</td>
+<td>Featured Listings</td>
+<td>Premium placement for featured listings on homepage</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Listings Page, Create Listing, Listing Detail, Partial Properties</p>
+<p><strong>Database tables involved:</strong> <code>listings</code>, <code>listing_images</code>, <code>hospital_details</code>, <code>pharma_details</code>, <code>diagnostic_details</code>, <code>equipment_details</code>, <code>categories</code>, <code>deal_types</code>, <code>equipment_types</code>, <code>hospital_types</code></p>
+<hr>
+<h3>Module 4 — Inquiry System</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4.1</td>
+<td>Send Inquiry</td>
+<td>Verified buyers can send inquiries to sellers on any listing</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>Inquiry Tracking</td>
+<td>Status workflow: New → Read → Replied → Closed</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Email Notifications</td>
+<td>Automatic email to seller when a new inquiry is received</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Inquiry Dashboard</td>
+<td>Sellers can view and manage all received inquiries</td>
+</tr>
+</tbody></table>
+<p><strong>Database tables involved:</strong> <code>inquiries</code></p>
+<hr>
+<h3>Module 5 — Job Board</h3>
+<p>Full-featured healthcare job portal integrated into the marketplace.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5.1</td>
+<td>Job Posting</td>
+<td>Employers can post jobs with category, specialisation, salary range, experience level, employment type, deadline</td>
+</tr>
+<tr>
+<td>5.2</td>
+<td>Job Search &amp; Filters</td>
+<td>Search by category, city, experience, employment type with pagination</td>
+</tr>
+<tr>
+<td>5.3</td>
+<td>Job Detail Page</td>
+<td>Full job description with employer info and apply button</td>
+</tr>
+<tr>
+<td>5.4</td>
+<td>Job Application</td>
+<td>Job seekers can apply with CV upload and cover letter</td>
+</tr>
+<tr>
+<td>5.5</td>
+<td>Application Tracking</td>
+<td>Status workflow: Submitted → Viewed → Shortlisted → Rejected → Hired</td>
+</tr>
+<tr>
+<td>5.6</td>
+<td>Job Management</td>
+<td>Employers can manage postings, view applications, update statuses</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Jobs Page, Create Job, Job Detail</p>
+<p><strong>Database tables involved:</strong> <code>jobs</code>, <code>job_applications</code>, <code>job_categories</code>, <code>user_cvs</code></p>
+<hr>
+<h3>Module 6 — Payment Integration (Razorpay)</h3>
+<p>Live payment gateway integration for premium features.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6.1</td>
+<td>Razorpay Order Creation</td>
+<td>Server-side order generation via Razorpay API</td>
+</tr>
+<tr>
+<td>6.2</td>
+<td>Frontend Checkout</td>
+<td>Razorpay checkout modal integration in React</td>
+</tr>
+<tr>
+<td>6.3</td>
+<td>Payment Verification</td>
+<td>Server-side signature verification for tamper-proof transactions</td>
+</tr>
+<tr>
+<td>6.4</td>
+<td>Payment Records</td>
+<td>Complete payment history stored in database</td>
+</tr>
+<tr>
+<td>6.5</td>
+<td>Payment Status Tracking</td>
+<td>Real-time status: Created → Paid → Failed</td>
+</tr>
+</tbody></table>
+<p><strong>Database tables involved:</strong> <code>payments</code></p>
+<hr>
+<h3>Module 7 — Email Notification System</h3>
+<p>Automated transactional email system using Gmail SMTP.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.1</td>
+<td>Welcome Email</td>
+<td>Sent upon successful registration</td>
+</tr>
+<tr>
+<td>7.2</td>
+<td>OTP Verification</td>
+<td>6-digit OTP emails for identity verification</td>
+</tr>
+<tr>
+<td>7.3</td>
+<td>Password Reset</td>
+<td>Secure password reset links via email</td>
+</tr>
+<tr>
+<td>7.4</td>
+<td>Listing Status Notifications</td>
+<td>Email alerts when listing is approved or rejected</td>
+</tr>
+<tr>
+<td>7.5</td>
+<td>Inquiry Notifications</td>
+<td>Email to seller when new inquiry is received</td>
+</tr>
+<tr>
+<td>7.6</td>
+<td>Job Application Alerts</td>
+<td>Email to employer when new application is submitted</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>Module 8 — Admin Control Panel</h3>
+<p>Comprehensive administration dashboard for complete platform management.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.1</td>
+<td><strong>Admin Dashboard</strong></td>
+<td>Real-time statistics — total users, listings, jobs, inquiries, pending verifications with charts (Recharts)</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td><strong>User Management</strong></td>
+<td>View all users, search/filter, view detail modal, suspend/activate accounts</td>
+</tr>
+<tr>
+<td>8.3</td>
+<td><strong>Listing Management</strong></td>
+<td>View all listings with filters, approve/reject with reason, view full detail modal with images</td>
+</tr>
+<tr>
+<td>8.4</td>
+<td><strong>Job Management</strong></td>
+<td>View all jobs, approve/reject with reason, view detail modal with applications</td>
+</tr>
+<tr>
+<td>8.5</td>
+<td><strong>Payment Management</strong></td>
+<td>View all payment transactions, filter by status, track revenue</td>
+</tr>
+<tr>
+<td>8.6</td>
+<td><strong>Verification Management</strong></td>
+<td>Review buyer verification requests, approve/reject documents, view uploaded ID documents</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Admin Dashboard, Admin Users, Admin Listings, Admin Jobs, Admin Payments, Admin Verifications (+ 3 detail modals)</p>
+<p><strong>Database tables involved:</strong> <code>admin_audit_logs</code>, <code>site_settings</code></p>
+<hr>
+<h3>Module 9 — Static &amp; Content Pages</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.1</td>
+<td>Homepage</td>
+<td>Hero section, category showcase, featured listings, call-to-action sections</td>
+</tr>
+<tr>
+<td>9.2</td>
+<td>About Us</td>
+<td>Company information, mission, team details</td>
+</tr>
+<tr>
+<td>9.3</td>
+<td>Contact Us</td>
+<td>Contact form with email delivery, office address, phone, map</td>
+</tr>
+<tr>
+<td>9.4</td>
+<td>Privacy Policy</td>
+<td>Legal privacy policy page</td>
+</tr>
+<tr>
+<td>9.5</td>
+<td>Terms of Service</td>
+<td>Legal terms &amp; conditions page</td>
+</tr>
+</tbody></table>
+<p><strong>Pages delivered:</strong> Home, About Us, Contact Us, Privacy Policy, Terms of Service</p>
+<hr>
+<h3>Module 10 — Database, DevOps &amp; Deployment</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.1</td>
+<td>Database Schema</td>
+<td>20+ tables with foreign key relationships, constraints, and ENUMs</td>
+</tr>
+<tr>
+<td>10.2</td>
+<td>Database Indexes</td>
+<td>15+ performance indexes on frequently queried columns</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>Database Views</td>
+<td>3 SQL views for listing summary, job summary, admin statistics</td>
+</tr>
+<tr>
+<td>10.4</td>
+<td>Master Data Seeding</td>
+<td>Pre-loaded data: 30 states, 30 cities, categories, equipment types, hospital types, job categories</td>
+</tr>
+<tr>
+<td>10.5</td>
+<td>Backend Dockerfile</td>
+<td>Containerised Spring Boot application</td>
+</tr>
+<tr>
+<td>10.6</td>
+<td>Frontend Dockerfile</td>
+<td>Containerised React build served via Nginx</td>
+</tr>
+<tr>
+<td>10.7</td>
+<td>Nginx Configuration</td>
+<td>Reverse proxy, static file serving, API routing</td>
+</tr>
+<tr>
+<td>10.8</td>
+<td>Docker Compose</td>
+<td>Multi-container orchestration (frontend + backend + database)</td>
+</tr>
+<tr>
+<td>10.9</td>
+<td>Server Deployment</td>
+<td>Production deployment on live server</td>
+</tr>
+<tr>
+<td>10.10</td>
+<td>Domain &amp; SSL Setup</td>
+<td>Domain configuration, DNS records, HTTPS certificate</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Deliverables Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Frontend Pages</td>
+<td>26+</td>
+</tr>
+<tr>
+<td>Backend REST Controllers</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Backend Services</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Database Entities / Models</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Database Tables</td>
+<td>20+</td>
+</tr>
+<tr>
+<td>Database Views</td>
+<td>3</td>
+</tr>
+<tr>
+<td>API Endpoints</td>
+<td>50+</td>
+</tr>
+<tr>
+<td>Dockerfiles</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Email Templates</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Pricing Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Description</th>
+<th>Cost (₹)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Module 1</td>
+<td>Authentication &amp; Registration</td>
+<td>₹20,000</td>
+</tr>
+<tr>
+<td>Module 2</td>
+<td>Profile &amp; Account Management</td>
+<td>₹18,000</td>
+</tr>
+<tr>
+<td>Module 3</td>
+<td>Healthcare Marketplace (Core)</td>
+<td>₹55,000</td>
+</tr>
+<tr>
+<td>Module 4</td>
+<td>Inquiry System</td>
+<td>₹10,000</td>
+</tr>
+<tr>
+<td>Module 5</td>
+<td>Job Board</td>
+<td>₹30,000</td>
+</tr>
+<tr>
+<td>Module 6</td>
+<td>Payment Integration (Razorpay)</td>
+<td>₹20,000</td>
+</tr>
+<tr>
+<td>Module 7</td>
+<td>Email Notification System</td>
+<td>₹12,000</td>
+</tr>
+<tr>
+<td>Module 8</td>
+<td>Admin Control Panel</td>
+<td>₹40,000</td>
+</tr>
+<tr>
+<td>Module 9</td>
+<td>Static &amp; Content Pages</td>
+<td>₹10,000</td>
+</tr>
+<tr>
+<td>Module 10</td>
+<td>Database, DevOps &amp; Deployment</td>
+<td>₹20,000</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Total Project Cost</strong></td>
+<td><strong>₹2,35,000</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Terms &amp; Conditions</h2>
+<ol>
+<li><strong>Warranty Period:</strong> 30 days of free bug fixes from the date of final delivery.</li>
+<li><strong>Maintenance:</strong> Post-warranty maintenance &amp; support available at ₹8,000/month.</li>
+<li><strong>Scope Changes:</strong> Any features or changes not listed in this document will be quoted separately.</li>
+<li><strong>Source Code:</strong> Complete source code will be handed over upon full payment.</li>
+<li><strong>Payment Terms:</strong><ul>
+<li>30% advance before project commencement</li>
+<li>40% upon completion of development</li>
+<li>30% upon final deployment &amp; handover</li>
+</ul>
+</li>
+<li><strong>Hosting &amp; Domain:</strong> Server hosting and domain renewal costs are borne by the client.</li>
+<li><strong>Third-Party Costs:</strong> Razorpay transaction fees, email service costs, and cloud hosting charges are borne by the client.</li>
+<li><strong>Intellectual Property:</strong> Full IP rights transfer to the client upon complete payment.</li>
+<li><strong>Confidentiality:</strong> All project information and client data will be kept strictly confidential.</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>Note:</strong> This document outlines the complete scope of work delivered for the DH Acquisitions Healthcare Marketplace project. The pricing reflects the full development lifecycle including design, development, testing, deployment, and knowledge transfer.</p>
+</blockquote>
+<hr>
+<p><em>Prepared with care. For any queries, please reach out directly.</em></p>
+
+    <div class="doc-footer">
+      <span>DH Acquisitions — Healthcare Marketplace</span>
+      <span>Page Print Date: 10/6/2026</span>
+    </div>
+  </div>
+</body>
+</html>

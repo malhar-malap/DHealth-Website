@@ -330,6 +330,7 @@ public class AdminService {
         // Remove all existing roles
         java.util.List<UserRole> existingRoles = userRoleRepository.findByUser(user);
         userRoleRepository.deleteAll(existingRoles);
+        user.getRoles().clear();
         userRoleRepository.flush();
 
         // Add the new roles
@@ -339,6 +340,7 @@ public class AdminService {
             userRole.setUser(user);
             userRole.setRole(roleEnum);
             userRoleRepository.save(userRole);
+            user.getRoles().add(userRole);
         }
     }
     

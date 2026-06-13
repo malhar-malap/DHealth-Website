@@ -28,6 +28,7 @@ public class Payment {
     private User buyer;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @org.hibernate.annotations.OnDelete(action = org.hibernate.annotations.OnDeleteAction.CASCADE)
     @JoinColumn(name = "listing_id", nullable = false)
     private Listing listing;
 

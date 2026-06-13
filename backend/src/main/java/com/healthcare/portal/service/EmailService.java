@@ -46,7 +46,7 @@ public class EmailService {
             + "<li>Connect with verified buyers and sellers</li>"
             + "</ul>"
             + "<div style='text-align:center;margin:30px 0;'>"
-            + "<a href='http://localhost:3000/dashboard' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>Go to Dashboard</a>"
+            + "<a href='https://dhacquisitions.co/dashboard' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>Go to Dashboard</a>"
             + "</div>"
             + "<p style='color:#6b7280;font-size:13px;'>If you did not create this account, please ignore this email.</p>"
             + "</div>"
@@ -76,7 +76,7 @@ public class EmailService {
             + "<li>Priority access to premium listings</li>"
             + "</ul>"
             + "<div style='text-align:center;margin:30px 0;'>"
-            + "<a href='http://localhost:3000/listings' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>Browse Listings</a>"
+            + "<a href='https://dhacquisitions.co/listings' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>Browse Listings</a>"
             + "</div>"
             + "</div>"
             + "<div style='background:#0f172a;padding:15px;text-align:center;border-top:1px solid #1e293b;'>"
@@ -110,7 +110,7 @@ public class EmailService {
             + "<p style='color:#d1d5db;font-size:15px;line-height:1.6;background:#111827;padding:12px;border-radius:6px;border:1px solid #374151;'>" + message + "</p>"
             + "</div>"
             + "<div style='text-align:center;margin:25px 0;'>"
-            + "<a href='http://localhost:3000/dashboard/inquiries' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Inquiries</a>"
+            + "<a href='https://dhacquisitions.co/dashboard/inquiries' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Inquiries</a>"
             + "</div>"
             + "</div>"
             + "<div style='background:#0f172a;padding:15px;text-align:center;border-top:1px solid #1e293b;'>"
@@ -141,7 +141,7 @@ public class EmailService {
             + "</table>"
             + "</div>"
             + "<div style='text-align:center;margin:25px 0;'>"
-            + "<a href='http://localhost:3000/dashboard/applications' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Applications</a>"
+            + "<a href='https://dhacquisitions.co/dashboard/applications' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Applications</a>"
             + "</div>"
             + "</div>"
             + "<div style='background:#0f172a;padding:15px;text-align:center;border-top:1px solid #1e293b;'>"
@@ -176,7 +176,7 @@ public class EmailService {
 
     // ========== 6. Forgot Password Email ==========
     public void sendForgotPasswordEmail(String toEmail, String otp) {
-        String resetUrl = "http://localhost:3000/reset-password?email=" + toEmail + "&otp=" + otp;
+        String resetUrl = "https://dhacquisitions.co/reset-password?email=" + toEmail + "&otp=" + otp;
         String subject = "Reset Your Password - DH Acquisitions";
         String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
             + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
@@ -225,7 +225,7 @@ public class EmailService {
             + "<p style='color:#d1d5db;font-size:15px;line-height:1.6;background:#111827;padding:12px;border-radius:6px;border:1px solid #374151;'>" + message + "</p>"
             + "</div>"
             + "<div style='text-align:center;margin:25px 0;'>"
-            + "<a href='http://localhost:3000/admin/contact-messages' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Messages</a>"
+            + "<a href='https://dhacquisitions.co/admin/contact-messages' style='background:#f7b538;color:#1a1a2e;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View Messages</a>"
             + "</div>"
             + "</div>"
             + "<div style='background:#0f172a;padding:15px;text-align:center;border-top:1px solid #1e293b;'>"

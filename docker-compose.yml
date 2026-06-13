@@ -39,7 +39,7 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
     # Keeps mail properties safe and separated with proper spacing
-    command: java -jar app.jar --spring.mail.properties.mail.smtp.ssl.enable=true --spring.mail.properties.mail.smtp.starttls.enable=false
+    entrypoint: java -jar app.jar --spring.mail.properties.mail.smtp.ssl.enable=true --spring.mail.properties.mail.smtp.starttls.enable=false
 
   frontend:
     build:
