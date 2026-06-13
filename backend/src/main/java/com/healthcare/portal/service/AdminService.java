@@ -330,8 +330,9 @@ public class AdminService {
         // Clear the collection - Hibernate will automatically delete orphan records due to orphanRemoval = true
         user.getRoles().clear();
 
-        // Add the new roles
-        for (String roleStr : roles) {
+        // Add the new roles (ensuring uniqueness)
+        java.util.Set<String> uniqueRoles = new java.util.LinkedHashSet<>(roles);
+        for (String roleStr : uniqueRoles) {
             UserRole.Role roleEnum = UserRole.Role.valueOf(roleStr.toUpperCase());
             UserRole userRole = new UserRole();
             userRole.setUser(user);

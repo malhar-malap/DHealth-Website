@@ -191,6 +191,7 @@ public class UserService {
         
         List<String> roles = user.getRoles().stream()
                 .map(role -> role.getRole().name())
+                .distinct()
                 .collect(Collectors.toList());
         response.setRoles(roles);
         
