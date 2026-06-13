@@ -327,11 +327,8 @@ public class AdminService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
-        // Remove all existing roles
-        java.util.List<UserRole> existingRoles = userRoleRepository.findByUser(user);
-        userRoleRepository.deleteAll(existingRoles);
+        // Clear the collection - Hibernate will automatically delete orphan records due to orphanRemoval = true
         user.getRoles().clear();
-        userRoleRepository.flush();
 
         // Add the new roles
         for (String roleStr : roles) {
@@ -339,9 +336,10 @@ public class AdminService {
             UserRole userRole = new UserRole();
             userRole.setUser(user);
             userRole.setRole(roleEnum);
-            userRoleRepository.save(userRole);
             user.getRoles().add(userRole);
         }
+        
+        userRepository.save(user);
     }
     
     // Verification Management

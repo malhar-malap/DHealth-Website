@@ -60,7 +60,7 @@ public class User {
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();
     
     public enum UserStatus {
