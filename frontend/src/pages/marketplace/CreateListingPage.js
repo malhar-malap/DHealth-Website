@@ -154,7 +154,7 @@ const CreateListingPage = () => {
       };
 
       const catName = getCategoryName();
-      if (catName === 'hospital' || catName === 'hospitals' || catName === 'dental centre' || catName === 'dental centres') {
+      if (catName === 'hospital' || catName === 'hospitals' || catName === 'dental clinic' || catName === 'dental clinics' || catName === 'dental centre' || catName === 'dental centres') {
         if (formData.numberOfBeds) payload.numberOfBeds = parseInt(formData.numberOfBeds);
         payload.nabhAccredited = formData.nabhAccredited;
         if (formData.annualRevenue) payload.annualRevenue = parseFloat(formData.annualRevenue);
@@ -422,9 +422,9 @@ const CreateListingPage = () => {
                 📌 {getCategoryName()} Specifications
               </h2>
               
-              {['hospital', 'hospitals', 'dental centre', 'dental centres'].includes(getCategoryName()) && (
+              {['hospital', 'hospitals', 'dental clinic', 'dental clinics', 'dental centre', 'dental centres'].includes(getCategoryName()) && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div><label className={labelClass}>{getCategoryName() === 'dental centres' || getCategoryName() === 'dental centre' ? 'Number of Chairs' : 'Number of Beds'}</label>
+                  <div><label className={labelClass}>{['dental clinics', 'dental clinic', 'dental centres', 'dental centre'].includes(getCategoryName()) ? 'Number of Chairs' : 'Number of Beds'}</label>
                     <input type="number" name="numberOfBeds" value={formData.numberOfBeds} onChange={handleChange} min="0" className={inputClass} /></div>
                   <div><label className={labelClass}>Year Established</label>
                     <input type="number" name="yearEstablished" value={formData.yearEstablished} onChange={handleChange} placeholder="YYYY" min="0" className={inputClass} /></div>

@@ -47,7 +47,7 @@ const Header = () => {
                 <Link to="/listings?category=1" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Hospitals</Link>
                 <Link to="/listings?category=2" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Pharma Companies</Link>
                 <Link to="/listings?category=3" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Diagnostics</Link>
-                <Link to="/listings?category=4" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Dental Centres</Link>
+                <Link to="/listings?category=4" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Dental Clinics</Link>
                 <Link to="/listings?category=5" className="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:bg-primary-50 hover:text-[#db7c26] rounded-xl transition-colors">Pharmacies</Link>
               </div>
             </div>
@@ -116,7 +116,7 @@ const Header = () => {
               <Link to="/listings?category=1" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Hospitals</Link>
               <Link to="/listings?category=2" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Pharma Companies</Link>
               <Link to="/listings?category=3" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Diagnostics</Link>
-              <Link to="/listings?category=4" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Dental Centres</Link>
+              <Link to="/listings?category=4" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Dental Clinics</Link>
               <Link to="/listings?category=5" className="px-8 py-2 text-gray-500 hover:bg-gray-800 rounded-lg text-sm" onClick={() => setIsMenuOpen(false)}>Pharmacies</Link>
               
               <div className="border-t border-gray-700/30 my-1"></div>

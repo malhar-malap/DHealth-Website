@@ -177,6 +177,8 @@ public class AdminService {
     
     @Transactional
     public void deleteListing(Long id) {
+        inquiryRepository.deleteByListingId(id);
+        paymentRepository.deleteByListingId(id);
         listingRepository.deleteById(id);
     }
     

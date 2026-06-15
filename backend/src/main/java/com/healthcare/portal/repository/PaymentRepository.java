@@ -46,4 +46,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p WHERE p.status = :status AND p.createdAt >= :fromDate")
     long sumAmountByStatusAndCreatedAtAfter(@Param("status") Payment.PaymentStatus status, @Param("fromDate") LocalDateTime fromDate);
+
+    void deleteByListingId(Long listingId);
 }

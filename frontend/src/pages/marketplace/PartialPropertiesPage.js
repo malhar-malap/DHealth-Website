@@ -102,14 +102,24 @@ const PartialPropertiesPage = () => {
           }
       }
       
-      // Sort the combined results by createdAt descending
-      results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      // Deduplicate listings by id to prevent double-counting
+      const uniqueMap = new Map();
+      results.forEach(listing => {
+        if (!uniqueMap.has(listing.id)) {
+          uniqueMap.set(listing.id, listing);
+        }
+      });
+      const uniqueResults = Array.from(uniqueMap.values());
 
-      setListings(results);
+      // Sort the combined results by createdAt descending
+      uniqueResults.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      const uniqueCount = uniqueResults.length;
+      setListings(uniqueResults);
       setPagination(prev => ({ 
           ...prev, 
-          totalElements: totalElements, 
-          totalPages: Math.ceil(totalElements / prev.size) || 1 
+          totalElements: uniqueCount, 
+          totalPages: Math.ceil(uniqueCount / prev.size) || 1 
       }));
 
     } catch (error) {

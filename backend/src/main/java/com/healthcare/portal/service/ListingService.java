@@ -31,9 +31,11 @@ public class ListingService {
     private final PharmacyDetailRepository pharmacyDetailRepository;
     private final HospitalTypeRepository hospitalTypeRepository;
     private final EquipmentTypeRepository equipmentTypeRepository;
+    private final InquiryRepository inquiryRepository;
+    private final PaymentRepository paymentRepository;
 
     @Autowired
-    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository) {
+    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository, InquiryRepository inquiryRepository, PaymentRepository paymentRepository) {
         this.listingRepository = listingRepository;
         this.categoryRepository = categoryRepository;
         this.dealTypeRepository = dealTypeRepository;
@@ -47,6 +49,8 @@ public class ListingService {
         this.pharmacyDetailRepository = pharmacyDetailRepository;
         this.hospitalTypeRepository = hospitalTypeRepository;
         this.equipmentTypeRepository = equipmentTypeRepository;
+        this.inquiryRepository = inquiryRepository;
+        this.paymentRepository = paymentRepository;
     }
     
     public PageResponse<ListingDTO.ListingSummaryResponse> searchListings(ListingDTO.ListingSearchRequest request) {
@@ -221,6 +225,8 @@ public class ListingService {
             throw new RuntimeException("Unauthorized to delete this listing");
         }
         
+        inquiryRepository.deleteByListingId(id);
+        paymentRepository.deleteByListingId(id);
         listingRepository.delete(listing);
     }
     
@@ -291,6 +297,8 @@ public class ListingService {
             case "hospitals":
             case "dental centre":
             case "dental centres":
+            case "dental clinic":
+            case "dental clinics":
                 HospitalDetail hospitalDetail = hospitalDetailRepository.findByListingId(listing.getId())
                         .orElseGet(HospitalDetail::new);
                 hospitalDetail.setListing(listing);
@@ -421,6 +429,8 @@ public class ListingService {
             case "hospitals":
             case "dental centre":
             case "dental centres":
+            case "dental clinic":
+            case "dental clinics":
                 hospitalDetailRepository.findByListingId(listing.getId())
                         .ifPresent(response::setCategoryDetails);
                 break;
@@ -516,6 +526,8 @@ public class ListingService {
             case "hospitals":
             case "dental centre":
             case "dental centres":
+            case "dental clinic":
+            case "dental clinics":
                 hospitalDetailRepository.findByListingId(listing.getId())
                         .ifPresent(response::setCategoryDetails);
                 break;

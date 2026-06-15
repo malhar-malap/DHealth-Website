@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { listingsAPI, jobsAPI, userAPI, inquiriesAPI, masterAPI } from '../services/api';
 import toast from 'react-hot-toast';
-import { FaEye, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-icons/fa';
 
 // Generic placeholder component
 const PlaceholderPage = ({ title, description, linkText, linkHref }) => (
@@ -556,6 +556,15 @@ export const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+  // Change Password state
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -599,6 +608,39 @@ export const ProfilePage = () => {
       toast.error(error.response?.data?.message || 'Failed to update profile');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
+    if (!currentPassword) {
+      toast.error('Current password is required');
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      toast.error('Password must be at least 8 characters with 1 uppercase, 1 lowercase, and 1 number');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error('New passwords do not match');
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      await userAPI.changePassword({ currentPassword, newPassword });
+      toast.success('Password changed successfully');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to change password');
+    } finally {
+      setPasswordLoading(false);
     }
   };
 
@@ -692,6 +734,116 @@ export const ProfilePage = () => {
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Change Password Section */}
+        <div className="glass-card p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden mt-12">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mt-32"></div>
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mb-32"></div>
+
+          <div className="relative z-10">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="p-3 rounded-2xl bg-ethereal-surface-low text-ethereal-primary">
+                <FaLock size={20} />
+              </div>
+              <div>
+                <span className="section-label opacity-60 block">Security</span>
+                <h2 className="text-2xl font-bold text-ethereal-on-surface">Change Password</h2>
+              </div>
+            </div>
+
+            <div className="w-full h-px bg-ethereal-outline-variant/20 mb-10"></div>
+
+            <form onSubmit={handleChangePassword}>
+              <div className="grid grid-cols-1 gap-y-8 max-w-xl">
+                <div className="space-y-2">
+                  <label className="section-label opacity-60 ml-1">Current Password</label>
+                  <div className="relative">
+                    <input
+                      type={showCurrentPassword ? 'text' : 'password'}
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      className="w-full bg-ethereal-surface-low border border-ethereal-outline-variant/30 px-6 py-4 pr-14 rounded-2xl focus:ring-4 focus:ring-ethereal-primary/5 focus:border-ethereal-primary focus:outline-none transition-all text-ethereal-on-surface font-medium"
+                      placeholder="Enter current password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      className="absolute right-5 top-1/2 -translate-y-1/2 text-ethereal-on-surface-variant hover:text-ethereal-primary transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showCurrentPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="section-label opacity-60 ml-1">New Password</label>
+                  <div className="relative">
+                    <input
+                      type={showNewPassword ? 'text' : 'password'}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="w-full bg-ethereal-surface-low border border-ethereal-outline-variant/30 px-6 py-4 pr-14 rounded-2xl focus:ring-4 focus:ring-ethereal-primary/5 focus:border-ethereal-primary focus:outline-none transition-all text-ethereal-on-surface font-medium"
+                      placeholder="Enter new password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-5 top-1/2 -translate-y-1/2 text-ethereal-on-surface-variant hover:text-ethereal-primary transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showNewPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="section-label opacity-60 ml-1">Confirm New Password</label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full bg-ethereal-surface-low border border-ethereal-outline-variant/30 px-6 py-4 pr-14 rounded-2xl focus:ring-4 focus:ring-ethereal-primary/5 focus:border-ethereal-primary focus:outline-none transition-all text-ethereal-on-surface font-medium"
+                      placeholder="Re-enter new password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-5 top-1/2 -translate-y-1/2 text-ethereal-on-surface-variant hover:text-ethereal-primary transition-colors"
+                      tabIndex={-1}
+                    >
+                      {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-[10px] font-bold text-ethereal-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-1 h-1 bg-ethereal-primary rounded-full"></span>
+                  Minimum 8 characters, 1 uppercase, 1 lowercase, 1 number
+                </p>
+              </div>
+
+              <div className="mt-12 flex justify-center md:justify-end">
+                <button
+                  type="submit"
+                  disabled={passwordLoading}
+                  className="btn-ethereal-primary min-w-[200px] py-4 text-lg shadow-2xl disabled:opacity-50"
+                >
+                  {passwordLoading ? (
+                    <span className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-gray-900/30 border-t-white rounded-full animate-spin"></div>
+                      Updating...
+                    </span>
+                  ) : 'Change Password'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

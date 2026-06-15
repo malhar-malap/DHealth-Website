@@ -149,7 +149,7 @@ const HomePage = () => {
                   { name: 'Hospitals', id: 1 }, 
                   { name: 'Diagnostic Centres', id: 3 }, 
                   { name: 'Pharma Companies', id: 2 }, 
-                  { name: 'Dental Centres', id: 4 },
+                  { name: 'Dental Clinics', id: 4 },
                   { name: 'Pharmacies', id: 5 }
                 ].map((tag) => (
                   <button 
@@ -179,7 +179,7 @@ const HomePage = () => {
               { id: 1, name: 'Hospitals', description: 'Institutional-grade healthcare opportunities and strategic placement.' },
               { id: 3, name: 'Diagnostic Centres', description: 'Advanced diagnostic and imaging centers.' },
               { id: 2, name: 'Pharma Companies', description: 'Pharmaceutical manufacturing and distribution.' },
-              { id: 4, name: 'Dental Centres', description: 'Specialized dental clinics and centers.' },
+              { id: 4, name: 'Dental Clinics', description: 'Specialized dental clinics and centers.' },
               { id: 5, name: 'Pharmacies', description: 'Retail pharmacies and medical stores.' }
             ].map((category) => {
               const IconComponent = categoryIcons[category.name] || FiActivity;

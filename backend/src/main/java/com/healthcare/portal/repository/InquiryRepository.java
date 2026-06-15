@@ -37,4 +37,6 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
     
     @Query("SELECT COUNT(i) FROM Inquiry i WHERE i.status = :status")
     long countByStatus(@Param("status") Inquiry.InquiryStatus status);
+    
+    void deleteByListingId(Long listingId);
 }

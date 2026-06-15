@@ -30,7 +30,7 @@ const TermsOfServicePage = () => {
               DHAcquisitions.co is India's premier healthcare business marketplace. Our Platform enables users to:
             </p>
             <ul className="list-disc pl-6 mt-3 text-gray-400 space-y-2 leading-relaxed">
-              <li>Buy, sell, and lease healthcare businesses including hospitals, pharma companies, diagnostic centres, dental centres, and pharmacies.</li>
+              <li>Buy, sell, and lease healthcare businesses including hospitals, pharma companies, diagnostic centres, dental clinics, and pharmacies.</li>
               <li>List partial stake sale opportunities in healthcare entities.</li>
               <li>Post and apply for healthcare industry jobs.</li>
               <li>Access seller contact details through a secure, paid access model.</li>

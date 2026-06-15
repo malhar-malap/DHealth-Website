@@ -10,6 +10,7 @@ const ListingsPage = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [dealTypes, setDealTypes] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const [showFilters, setShowFilters] = useState(false);
   const [pagination, setPagination] = useState({ page: 0, size: 12, totalElements: 0, totalPages: 0 });
@@ -26,6 +27,9 @@ const ListingsPage = () => {
 
   useEffect(() => {
     fetchMasterData();
+    masterAPI.getCities()
+      .then(res => setCities(res.data?.data || []))
+      .catch(() => setCities([]));
   }, []);
 
   useEffect(() => {
@@ -200,75 +204,9 @@ const ListingsPage = () => {
                   <label className="form-label">City</label>
                   <input type="text" name="cityName" value={filters.cityName} onChange={handleFilterChange} list="filterCityList" placeholder="All Cities" className="form-input" autoComplete="off" />
                   <datalist id="filterCityList">
-                    <option value="Mumbai" />
-                    <option value="Delhi" />
-                    <option value="Bengaluru" />
-                    <option value="Hyderabad" />
-                    <option value="Chennai" />
-                    <option value="Kolkata" />
-                    <option value="Pune" />
-                    <option value="Ahmedabad" />
-                    <option value="Jaipur" />
-                    <option value="Lucknow" />
-                    <option value="Surat" />
-                    <option value="Kanpur" />
-                    <option value="Nagpur" />
-                    <option value="Indore" />
-                    <option value="Thane" />
-                    <option value="Bhopal" />
-                    <option value="Visakhapatnam" />
-                    <option value="Patna" />
-                    <option value="Vadodara" />
-                    <option value="Ghaziabad" />
-                    <option value="Ludhiana" />
-                    <option value="Agra" />
-                    <option value="Nashik" />
-                    <option value="Faridabad" />
-                    <option value="Meerut" />
-                    <option value="Rajkot" />
-                    <option value="Varanasi" />
-                    <option value="Srinagar" />
-                    <option value="Aurangabad" />
-                    <option value="Dhanbad" />
-                    <option value="Amritsar" />
-                    <option value="Navi Mumbai" />
-                    <option value="Allahabad" />
-                    <option value="Ranchi" />
-                    <option value="Howrah" />
-                    <option value="Coimbatore" />
-                    <option value="Jabalpur" />
-                    <option value="Gwalior" />
-                    <option value="Vijayawada" />
-                    <option value="Jodhpur" />
-                    <option value="Madurai" />
-                    <option value="Raipur" />
-                    <option value="Kota" />
-                    <option value="Chandigarh" />
-                    <option value="Guwahati" />
-                    <option value="Solapur" />
-                    <option value="Hubli" />
-                    <option value="Mysuru" />
-                    <option value="Tiruchirappalli" />
-                    <option value="Bareilly" />
-                    <option value="Aligarh" />
-                    <option value="Tiruppur" />
-                    <option value="Moradabad" />
-                    <option value="Jalandhar" />
-                    <option value="Bhubaneswar" />
-                    <option value="Salem" />
-                    <option value="Warangal" />
-                    <option value="Guntur" />
-                    <option value="Bhilai" />
-                    <option value="Kochi" />
-                    <option value="Gorakhpur" />
-                    <option value="Noida" />
-                    <option value="Gurgaon" />
-                    <option value="Mangalore" />
-                    <option value="Dehradun" />
-                    <option value="Udaipur" />
-                    <option value="Thiruvananthapuram" />
-                    <option value="Shimla" />
-                    <option value="Panaji" />
+                    {cities.map(city => (
+                      <option key={city.id} value={city.name} />
+                    ))}
                   </datalist>
                 </div>
                 <div>
