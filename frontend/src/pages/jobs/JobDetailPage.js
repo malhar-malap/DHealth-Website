@@ -118,7 +118,13 @@ const JobDetailPage = () => {
                 <div className="flex items-center gap-2 text-sm text-gray-400"><FiMail className="w-4 h-4" /><span>{job.contactEmail}</span></div>
               </div>
 
-              <button onClick={() => setShowApplyModal(true)} className="btn btn-primary w-full py-3 mb-3">Apply Now</button>
+              {isAuthenticated && (user?.id === job.employer?.id || user?._id === job.employer?._id) ? (
+                <Link to="/dashboard/jobs" className="btn btn-secondary w-full py-3 mb-3 flex items-center justify-center gap-2">
+                  <FiBriefcase className="w-5 h-5" /> Manage Job
+                </Link>
+              ) : (
+                <button onClick={() => setShowApplyModal(true)} className="btn btn-primary w-full py-3 mb-3">Apply Now</button>
+              )}
               <p className="text-xs text-gray-500 text-center">{job.applicationCount} applicants</p>
             </div>
           </div>
