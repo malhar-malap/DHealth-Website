@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import { FaBriefcase } from 'react-icons/fa';
 import { listingsAPI, jobsAPI, userAPI, inquiriesAPI, masterAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-icons/fa';
@@ -57,13 +59,16 @@ export const MyListingsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen  flex items-center justify-center">
+    <DashboardLayout activeTab="My Listings">
+      <div className="py-10 px-4 md:px-8 w-full flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium">Loading your listings...</div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 
   return (
-    <div className="min-h-screen  py-10 px-4 md:px-8">
+    <DashboardLayout activeTab="My Listings">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
@@ -155,10 +160,10 @@ export const MyListingsPage = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
-// MAPPED_MyInquiriesPage
 export const MyInquiriesPage = () => {
   const [activeTab, setActiveTab] = useState('received');
   const [inquiries, setInquiries] = useState([]);
@@ -183,7 +188,8 @@ export const MyInquiriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen  py-12 px-4 md:px-8">
+    <DashboardLayout activeTab="Inquiries">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center md:text-left">
           <span className="section-label mb-2 block">Communications</span>
@@ -280,6 +286,7 @@ export const MyInquiriesPage = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
@@ -313,13 +320,16 @@ export const MyJobsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen  flex items-center justify-center">
+    <DashboardLayout activeTab="My Jobs">
+      <div className="py-10 px-4 md:px-8 w-full flex items-center justify-center">
       <div className="animate-spin h-10 w-10 border-4 border-ethereal-primary border-t-transparent rounded-full"></div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 
   return (
-    <div className="min-h-screen  py-12 px-4 md:px-8">
+    <DashboardLayout activeTab="My Jobs">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
@@ -344,7 +354,7 @@ export const MyJobsPage = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none" />
                 <div className="flex justify-between items-start mb-6 relative z-10">
                   <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gray-900/50 border border-white/5 text-ethereal-primary group-hover:bg-ethereal-primary group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-inner">
-                    <span className="text-sm font-extrabold uppercase tracking-widest">{job.employmentType?.replace(/_/g, " ")}</span>
+                    <FaBriefcase size={24} />
                   </div>
                   <span className={`px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md shadow-sm border ${
                     job.status === 'ACTIVE' 
@@ -362,7 +372,7 @@ export const MyJobsPage = () => {
                     <FaMapMarkerAlt className="mr-2 text-ethereal-primary opacity-70" /> {job.cityName}
                   </div>
                   <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ethereal-primary mr-2"></span> {job.employmentType}
+                    <span className="w-1.5 h-1.5 rounded-full bg-ethereal-primary mr-2"></span> {job.employmentType?.replace(/_/g, " ")}
                   </div>
                 </div>
 
@@ -379,6 +389,7 @@ export const MyJobsPage = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
@@ -416,7 +427,8 @@ export const MyApplicationsPage = () => {
   };
 
   return (
-    <div className="min-h-screen  py-12 px-4 md:px-8">
+    <DashboardLayout activeTab="Applications">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <span className="section-label mb-2 block">Talent Pipeline</span>
@@ -549,6 +561,7 @@ export const MyApplicationsPage = () => {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
@@ -647,13 +660,16 @@ export const ProfilePage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen  flex items-center justify-center">
+    <DashboardLayout activeTab="Account Settings">
+      <div className="py-10 px-4 md:px-8 w-full flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium text-lg">Loading profile...</div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 
   return (
-    <div className="min-h-screen  py-20 px-4">
+    <DashboardLayout activeTab="Account Settings">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col items-center text-center mb-12">
           <div className="w-24 h-24 bg-ethereal-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mb-6 shadow-xl shadow-blue-500/20">
@@ -851,6 +867,7 @@ export const ProfilePage = () => {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
