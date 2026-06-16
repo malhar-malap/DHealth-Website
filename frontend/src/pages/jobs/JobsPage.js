@@ -106,8 +106,8 @@ const JobsPage = () => {
                 idx === currentImageIndex ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <img src={img} alt="" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent" />
+              <img src={img} alt="" className="w-full h-full object-cover object-[75%_center]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-900 from-10% via-gray-900/90 via-40% to-transparent to-100%" />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
             </div>
           ))}
