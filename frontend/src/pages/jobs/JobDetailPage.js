@@ -119,7 +119,7 @@ const JobDetailPage = () => {
               </div>
 
               {isAuthenticated && (user?.id === job.employer?.id || user?._id === job.employer?._id) ? (
-                <Link to="/dashboard/jobs" className="btn btn-secondary w-full py-3 mb-3 flex items-center justify-center gap-2">
+                <Link to={`/jobs/${job.id || id}/edit`} className="btn btn-secondary w-full py-3 mb-3 flex items-center justify-center gap-2">
                   <FiBriefcase className="w-5 h-5" /> Manage Job
                 </Link>
               ) : (

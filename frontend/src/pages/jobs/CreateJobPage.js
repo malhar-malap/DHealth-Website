@@ -27,6 +27,35 @@ const CreateJobPage = () => {
     masterAPI.getCities().then(res => setCities(res.data?.data || [])).catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (isEditMode) {
+      setLoading(true);
+      jobsAPI.getById(id).then(res => {
+        const job = res.data.data;
+        setFormData({
+          title: job.title || '',
+          jobCategoryId: job.jobCategory?.id || job.jobCategoryId || '',
+          specialisation: job.specialisation || '',
+          employmentType: job.employmentType || '',
+          salaryMinLpa: job.salaryMinLpa || '',
+          salaryMaxLpa: job.salaryMaxLpa || '',
+          cityName: job.cityName || job.city?.name || '',
+          experienceRequired: job.experienceRequired || '',
+          qualifications: job.qualifications || '',
+          description: job.description || '',
+          applicationDeadline: job.applicationDeadline ? new Date(job.applicationDeadline).toISOString().split('T')[0] : '',
+          numberOfOpenings: job.numberOfOpenings || 1,
+          contactEmail: job.contactEmail || '',
+        });
+        setLoading(false);
+      }).catch(err => {
+        setError('Failed to fetch job details');
+        setLoading(false);
+      });
+    }
+  }, [id, isEditMode]);
+
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     if (e.target.getAttribute('type') === 'number' && value !== '') {
