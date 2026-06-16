@@ -41,13 +41,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-full w-full flex overflow-hidden relative bg-[#121212]">
-            <div className="absolute inset-0 z-0">
-                <img src="/images/auth/auth_bg.png" alt="" className="w-full h-full object-cover opacity-10" />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#E3FCF9]/30 via-white/50 to-[#f7b538]/20" />
-                <div className="absolute inset-0 bg-mesh opacity-20" />
-            </div>
-            <div className="md:hidden absolute inset-0 bg-gray-900/90 z-10" />
+        <div className="min-h-full w-full flex overflow-hidden relative bg-transparent">
 
             {/* Left Pane */}
             <div className="flex-1 hidden md:flex flex-col items-center justify-center p-12 relative z-30 min-h-[70vh]">

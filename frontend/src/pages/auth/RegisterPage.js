@@ -129,13 +129,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 relative overflow-hidden bg-[#121212]">
-      {/* Background Layer */}
-      <div className="absolute inset-0 z-0">
-        <img src="/images/auth/auth_bg.png" alt="" className="w-full h-full object-cover opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#121212]/90 via-[#1a1a1a]/95 to-[#121212]/90" />
-        <div className="absolute inset-0 bg-mesh opacity-30" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 relative overflow-hidden bg-transparent">
 
       <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-6">
