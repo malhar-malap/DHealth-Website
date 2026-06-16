@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { jobsAPI, masterAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 
 const CreateJobPage = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditMode = !!id;
   const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -83,8 +85,8 @@ const CreateJobPage = () => {
           ← Back
         </button>
 
-        <h1 className="text-2xl font-bold text-gray-200 mb-2">Post a Job</h1>
-        <p className="text-gray-500 mb-6">Hire healthcare professionals for your organization.</p>
+        <h1 className="text-2xl font-bold text-gray-200 mb-2">{isEditMode ? 'Edit Job' : 'Post a Job'}</h1>
+        <p className="text-gray-500 mb-6">{isEditMode ? 'Update your job posting details.' : 'Hire healthcare professionals for your organization.'}</p>
 
         {error && error === 'LOGIN_REQUIRED' ? (
           <div className="bg-amber-900/30 border-l-4 border-amber-500 p-5 rounded-lg mb-4">
@@ -281,7 +283,7 @@ const CreateJobPage = () => {
           {/* Submit */}
           <button type="submit" disabled={loading}
             className="w-full py-3 bg-[#db7c26] text-white font-semibold rounded-lg hover:bg-[#3a5578] disabled:opacity-50 transition flex items-center justify-center gap-2">
-            ✉ {loading ? 'Posting...' : 'Post Job'}
+            ✉ {loading ? (isEditMode ? 'Updating...' : 'Posting...') : (isEditMode ? 'Update Job' : 'Post Job')}
           </button>
         </form>
       </div>

@@ -377,7 +377,7 @@ export const MyJobsPage = () => {
                 </div>
 
                 <Link 
-                  to={`/jobs/${job.id}`} 
+                  to={`/jobs/${job.id}/edit`} 
                   className="flex items-center justify-center w-full py-4 rounded-2xl bg-gray-900/50 border border-white/5 text-white font-bold hover:bg-ethereal-primary hover:border-ethereal-primary transition-all duration-300 group/btn relative z-10 shadow-md"
                 >
                   Manage Role
