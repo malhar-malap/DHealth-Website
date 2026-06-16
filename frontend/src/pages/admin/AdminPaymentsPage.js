@@ -21,7 +21,7 @@ const AdminPaymentsPage = () => {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [totalElements, setTotalElements] = useState(0);
-    const [statusFilter, setStatusFilter] = useState('ALL');
+    const [statusFilter, setStatusFilter] = useState('PAID');
     const [stats, setStats] = useState(null);
     const [syncing, setSyncing] = useState(null);
 

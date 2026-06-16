@@ -163,7 +163,8 @@ const AdminUsersPage = () => {
             </div>
           ) : (
             <div className="overflow-x-auto text-[13px]">
-              <table className="w-full text-left border-collapse">
+              <div className="overflow-x-auto">
+<table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-ethereal-surface-low border-b border-ethereal-surface">
                     <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-on-surface-variant">Genetic Identity</th>
@@ -234,6 +235,7 @@ const AdminUsersPage = () => {
                   ))}
                 </tbody>
               </table>
+</div>
             </div>
           )}
 

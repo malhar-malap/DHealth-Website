@@ -191,18 +191,17 @@ const HomePage = () => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                   <div className="bg-gray-900 border border-gray-800 p-6 md:p-10 rounded-3xl h-full relative overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform group-hover:-translate-y-1">
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary-900/40 to-secondary-900/40 rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700 ease-in-out"></div>
                     <div className="relative z-10">
                       <div className="w-16 h-16 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:border-primary-200 transition-all duration-300">
                         <IconComponent className="w-8 h-8 text-primary-500 group-hover:scale-110 transition-transform duration-300" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-100 mb-3 tracking-tight group-hover:text-primary-600 transition-colors">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-100 mb-3 tracking-tight transition-colors">
                         {category.name}
                       </h3>
                       <p className="text-gray-500 text-base leading-relaxed line-clamp-2">
                         {category.description || 'Institutional-grade healthcare opportunities and strategic placement.'}
                       </p>
-                      <div className="mt-8 flex items-center text-primary-600 font-bold text-sm uppercase tracking-wider gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <div className="mt-8 flex items-center w-fit px-4 py-2 rounded-lg bg-primary-900/40 text-primary-400 font-bold text-sm uppercase tracking-wider gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                         Explore Segment <FiChevronRight className="group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

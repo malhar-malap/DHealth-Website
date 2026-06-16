@@ -131,7 +131,7 @@ const AdminDashboard = () => {
         {/* Global Strategy Tools */}
         <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
           <h2 className="text-2xl font-bold text-ethereal-on-surface tracking-tight mb-10">Ecosystem Management</h2>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { to: '/admin/listings', icon: FiList, label: 'Asset Library' },
               { to: '/admin/jobs', icon: FiBriefcase, label: 'Talent Pool' },
@@ -140,7 +140,7 @@ const AdminDashboard = () => {
               { to: '/admin/payments', icon: FiCreditCard, label: 'Financial Core' },
               { to: '/admin/contact-messages', icon: FiMail, label: 'Contact Messages' },
             ].map((link) => (
-              <Link key={link.label} to={link.to} className="flex-1 min-w-[200px] max-w-[300px] group p-8 bg-ethereal-surface-low/50 rounded-3xl hover:bg-ethereal-primary hover:text-white transition-all duration-500 text-center">
+              <Link key={link.label} to={link.to} className="group p-8 bg-ethereal-surface-low/50 rounded-3xl hover:bg-ethereal-primary hover:text-white transition-all duration-500 text-center">
                 <link.icon className="w-8 h-8 mx-auto mb-4 text-ethereal-on-surface-variant group-hover:text-white transition-colors" />
                 <p className="font-bold uppercase tracking-widest text-[10px]">{link.label}</p>
               </Link>

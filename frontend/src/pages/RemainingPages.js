@@ -9,9 +9,9 @@ import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-ic
 
 // Generic placeholder component
 const PlaceholderPage = ({ title, description, linkText, linkHref }) => (
-  <div className="min-h-screen bg-ethereal-surface py-12 px-4">
+  <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4">
     <div className="max-w-4xl mx-auto">
-      <div className="glass-card rounded-3xl p-12 text-center animate-fadeIn">
+      <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl rounded-3xl p-12 text-center animate-fadeIn">
         <h1 className="text-4xl display-title mb-6">{title}</h1>
         <p className="text-ethereal-on-surface-variant text-lg mb-8 max-w-2xl mx-auto">{description}</p>
         {linkText && linkHref && (
@@ -57,13 +57,13 @@ export const MyListingsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-ethereal-surface flex items-center justify-center">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium">Loading your listings...</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-10 px-4 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-10 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
@@ -92,7 +92,7 @@ export const MyListingsPage = () => {
           const categoryObj = categories.find(c => String(c.id) === selectedCategory);
           return categoryObj && listing.categoryName === categoryObj.name;
         }).length === 0 ? (
-          <div className="glass-card p-12 text-center rounded-3xl">
+          <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-12 text-center rounded-3xl">
             <p className="text-ethereal-on-surface-variant mb-6 text-lg">You haven't posted any listings yet.</p>
             <Link to="/listings/create" className="text-ethereal-primary font-bold hover:underline">Get started today</Link>
           </div>
@@ -103,7 +103,7 @@ export const MyListingsPage = () => {
               const categoryObj = categories.find(c => String(c.id) === selectedCategory);
               return categoryObj && listing.categoryName === categoryObj.name;
             }).map(listing => (
-              <div key={listing.id} className="glass-card rounded-3xl overflow-hidden group">
+              <div key={listing.id} className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl rounded-3xl overflow-hidden group">
                 <div className="relative h-56 overflow-hidden">
                   <img 
                     src={listing.primaryImage || '/placeholder-image.jpg'} 
@@ -182,7 +182,7 @@ export const MyInquiriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center md:text-left">
           <span className="section-label mb-2 block">Communications</span>
@@ -219,13 +219,13 @@ export const MyInquiriesPage = () => {
             <div className="animate-spin h-8 w-8 border-4 border-ethereal-primary border-t-transparent rounded-full"></div>
           </div>
         ) : inquiries.length === 0 ? (
-          <div className="glass-card p-16 text-center rounded-3xl animate-fadeIn">
+          <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-16 text-center rounded-3xl animate-fadeIn">
             <p className="text-ethereal-on-surface-variant text-lg">No inquiries found in this section.</p>
           </div>
         ) : (
           <div className="grid gap-6">
             {inquiries.map((inq, idx) => (
-              <div key={inq.id} className="glass-card p-6 md:p-8 rounded-3xl animate-fadeIn" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <div key={inq.id} className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-6 md:p-8 rounded-3xl animate-fadeIn" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="flex flex-col md:flex-row justify-between gap-6">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-4">
@@ -312,13 +312,13 @@ export const MyJobsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-ethereal-surface flex items-center justify-center">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
       <div className="animate-spin h-10 w-10 border-4 border-ethereal-primary border-t-transparent rounded-full"></div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
@@ -331,7 +331,7 @@ export const MyJobsPage = () => {
         </div>
 
         {jobs.length === 0 ? (
-          <div className="glass-card p-20 text-center rounded-3xl animate-fadeIn">
+          <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-20 text-center rounded-3xl animate-fadeIn">
             <h3 className="text-2xl font-bold text-ethereal-on-surface mb-2">Build your team</h3>
             <p className="text-ethereal-on-surface-variant mb-8">You haven't posted any jobs yet. Start hiring healthcare professionals today.</p>
             <Link to="/jobs/create" className="text-ethereal-primary font-bold hover:underline">Post your first job</Link>
@@ -415,7 +415,7 @@ export const MyApplicationsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <span className="section-label mb-2 block">Talent Pipeline</span>
@@ -646,13 +646,13 @@ export const ProfilePage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-ethereal-surface flex items-center justify-center">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium text-lg">Loading profile...</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-20 px-4">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-20 px-4">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col items-center text-center mb-12">
           <div className="w-24 h-24 bg-ethereal-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mb-6 shadow-xl shadow-blue-500/20">
@@ -663,7 +663,7 @@ export const ProfilePage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="glass-card p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
+          <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
             <div className="absolute top-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
           
@@ -739,7 +739,7 @@ export const ProfilePage = () => {
         </div>
 
         {/* Change Password Section */}
-        <div className="glass-card p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
+        <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
           <div className="absolute top-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mt-32"></div>
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mb-32"></div>
 
