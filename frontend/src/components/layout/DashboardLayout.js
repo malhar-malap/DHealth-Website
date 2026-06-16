@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   FiHome, FiList, FiMail, FiBriefcase, FiFileText, 
-  FiUser, FiLogOut, FiSettings, FiMenu, FiX
+  FiUser, FiLogOut, FiSettings, FiMenu, FiX, FiShield
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -24,6 +24,10 @@ const DashboardLayout = ({ children, activeTab = 'Overview' }) => {
     { title: 'Applications', icon: FiFileText, href: '/dashboard/applications' },
     { title: 'Account Settings', icon: FiSettings, href: '/dashboard/profile' },
   ];
+
+  if (user?.roles?.includes('ADMIN')) {
+    navItems.push({ title: 'Admin Panel', icon: FiShield, href: '/admin' });
+  }
 
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex">
@@ -82,8 +86,7 @@ const DashboardLayout = ({ children, activeTab = 'Overview' }) => {
                 </Link>
               );
             })}
-            <div className="h-6"></div>
-            <button 
+                        <button 
               onClick={handleLogout}
               className="flex items-center gap-4 px-4 py-3.5 rounded-xl text-red-500 hover:bg-red-500/10 transition-colors duration-300 group"
             >
