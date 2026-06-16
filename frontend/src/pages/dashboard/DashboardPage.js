@@ -110,7 +110,7 @@ const DashboardPage = () => {
                         <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">Authorization Nodes</p>
                       </div>
                       <div className="flex flex-wrap gap-3 pl-14 pt-1">
-                        {user?.roles?.map(role => (
+                        {Array.from(new Set(user?.roles || [])).map(role => (
                           <span key={role} className="px-4 py-2 bg-[#d8572a]/10 border border-[#d8572a]/30 text-[#db7c26] text-[10px] font-black uppercase tracking-widest rounded-xl shadow-[0_0_10px_rgba(216,87,42,0.2)]">
                             {role}
                           </span>
