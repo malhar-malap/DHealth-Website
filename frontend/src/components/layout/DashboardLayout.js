@@ -82,18 +82,15 @@ const DashboardLayout = ({ children, activeTab = 'Overview' }) => {
                 </Link>
               );
             })}
-          </nav>
-
-          {/* Sidebar Footer */}
-          <div className="p-6 mb-4">
+            <div className="h-6"></div>
             <button 
               onClick={handleLogout}
-              className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-red-500 hover:bg-red-500/10 transition-colors duration-300 group"
+              className="flex items-center gap-4 px-4 py-3.5 rounded-xl text-red-500 hover:bg-red-500/10 transition-colors duration-300 group"
             >
               <FiLogOut className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity" />
               <span className="font-bold text-xs uppercase tracking-widest">Sign Out</span>
             </button>
-          </div>
+          </nav>
         </div>
       </aside>
 
