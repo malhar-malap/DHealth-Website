@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminAPI } from '../../services/api';
-import { FiUsers, FiList, FiBriefcase, FiMail, FiCheck, FiX, FiEye, FiCreditCard } from 'react-icons/fi';
+import { FiUsers, FiList, FiBriefcase, FiMail, FiCheck, FiX, FiEye, FiCreditCard, FiChevronRight } from 'react-icons/fi';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
               <Link to="/admin/listings?status=PENDING" className="text-ethereal-primary text-sm font-black uppercase tracking-widest hover:underline">Full Audit</Link>
             </div>
             <div className="grid gap-4">
-              <div className="flex items-center justify-between p-6 bg-ethereal-surface-low/50 rounded-3xl group hover:bg-gray-900 transition-all duration-300">
+              <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
                   <div className="p-4 rounded-2xl bg-orange-100/50 text-orange-600"><FiList size={22} /></div>
                   <div>
@@ -76,7 +76,7 @@ const AdminDashboard = () => {
                 </div>
                 <Link to="/admin/listings?status=PENDING" className="btn-ethereal-secondary !px-6 !py-2.5 text-xs font-black">Verify</Link>
               </div>
-              <div className="flex items-center justify-between p-6 bg-ethereal-surface-low/50 rounded-3xl group hover:bg-gray-900 transition-all duration-300">
+              <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
                   <div className="p-4 rounded-2xl bg-purple-100/50 text-purple-600"><FiBriefcase size={22} /></div>
                   <div>
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
                 </div>
                 <Link to="/admin/jobs?status=PENDING" className="btn-ethereal-secondary !px-6 !py-2.5 text-xs font-black">Audit</Link>
               </div>
-              <div className="flex items-center justify-between p-6 bg-ethereal-surface-low/50 rounded-3xl group hover:bg-gray-900 transition-all duration-300">
+              <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
                   <div className="p-4 rounded-2xl bg-blue-100/50 text-blue-600"><FiUsers size={22} /></div>
                   <div>
@@ -133,12 +133,12 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold text-ethereal-on-surface tracking-tight mb-10">Ecosystem Management</h2>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { to: '/admin/listings', icon: FiList, label: 'Asset Library' },
-              { to: '/admin/jobs', icon: FiBriefcase, label: 'Talent Pool' },
-              { to: '/admin/users', icon: FiUsers, label: 'Entity Directory' },
-              { to: '/admin/verifications', icon: FiCheck, label: 'Trust Gateway' },
-              { to: '/admin/payments', icon: FiCreditCard, label: 'Financial Core' },
-              { to: '/admin/contact-messages', icon: FiMail, label: 'Contact Messages' },
+              { to: '/admin/listings', icon: FiList, label: 'Asset Library', color: 'from-blue-500 to-indigo-600' },
+              { to: '/admin/jobs', icon: FiBriefcase, label: 'Talent Pool', color: 'from-purple-500 to-pink-600' },
+              { to: '/admin/users', icon: FiUsers, label: 'Entity Directory', color: 'from-[#d8572a] to-[#db7c26]' },
+              { to: '/admin/verifications', icon: FiCheck, label: 'Trust Gateway', color: 'from-orange-500 to-red-600' },
+              { to: '/admin/payments', icon: FiCreditCard, label: 'Financial Core', color: 'from-emerald-500 to-teal-600' },
+              { to: '/admin/contact-messages', icon: FiMail, label: 'Contact Messages', color: 'from-cyan-500 to-blue-600' },
             ].map((link) => (
               <Link key={link.label} to={link.to} className="group p-8 bg-ethereal-surface-low/50 rounded-3xl hover:bg-ethereal-primary hover:text-white transition-all duration-500 text-center">
                 <link.icon className="w-8 h-8 mx-auto mb-4 text-ethereal-on-surface-variant group-hover:text-white transition-colors" />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { jobsAPI, masterAPI } from '../../services/api';
-import { FiSearch, FiMapPin, FiFilter, FiBriefcase, FiDollarSign } from 'react-icons/fi';
+import { FiSearch, FiMapPin, FiFilter, FiBriefcase, FiDollarSign, FiChevronRight } from 'react-icons/fi';
 
 const formatExperience = (exp) => {
   if (!exp) return '';
@@ -94,7 +94,7 @@ const JobsPage = () => {
   const clearFilters = () => { setFilters({ keyword: '', categoryId: '', cityId: '', employmentType: '', experienceLevel: '', sortBy: 'createdAt', sortDirection: 'desc' }); fetchJobs(); };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
+    <div className="min-h-screen">
       {/* Search & Hero Header with Carousel */}
       <div className="relative pt-24 md:pt-44 pb-12 md:pb-24 overflow-hidden min-h-[350px] md:min-h-[500px] flex items-center">
         {/* Background Carousel */}
@@ -108,6 +108,7 @@ const JobsPage = () => {
             >
               <img src={img} alt="" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/85 to-[#121212]/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
             </div>
           ))}
         </div>
@@ -252,7 +253,7 @@ const JobsPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {jobs.map(job => (
                     <Link key={job.id} to={`/jobs/${job.id}`} className="hover-3d group block">
-                      <div className="glass-card hover-3d-child p-8 h-full relative overflow-hidden group flex flex-col">
+                      <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl p-8 rounded-[2.5rem] relative overflow-hidden group hover:bg-gray-800/60 hover:border-white/10 transition-all duration-300 h-full flex flex-col hover:-translate-y-1">
                         <div className="mb-6 flex-1">
                           <div className="flex items-center gap-3 mb-4">
                             <span className="glass bg-[#d8572a]/10 text-[#db7c26] text-[10px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded">
@@ -270,7 +271,7 @@ const JobsPage = () => {
                           </p>
                         </div>
 
-                        <div className="space-y-4 pt-6 border-t border-[#f2f4f6]">
+                        <div className="space-y-4 pt-6 border-t border-white/5">
                           <div className="flex items-center justify-between">
                             <span className="text-[10px] font-black text-[#e5e7eb] opacity-40 uppercase tracking-widest">Compensation</span>
                             <span className="text-lg font-black text-white tracking-tighter">

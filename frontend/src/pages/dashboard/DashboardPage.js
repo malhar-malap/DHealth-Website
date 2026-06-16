@@ -55,13 +55,16 @@ const DashboardPage = () => {
                 <Link 
                   key={action.title} 
                   to={action.href} 
-                  className="glass-card p-6 group hover-3d transition-all duration-500 shadow-xl shadow-[#d8572a]/5 flex flex-col items-center text-center"
+                  className="bg-gray-900/50 p-6 rounded-2xl border border-white/5 hover:border-ethereal-primary/30 transition-all duration-300 group hover:-translate-y-1 shadow-sm hover:shadow-xl flex flex-col items-start relative overflow-hidden"
                 >
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${action.color} mb-4 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform duration-500`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${action.color} mb-6 flex items-center justify-center text-white shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500 relative z-10`}>
                     <action.icon className="w-7 h-7" />
                   </div>
-                  <h3 className="font-black text-xs uppercase tracking-[0.2em] text-white mb-1">{action.title}</h3>
-                  <p className="text-[10px] font-bold text-[#e5e7eb] opacity-40 uppercase tracking-widest">Execute Node</p>
+                  <h3 className="font-black text-sm uppercase tracking-widest text-white mb-2 relative z-10">{action.title}</h3>
+                  <p className="text-[10px] font-bold text-ethereal-on-surface-variant uppercase tracking-widest flex items-center gap-2 relative z-10">
+                    Execute Node <FiChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </p>
+                  <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${action.color} opacity-[0.03] rounded-full blur-2xl group-hover:opacity-[0.15] transition-opacity duration-500 pointer-events-none`} />
                 </Link>
               ))}
             </div>
@@ -86,7 +89,7 @@ const DashboardPage = () => {
                         </div>
                         <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">Institutional Email</p>
                       </div>
-                      <p className="font-black text-white text-lg tracking-tight break-all pl-14">{user?.email || 'unassigned@dhacquisitions.com'}</p>
+                      <p className="font-black text-white text-sm tracking-tight truncate pl-14" title={user?.email}>{user?.email || 'unassigned@dhacquisitions.com'}</p>
                     </div>
                     
                     <div className="space-y-2 bg-gray-900/50 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
@@ -122,7 +125,7 @@ const DashboardPage = () => {
             {/* Verification Sentinel */}
             <section className="space-y-6">
               <h2 className="text-xl font-black text-white tracking-tight px-2 uppercase tracking-[0.1em]">Protocol Check</h2>
-              <div className="glass-card p-8 md:p-10 h-full shadow-2xl relative overflow-hidden group border border-white/5 bg-gray-800/40 backdrop-blur-xl rounded-[2.5rem]">
+              <div className="glass-card p-8 md:p-10 h-fit shadow-2xl relative overflow-hidden group border border-white/5 bg-gray-800/40 backdrop-blur-xl rounded-[2.5rem]">
                  <div className="absolute -top-20 -right-20 w-48 h-48 bg-orange-500/10 rounded-full blur-[60px] pointer-events-none" />
                  <div className={`absolute inset-0 opacity-[0.02] transition-opacity duration-700 pointer-events-none flex items-center justify-center`}>
                     <FiShield className="w-64 h-64" />
