@@ -256,4 +256,63 @@ public class PaymentService {
             throw new RuntimeException("Signature generation failed");
         }
     }
+
+    /**
+     * Sync payment status directly from Razorpay
+     */
+    @Transactional
+    public void syncPaymentWithRazorpay(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+
+        if (payment.getRazorpayOrderId() == null) {
+            throw new RuntimeException("No Razorpay Order ID found for this payment");
+        }
+
+        try {
+            Order order = razorpayClient.orders.fetch(payment.getRazorpayOrderId());
+            String status = order.get("status");
+
+            if ("paid".equalsIgnoreCase(status)) {
+                if (payment.getStatus() != Payment.PaymentStatus.PAID) {
+                    payment.setStatus(Payment.PaymentStatus.PAID);
+                    paymentRepository.save(payment);
+                    
+                    // Create inquiry if it doesn't exist
+                    Listing listing = payment.getListing();
+                    User buyer = payment.getBuyer();
+                    User seller = listing.getUser();
+                    
+                    boolean inquiryExists = inquiryRepository.findByListingId(listing.getId()).stream()
+                            .anyMatch(i -> i.getBuyer().getId().equals(buyer.getId()));
+                            
+                    if (!inquiryExists) {
+                        Inquiry inquiry = new Inquiry();
+                        inquiry.setListing(listing);
+                        inquiry.setBuyer(buyer);
+                        inquiry.setSeller(seller);
+                        inquiry.setBuyerName(buyer.getFullName());
+                        inquiry.setBuyerEmail(buyer.getEmail());
+                        inquiry.setBuyerPhone(buyer.getMobileNumber());
+                        inquiry.setMessage("Paid ₹1000 for contact access. Interested in: " + listing.getDisplayTitle());
+                        inquiry.setStatus(Inquiry.InquiryStatus.NEW);
+                        inquiryRepository.save(inquiry);
+                        
+                        listing.setInquiryCount(listing.getInquiryCount() + 1);
+                        listingRepository.save(listing);
+                    }
+                }
+            } else if ("attempted".equalsIgnoreCase(status)) {
+                // Payment was attempted but failed/pending
+                if (payment.getStatus() == Payment.PaymentStatus.CREATED) {
+                    payment.setStatus(Payment.PaymentStatus.FAILED);
+                    paymentRepository.save(payment);
+                }
+            }
+            // If "created", it means user never even tried to pay, we can leave it as CREATED or mark FAILED
+        } catch (RazorpayException e) {
+            logger.error("Error syncing Razorpay order: {}", e.getMessage());
+            throw new RuntimeException("Failed to sync with Razorpay");
+        }
+    }
 }

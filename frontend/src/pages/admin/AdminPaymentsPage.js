@@ -23,10 +23,25 @@ const AdminPaymentsPage = () => {
     const [totalElements, setTotalElements] = useState(0);
     const [statusFilter, setStatusFilter] = useState('ALL');
     const [stats, setStats] = useState(null);
+    const [syncing, setSyncing] = useState(null);
+
+    const handleSync = async (id) => {
+        try {
+            setSyncing(id);
+            await adminAPI.syncPayment(id);
+            toast.success("Payment synced successfully");
+            fetchPayments();
+            fetchStats();
+        } catch (error) {
+            toast.error("Failed to sync payment");
+        } finally {
+            setSyncing(null);
+        }
+    };
 
     const fetchStats = useCallback(async () => {
         try {
-            const response = await adminAPI.getPaymentStats();
+            const response = await adminAPI.getPaymentStats({ excludeStatus: 'CREATED' });
             setStats(response.data.data);
         } catch (error) {
             console.error('Failed to load payment stats', error);
@@ -206,6 +221,7 @@ const AdminPaymentsPage = () => {
                                         <th className="px-6 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-on-surface-variant">Listing Target</th>
                                         <th className="px-6 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-on-surface-variant">Value</th>
                                         <th className="px-6 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-on-surface-variant">Timestamp</th>
+                                        <th className="px-6 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-on-surface-variant text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-ethereal-surface">
@@ -260,6 +276,15 @@ const AdminPaymentsPage = () => {
                                                         {formatDate(payment.createdAt).split(',')[1]}
                                                     </span>
                                                 </div>
+                                            </td>
+                                            <td className="px-6 py-6 text-center">
+                                                <button
+                                                    onClick={() => handleSync(payment.id)}
+                                                    className="px-4 py-2 bg-ethereal-surface-low text-ethereal-primary border border-ethereal-primary/20 rounded-xl text-xs font-bold hover:bg-ethereal-primary hover:text-white transition-all shadow-sm"
+                                                    disabled={syncing === payment.id}
+                                                >
+                                                    {syncing === payment.id ? 'Syncing...' : 'Sync'}
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

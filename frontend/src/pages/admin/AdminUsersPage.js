@@ -58,6 +58,18 @@ const AdminUsersPage = () => {
     setPage(0);
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await adminAPI.deleteUser(id);
+        toast.success("User deleted successfully.");
+        fetchUsers();
+      } catch (error) {
+        toast.error("Failed to delete user.");
+      }
+    }
+  };
+
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString('en-IN', {
       day: '2-digit',
@@ -211,7 +223,7 @@ const AdminUsersPage = () => {
                             title="Analytical View">
                             <FiEye className="w-5 h-5" />
                           </button>
-                          <button onClick={() => { /* handleDelete */ }}
+                          <button onClick={() => handleDelete(user.id)}
                             className="p-3 bg-gray-900 text-ethereal-on-surface-variant hover:text-rose-600 hover:shadow-xl hover:-translate-y-1 rounded-[1.2rem] shadow-sm transition-all"
                             title="Purge Identity">
                             <FiTrash2 className="w-5 h-5" />

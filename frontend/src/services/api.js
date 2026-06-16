@@ -169,7 +169,8 @@ export const adminAPI = {
 
   // Payments
   getPayments: (params) => api.get('/admin/payments', { params }),
-  getPaymentStats: () => api.get('/admin/payments/stats'),
+  getPaymentStats: (params) => api.get('/admin/payments/stats', { params }),
+  syncPayment: (id) => api.post(`/admin/payments/${id}/sync`),
 
   // Contact Messages
   getContactMessages: (params) => api.get('/admin/contact-messages', { params }),

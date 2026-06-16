@@ -39,7 +39,7 @@ const DashboardPage = () => {
     { title: 'Inquiries', icon: FiMail, href: '/dashboard/inquiries' },
     { title: 'My Jobs', icon: FiBriefcase, href: '/dashboard/jobs' },
     { title: 'Applications', icon: FiFileText, href: '/dashboard/applications' },
-    { title: 'Settings', icon: FiSettings, href: '/dashboard/profile' },
+    { title: 'Account Settings', icon: FiSettings, href: '/dashboard/profile' },
   ];
 
   const quickActions = [
@@ -155,9 +155,6 @@ const DashboardPage = () => {
             <section className="lg:col-span-2 space-y-6">
               <div className="flex items-center justify-between px-2">
                 <h2 className="text-xl font-black text-white tracking-tight uppercase tracking-[0.1em]">Identity Profile</h2>
-                <Link to="/dashboard/profile" className="text-[10px] font-black text-[#db7c26] hover:text-[#3a5578] uppercase tracking-widest transition-colors flex items-center gap-1.5 underline">
-                  <FiEdit className="w-3 h-3" /> Update Credentials
-                </Link>
               </div>
               
               <div className="glass-card overflow-hidden shadow-2xl relative">

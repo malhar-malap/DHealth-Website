@@ -6,6 +6,7 @@ import com.healthcare.portal.entity.User;
 import com.healthcare.portal.service.AdminService;
 import com.healthcare.portal.service.ContactMessageService;
 import com.healthcare.portal.service.AuthService;
+import com.healthcare.portal.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,12 +24,14 @@ public class AdminController {
     private final AdminService adminService;
     private final AuthService authService;
     private final ContactMessageService contactMessageService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public AdminController(AdminService adminService, AuthService authService, ContactMessageService contactMessageService) {
+    public AdminController(AdminService adminService, AuthService authService, ContactMessageService contactMessageService, PaymentService paymentService) {
         this.adminService = adminService;
         this.authService = authService;
         this.contactMessageService = contactMessageService;
+        this.paymentService = paymentService;
     }
     
     @GetMapping("/dashboard")
@@ -300,6 +303,13 @@ public class AdminController {
             @RequestParam(defaultValue = "10") int size) {
         PageResponse<AdminDTO.AdminPaymentResponse> response = adminService.getAllPayments(page, size, status);
         return ResponseEntity.ok(ApiResponse.success(response));
+    }
+
+    @PostMapping("/payments/{id}/sync")
+    @Operation(summary = "Sync payment", description = "Syncs a payment status directly from Razorpay")
+    public ResponseEntity<ApiResponse<Void>> syncPayment(@PathVariable Long id) {
+        paymentService.syncPaymentWithRazorpay(id);
+        return ResponseEntity.ok(ApiResponse.success("Payment synced successfully", null));
     }
 
     @GetMapping("/payments/stats")

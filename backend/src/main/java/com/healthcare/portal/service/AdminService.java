@@ -321,6 +321,32 @@ public class AdminService {
 
     @Transactional
     public void deleteUser(Long userId) {
+        // Delete BuyerVerifications
+        buyerVerificationRepository.deleteAll(buyerVerificationRepository.findByUserId(userId));
+        
+        // Delete Payments where user is buyer
+        paymentRepository.deleteAll(paymentRepository.findByBuyerId(userId));
+        
+        // Delete Inquiries where user is buyer
+        inquiryRepository.deleteAll(inquiryRepository.findByBuyerId(userId));
+        
+        // Delete Job Applications where user is seeker
+        jobApplicationRepository.deleteAll(jobApplicationRepository.findBySeekerId(userId));
+        
+        // Delete Jobs posted by user
+        java.util.List<com.healthcare.portal.entity.Job> jobs = jobRepository.findByEmployerId(userId);
+        for (com.healthcare.portal.entity.Job job : jobs) {
+            jobApplicationRepository.deleteAll(jobApplicationRepository.findByJobId(job.getId()));
+            jobRepository.delete(job);
+        }
+        
+        // Delete Listings (deleteListing handles child inquiries and payments)
+        java.util.List<com.healthcare.portal.entity.Listing> listings = listingRepository.findByUserId(userId);
+        for (com.healthcare.portal.entity.Listing listing : listings) {
+            deleteListing(listing.getId());
+        }
+        
+        // Finally delete user via userService
         userService.deleteUser(userId);
     }
 
@@ -441,7 +467,7 @@ public class AdminService {
         LocalDateTime todayStart = now.toLocalDate().atStartOfDay();
         LocalDateTime weekStart = now.minusDays(7);
 
-        stats.setTotalPayments(paymentRepository.count());
+        stats.setTotalPayments(paymentRepository.countByStatus(Payment.PaymentStatus.PAID) + paymentRepository.countByStatus(Payment.PaymentStatus.FAILED));
         stats.setSuccessfulPayments(paymentRepository.countByStatus(Payment.PaymentStatus.PAID));
         stats.setFailedPayments(paymentRepository.countByStatus(Payment.PaymentStatus.FAILED));
         stats.setPendingPayments(paymentRepository.countByStatus(Payment.PaymentStatus.CREATED));

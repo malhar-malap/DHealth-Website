@@ -652,7 +652,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-ethereal-surface py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col items-center text-center mb-12">
           <div className="w-24 h-24 bg-ethereal-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mb-6 shadow-xl shadow-blue-500/20">
             {profile.fullName.charAt(0)}
@@ -661,9 +661,10 @@ export const ProfilePage = () => {
           <h1 className="text-4xl display-title uppercase tracking-tighter">Personal Profile</h1>
         </div>
 
-        <div className="glass-card p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="glass-card p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
           
           <form onSubmit={handleSubmit} className="relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
@@ -737,7 +738,7 @@ export const ProfilePage = () => {
         </div>
 
         {/* Change Password Section */}
-        <div className="glass-card p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden mt-12">
+        <div className="glass-card p-8 rounded-[2.5rem] relative overflow-hidden h-full flex flex-col justify-between">
           <div className="absolute top-0 left-0 w-64 h-64 bg-ethereal-secondary/5 rounded-full blur-3xl -ml-32 -mt-32"></div>
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-ethereal-primary/5 rounded-full blur-3xl -mr-32 -mb-32"></div>
 
@@ -844,6 +845,7 @@ export const ProfilePage = () => {
               </div>
             </form>
           </div>
+        </div>
         </div>
       </div>
     </div>
