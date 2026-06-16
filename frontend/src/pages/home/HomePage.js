@@ -81,9 +81,9 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
+    <div className="min-h-screen">
       {/* Hero Section with Carousel */}
-      <section className="relative h-[500px] md:h-[650px] overflow-hidden bg-gray-900">
+      <section className="relative h-[500px] md:h-[650px] overflow-hidden bg-gray-900/40">
         {/* Background Carousel */}
         <div className="absolute inset-0 z-0">
           {carouselImages.map((img, index) => (
@@ -97,7 +97,7 @@ const HomePage = () => {
                 className="absolute inset-0 bg-cover bg-center animate-carousel"
                 style={{ backgroundImage: `url(${img})` }}
               />
-              <div className="absolute inset-0 bg-gray-900/40" />
+              <div className="absolute inset-0 bg-gray-900/40/40" />
               <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent" />
             </div>
           ))}
@@ -123,7 +123,7 @@ const HomePage = () => {
               </p>
 
               {/* Glassmorphic Search Bar */}
-              <div className="bg-gray-900/60 backdrop-blur-xl p-2 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-900/80 max-w-2xl transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-gray-900/80">
+              <div className="bg-gray-900/40/60 backdrop-blur-xl p-2 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-900/80 max-w-2xl transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-gray-900/40/80">
                 <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
                   <div className="flex-1 relative">
                     <FiSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-primary-500 w-6 h-6" />
@@ -155,7 +155,7 @@ const HomePage = () => {
                   <button 
                     key={tag.name}
                     onClick={() => navigate(`/listings?category=${tag.id}`)}
-                    className="bg-gray-900/80 text-gray-300 hover:text-cyan-400 hover:bg-gray-900 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer transition-all border border-gray-700/50 shadow-sm hover:shadow-md hover:border-primary-200"
+                    className="bg-gray-900/40/80 text-gray-300 hover:text-cyan-400 hover:bg-gray-900/40 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer transition-all border border-gray-700/50 shadow-sm hover:shadow-md hover:border-primary-200"
                   >
                     {tag.name}
                   </button>
@@ -167,7 +167,7 @@ const HomePage = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-24 bg-gray-900 relative overflow-hidden">
+      <section className="py-24 bg-gray-900/40 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-extrabold text-gray-100 mb-4 tracking-tight">Browse by Specialized Category</h2>
@@ -190,9 +190,9 @@ const HomePage = () => {
                   className="group relative w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1.34rem)]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                  <div className="bg-gray-900 border border-gray-800 p-6 md:p-10 rounded-3xl h-full relative overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform group-hover:-translate-y-1">
+                  <div className="bg-gray-900/40 border border-gray-800 p-6 md:p-10 rounded-3xl h-full relative overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform group-hover:-translate-y-1">
                     <div className="relative z-10">
-                      <div className="w-16 h-16 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:border-primary-200 transition-all duration-300">
+                      <div className="w-16 h-16 bg-gray-900/40 border border-gray-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:border-primary-200 transition-all duration-300">
                         <IconComponent className="w-8 h-8 text-primary-500 group-hover:scale-110 transition-transform duration-300" />
                       </div>
                       <h3 className="text-xl md:text-2xl font-bold text-gray-100 mb-3 tracking-tight transition-colors">
@@ -224,7 +224,7 @@ const HomePage = () => {
             </div>
             <Link 
               to="/listings" 
-              className="px-6 py-3 bg-gray-900 text-primary-600 font-bold border border-gray-700 rounded-xl hover:border-primary-300 hover:shadow-md transition-all flex items-center gap-2"
+              className="px-6 py-3 bg-gray-900/40 text-primary-600 font-bold border border-gray-700 rounded-xl hover:border-primary-300 hover:shadow-md transition-all flex items-center gap-2"
             >
               Explore All <FiChevronRight />
             </Link>
@@ -233,7 +233,7 @@ const HomePage = () => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-gray-900 rounded-3xl h-[450px] shadow-sm skeleton" />
+                <div key={i} className="bg-gray-900/40 rounded-3xl h-[450px] shadow-sm skeleton" />
               ))}
             </div>
           ) : (
@@ -244,7 +244,7 @@ const HomePage = () => {
                   to={`/listings/${listing.id}`}
                   className="group"
                 >
-                  <div className="bg-gray-900 rounded-3xl border border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 h-full flex flex-col overflow-hidden">
+                  <div className="bg-gray-900/40 rounded-3xl border border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 h-full flex flex-col overflow-hidden">
                     <div className="relative h-64 overflow-hidden">
                       {listing.primaryImage ? (
                         <img
@@ -314,7 +314,7 @@ const HomePage = () => {
                             {formatPrice(listing.askingPrice)}
                           </div>
                         </div>
-                        <div className="w-12 h-12 bg-gray-900 border border-gray-800 text-primary-600 rounded-2xl flex items-center justify-center group-hover:bg-primary-600 group-hover:border-primary-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <div className="w-12 h-12 bg-gray-900/40 border border-gray-800 text-primary-600 rounded-2xl flex items-center justify-center group-hover:bg-primary-600 group-hover:border-primary-600 group-hover:text-white transition-all duration-300 shadow-sm">
                           <FiChevronRight className="w-6 h-6" />
                         </div>
                       </div>
@@ -327,7 +327,7 @@ const HomePage = () => {
         </div>
       </section>
       {/* How It Works - Clean Steps */}
-      <section className="py-24 bg-gray-900 relative overflow-hidden">
+      <section className="py-24 bg-gray-900/40 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-extrabold text-gray-100 mb-4 tracking-tight">Strategic Workflow</h2>
@@ -343,7 +343,7 @@ const HomePage = () => {
               { id: 3, title: 'Secure Closure', desc: 'Navigate negotiations and close deals with our secure advisory layer.' }
             ].map((step) => (
               <div key={step.id} className="text-center relative z-10 group">
-                <div className="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-8 relative shadow-[0_8px_30px_rgb(0,0,0,0.08)] group-hover:-translate-y-2 transition-transform duration-300">
+                <div className="w-24 h-24 bg-gray-900/40 rounded-full flex items-center justify-center mx-auto mb-8 relative shadow-[0_8px_30px_rgb(0,0,0,0.08)] group-hover:-translate-y-2 transition-transform duration-300">
                   <div className="absolute inset-2 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-full flex items-center justify-center">
                     <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">{step.id}</span>
                   </div>
@@ -361,7 +361,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-2xl">
-              <div className="inline-block bg-gray-900 border border-gray-700 px-4 py-1.5 rounded-full text-primary-600 font-bold text-xs uppercase tracking-wider mb-4 shadow-sm">
+              <div className="inline-block bg-gray-900/40 border border-gray-700 px-4 py-1.5 rounded-full text-primary-600 font-bold text-xs uppercase tracking-wider mb-4 shadow-sm">
                 Placements & Careers
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-100 tracking-tight leading-[1.1] mb-4">
@@ -373,7 +373,7 @@ const HomePage = () => {
             </div>
             <Link 
               to="/jobs" 
-              className="group flex items-center gap-3 bg-gray-900 px-8 py-4 rounded-2xl shadow-sm hover:shadow-md border border-gray-800 transition-all font-bold text-gray-100"
+              className="group flex items-center gap-3 bg-gray-900/40 px-8 py-4 rounded-2xl shadow-sm hover:shadow-md border border-gray-800 transition-all font-bold text-gray-100"
             >
               Explore All Vacancies 
               <div className="w-8 h-8 bg-primary-50 rounded-full flex items-center justify-center group-hover:bg-primary-600 group-hover:text-white transition-all duration-300">
@@ -390,7 +390,7 @@ const HomePage = () => {
               { id: 'admin', title: 'Healthcare Admin', count: '42+', icon: FiBriefcase },
               { id: 'specialist', title: 'Specialists', count: '64+', icon: FiTool }
             ].map((role) => (
-              <div key={role.id} className="bg-gray-900 rounded-2xl p-6 flex items-center justify-between group hover:border-primary-200 border border-transparent shadow-sm transition-all cursor-pointer">
+              <div key={role.id} className="bg-gray-900/40 rounded-2xl p-6 flex items-center justify-between group hover:border-primary-200 border border-transparent shadow-sm transition-all cursor-pointer">
                 <div>
                   <p className="text-2xl font-extrabold text-gray-100 tracking-tight">{role.count}</p>
                   <p className="text-sm font-semibold text-gray-500">{role.title}</p>
@@ -405,7 +405,7 @@ const HomePage = () => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[1, 2].map((i) => (
-                <div key={i} className="bg-gray-900 rounded-3xl h-48 shadow-sm skeleton" />
+                <div key={i} className="bg-gray-900/40 rounded-3xl h-48 shadow-sm skeleton" />
               ))}
             </div>
           ) : featuredJobs.length > 0 ? (
@@ -416,7 +416,7 @@ const HomePage = () => {
                   to={`/jobs/${job.id}`}
                   className="group"
                 >
-                  <div className="bg-gray-900 rounded-3xl p-8 border border-gray-800 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden h-full flex flex-col">
+                  <div className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden h-full flex flex-col">
                     <div className="absolute right-0 top-0 w-32 h-32 bg-gradient-to-bl from-primary-50 to-transparent rounded-bl-full pointer-events-none" />
                     <div className="flex justify-between items-start mb-6 relative z-10">
                       <div className="flex-1 pr-4">
@@ -442,7 +442,7 @@ const HomePage = () => {
                           ₹{job.salaryMinLpa} - {job.salaryMaxLpa}L
                         </span>
                       </div>
-                      <div className="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold text-sm tracking-wide group-hover:bg-primary-600 transition-colors shadow-md">
+                      <div className="bg-gray-900/40 text-white px-6 py-3 rounded-xl font-bold text-sm tracking-wide group-hover:bg-primary-600 transition-colors shadow-md">
                         Apply
                       </div>
                     </div>
@@ -451,7 +451,7 @@ const HomePage = () => {
               ))}
             </div>
           ) : (
-            <div className="bg-gray-900 rounded-3xl p-12 text-center relative overflow-hidden border border-gray-800 shadow-sm">
+            <div className="bg-gray-900/40 rounded-3xl p-12 text-center relative overflow-hidden border border-gray-800 shadow-sm">
               <div className="w-20 h-20 bg-primary-50 rounded-2xl mx-auto mb-6 flex items-center justify-center">
                 <FiBriefcase className="text-primary-500 w-10 h-10" />
               </div>
@@ -461,7 +461,7 @@ const HomePage = () => {
               </p>
               <button 
                 onClick={() => navigate('/jobs')}
-                className="bg-gray-900 hover:bg-primary-600 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wide inline-flex items-center gap-2 transition-colors shadow-md"
+                className="bg-gray-900/40 hover:bg-primary-600 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wide inline-flex items-center gap-2 transition-colors shadow-md"
               >
                 Search All Openings <FiChevronRight />
               </button>
@@ -471,7 +471,7 @@ const HomePage = () => {
       </section>
 
       {/* Trust & CTA Section */}
-      <section className="py-24 bg-gray-900 relative overflow-hidden">
+      <section className="py-24 bg-gray-900/40 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 w-[1000px] h-[1000px] bg-gradient-to-b from-primary-900/20 via-secondary-900/10 to-transparent transform -translate-x-1/2 rounded-full blur-3xl opacity-60"></div>
         </div>
@@ -489,7 +489,7 @@ const HomePage = () => {
             <Link to="/register" className="bg-gradient-to-r from-primary-600 to-secondary-600 px-6 md:px-10 py-4 md:py-5 rounded-2xl text-white font-bold text-lg md:text-xl hover:from-primary-700 hover:to-secondary-700 transition-all transform hover:-translate-y-1 shadow-[0_8px_30px_rgba(14,165,233,0.3)]">
               Create Partner ID
             </Link>
-            <Link to="/listings/create" className="bg-gray-900 border-2 border-gray-700 px-6 md:px-10 py-4 md:py-5 rounded-2xl text-gray-200 font-bold text-lg md:text-xl hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700 transition-all transform hover:-translate-y-1 shadow-sm">
+            <Link to="/listings/create" className="bg-gray-900/40 border-2 border-gray-700 px-6 md:px-10 py-4 md:py-5 rounded-2xl text-gray-200 font-bold text-lg md:text-xl hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700 transition-all transform hover:-translate-y-1 shadow-sm">
               List Your Business
             </Link>
           </div>

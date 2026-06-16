@@ -4,9 +4,9 @@ import { FiTarget, FiEye, FiAward } from 'react-icons/fi';
 
 const AboutUsPage = () => {
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 pb-20">
+    <div className="min-h-screen  pb-20">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-32 overflow-hidden bg-gray-900">
+      <section className="relative pt-24 pb-32 overflow-hidden bg-gray-900/40">
         <div className="absolute inset-0 bg-gradient-to-br from-[#d8572a]/5 via-[#d8572a]/5 to-transparent -z-10"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -32,7 +32,7 @@ const AboutUsPage = () => {
       {/* Mission & Vision Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-24 relative z-20">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-gray-900 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
             <div className="w-14 h-14 bg-[#f7b538]/30 rounded-2xl flex items-center justify-center mb-6">
               <FiEye className="text-[#db7c26] text-2xl" />
             </div>
@@ -42,7 +42,7 @@ const AboutUsPage = () => {
             </p>
           </div>
 
-          <div className="bg-gray-900 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
             <div className="w-14 h-14 bg-[#f7b538]/20 rounded-2xl flex items-center justify-center mb-6">
               <FiTarget className="text-[#db7c26] text-2xl" />
             </div>
@@ -54,7 +54,7 @@ const AboutUsPage = () => {
             </ul>
           </div>
 
-          <div className="bg-gray-900 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
             <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
               <FiAward className="text-blue-600 text-2xl" />
             </div>
@@ -70,7 +70,7 @@ const AboutUsPage = () => {
 
       {/* CEO Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="bg-gray-900 rounded-[2.5rem] p-8 md:p-16 shadow-lg border border-gray-800 flex flex-col md:flex-row items-center gap-12">
+        <div className="bg-gray-900/40 rounded-[2.5rem] p-8 md:p-16 shadow-lg border border-gray-800 flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/3 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-tr from-[#d8572a] to-[#d8572a] rounded-full blur-2xl opacity-40"></div>
@@ -110,7 +110,7 @@ const AboutUsPage = () => {
               <Link to="/register" className="btn bg-gradient-to-r from-[#db7c26] to-[#d8572a] text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto shadow-lg shadow-[#db7c26]/30 hover:shadow-[#db7c26]/50 transition-all hover:-translate-y-1">
                 Join the Network
               </Link>
-              <Link to="/listings" className="px-8 py-4 rounded-xl font-bold text-lg text-white bg-gray-900/10 hover:bg-gray-900/20 transition-all w-full sm:w-auto backdrop-blur-md">
+              <Link to="/listings" className="px-8 py-4 rounded-xl font-bold text-lg text-white bg-gray-900/40/10 hover:bg-gray-900/40/20 transition-all w-full sm:w-auto backdrop-blur-md">
                 Browse Listings
               </Link>
             </div>

@@ -9,7 +9,7 @@ import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-ic
 
 // Generic placeholder component
 const PlaceholderPage = ({ title, description, linkText, linkHref }) => (
-  <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4">
+  <div className="min-h-screen  py-12 px-4">
     <div className="max-w-4xl mx-auto">
       <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 shadow-2xl rounded-3xl p-12 text-center animate-fadeIn">
         <h1 className="text-4xl display-title mb-6">{title}</h1>
@@ -57,13 +57,13 @@ export const MyListingsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <div className="min-h-screen  flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium">Loading your listings...</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-10 px-4 md:px-8">
+    <div className="min-h-screen  py-10 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
@@ -183,7 +183,7 @@ export const MyInquiriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
+    <div className="min-h-screen  py-12 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center md:text-left">
           <span className="section-label mb-2 block">Communications</span>
@@ -313,13 +313,13 @@ export const MyJobsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <div className="min-h-screen  flex items-center justify-center">
       <div className="animate-spin h-10 w-10 border-4 border-ethereal-primary border-t-transparent rounded-full"></div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
+    <div className="min-h-screen  py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
@@ -344,7 +344,7 @@ export const MyJobsPage = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none" />
                 <div className="flex justify-between items-start mb-6 relative z-10">
                   <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gray-900/50 border border-white/5 text-ethereal-primary group-hover:bg-ethereal-primary group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-inner">
-                    <span className="text-sm font-extrabold uppercase tracking-widest">{job.employmentType?.charAt(0) || 'J'}</span>
+                    <span className="text-sm font-extrabold uppercase tracking-widest">{job.employmentType?.replace(/_/g, " ")}</span>
                   </div>
                   <span className={`px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md shadow-sm border ${
                     job.status === 'ACTIVE' 
@@ -416,7 +416,7 @@ export const MyApplicationsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
+    <div className="min-h-screen  py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <span className="section-label mb-2 block">Talent Pipeline</span>
@@ -647,13 +647,13 @@ export const ProfilePage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <div className="min-h-screen  flex items-center justify-center">
       <div className="animate-pulse text-ethereal-primary font-medium text-lg">Loading profile...</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-20 px-4">
+    <div className="min-h-screen  py-20 px-4">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col items-center text-center mb-12">
           <div className="w-24 h-24 bg-ethereal-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mb-6 shadow-xl shadow-blue-500/20">

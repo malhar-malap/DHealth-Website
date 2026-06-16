@@ -147,8 +147,8 @@ const ListingsPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
-      <div className="bg-gray-900 shadow-sm">
+    <div className="min-h-screen ">
+      <div className="bg-gray-900/40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-2xl font-bold text-gray-200 mb-4">Browse Healthcare Listings</h1>
           <div className="flex flex-col md:flex-row gap-4">
@@ -173,7 +173,7 @@ const ListingsPage = () => {
                 className="fixed inset-0 bg-black/60 z-40 md:hidden"
                 onClick={() => setShowFilters(false)}
               />
-              <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-900 p-6 md:relative md:inset-auto md:z-auto md:overflow-visible md:w-72 md:rounded-xl md:shadow-sm md:h-fit md:sticky md:top-24">
+              <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-900/40 p-6 md:relative md:inset-auto md:z-auto md:overflow-visible md:w-72 md:rounded-xl md:shadow-sm md:h-fit md:sticky md:top-24">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-semibold text-gray-200">Filters</h3>
                 <div className="flex items-center gap-3">
@@ -252,7 +252,7 @@ const ListingsPage = () => {
                   {listings.map(listing => (
                     <Link key={listing.id} to={`/listings/${listing.id}`} className="card card-hover">
                       <div className="relative h-48 bg-gray-800">
-                        {listing.primaryImage ? <img src={listing.primaryImage} alt={listing.displayTitle} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-900 border-b border-gray-800"><FiActivity className="w-16 h-16 text-gray-600" /></div>}
+                        {listing.primaryImage ? <img src={listing.primaryImage} alt={listing.displayTitle} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-900/40 border-b border-gray-800"><FiActivity className="w-16 h-16 text-gray-600" /></div>}
                       </div>
                       <div className="p-4">
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
