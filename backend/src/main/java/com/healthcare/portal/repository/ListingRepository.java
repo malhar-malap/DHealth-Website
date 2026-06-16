@@ -49,7 +49,7 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
            "(:dealTypeId IS NULL OR dt.id = :dealTypeId) AND " +
            "(:cityId IS NULL OR city.id = :cityId) AND " +
            "(:stateId IS NULL OR s.id = :stateId) AND " +
-           "(:cityName IS NULL OR LOWER(l.cityName) = LOWER(:cityName)) AND " +
+           "(:cityName IS NULL OR LOWER(l.cityName) LIKE LOWER(CONCAT('%', :cityName, '%')) OR LOWER(city.name) LIKE LOWER(CONCAT('%', :cityName, '%'))) AND " +
            "(:minPrice IS NULL OR l.askingPrice >= :minPrice) AND " +
            "(:maxPrice IS NULL OR l.askingPrice <= :maxPrice) AND " +
            "(:isConfidential IS NULL OR l.isConfidential = :isConfidential) AND " +

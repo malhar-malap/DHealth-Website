@@ -13,7 +13,7 @@ const ListingsPage = () => {
   const [cities, setCities] = useState([]);
 
   const [showFilters, setShowFilters] = useState(false);
-  const [pagination, setPagination] = useState({ page: 0, size: 12, totalElements: 0, totalPages: 0 });
+  const [pagination, setPagination] = useState({ page: 0, size: 24, totalElements: 0, totalPages: 0 });
   const [filters, setFilters] = useState({
     keyword: searchParams.get('keyword') || '',
     categoryId: searchParams.get('category') || '',

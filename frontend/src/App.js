@@ -65,7 +65,7 @@ function App() {
           }}
         />
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow pt-16">
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />

@@ -339,37 +339,38 @@ export const MyJobsPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {jobs.map((job, idx) => (
-              <div key={job.id} className="glass-card p-8 rounded-3xl animate-fadeIn group" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 rounded-2xl bg-ethereal-surface-low text-ethereal-primary group-hover:bg-ethereal-primary group-hover:text-white transition-colors duration-300">
-                    <span className="text-xs font-bold uppercase tracking-widest">{job.employmentType?.charAt(0)}</span>
+              <div key={job.id} className="relative bg-gray-800/40 backdrop-blur-md border border-white/5 p-8 rounded-3xl animate-fadeIn group hover:bg-gray-800/60 hover:border-white/10 transition-all duration-300 shadow-2xl overflow-hidden" style={{ animationDelay: `${idx * 0.1}s` }}>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none" />
+                <div className="flex justify-between items-start mb-6 relative z-10">
+                  <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gray-900/50 border border-white/5 text-ethereal-primary group-hover:bg-ethereal-primary group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-inner">
+                    <span className="text-sm font-extrabold uppercase tracking-widest">{job.employmentType?.charAt(0) || 'J'}</span>
                   </div>
                   <span className={`px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md shadow-sm border ${
                     job.status === 'ACTIVE' 
-                      ? 'bg-green-50 text-green-700 border-green-100' 
-                      : 'bg-yellow-50 text-yellow-700 border-yellow-100'
+                      ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                      : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
                   }`}>
                     {job.status}
                   </span>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-ethereal-on-surface mb-2 group-hover:text-ethereal-primary transition-colors line-clamp-1">{job.title}</h3>
+                <h3 className="text-2xl font-black text-white mb-3 group-hover:text-ethereal-primary transition-colors line-clamp-1 tracking-tight relative z-10">{job.title}</h3>
                 
-                <div className="flex flex-col gap-3 mb-8">
-                  <div className="flex items-center text-ethereal-on-surface-variant text-sm font-medium">
-                    <FaMapMarkerAlt className="mr-2 opacity-50" /> {job.cityName}
+                <div className="flex flex-col gap-3 mb-8 relative z-10">
+                  <div className="flex items-center text-gray-400 text-sm font-medium">
+                    <FaMapMarkerAlt className="mr-2 text-ethereal-primary opacity-70" /> {job.cityName}
                   </div>
-                  <div className="flex items-center text-ethereal-on-surface-variant text-xs font-bold uppercase tracking-widest">
-                    {job.employmentType}
+                  <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest">
+                    <span className="w-1.5 h-1.5 rounded-full bg-ethereal-primary mr-2"></span> {job.employmentType}
                   </div>
                 </div>
 
                 <Link 
                   to={`/jobs/${job.id}`} 
-                  className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-ethereal-surface-low text-ethereal-primary font-bold hover:bg-ethereal-primary hover:text-white transition-all duration-300 group/btn"
+                  className="flex items-center justify-center w-full py-4 rounded-2xl bg-gray-900/50 border border-white/5 text-white font-bold hover:bg-ethereal-primary hover:border-ethereal-primary transition-all duration-300 group/btn relative z-10 shadow-md"
                 >
                   Manage Role
-                  <FaEye className="ml-2 transform group-hover/btn:scale-110 transition-transform" />
+                  <FaEye className="ml-2 transform group-hover/btn:scale-110 transition-transform opacity-70 group-hover/btn:opacity-100" />
                 </Link>
               </div>
             ))}

@@ -33,7 +33,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-ethereal-surface py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <span className="section-label mb-2 block tracking-[0.2em]">Administrative Control</span>
@@ -44,22 +44,23 @@ const AdminDashboard = () => {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {statCards.map((stat, idx) => (
-            <div key={stat.title} className="glass-card p-8 rounded-[2rem] border-none animate-fadeIn group" style={{ animationDelay: `${idx * 0.1}s` }}>
-              <div className="flex items-center justify-between mb-8">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                  <stat.icon className={`w-7 h-7 ${stat.accent}`} />
+            <div key={stat.title} className="bg-gray-800/40 backdrop-blur-xl border border-white/5 p-10 rounded-[2.5rem] animate-fadeIn group hover:bg-gray-800/60 hover:border-white/10 transition-all duration-500 shadow-2xl relative overflow-hidden" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${stat.gradient} rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
+              <div className="flex items-center justify-between mb-10 relative z-10">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.gradient} border border-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
+                  <stat.icon className={`w-8 h-8 ${stat.accent}`} />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-ethereal-on-surface-variant opacity-40">{stat.label}</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 bg-gray-900/50 px-3 py-1.5 rounded-full border border-white/5">{stat.label}</span>
               </div>
-              <h3 className="text-4xl font-bold text-ethereal-on-surface mb-1 tracking-tight">{stat.value.toLocaleString()}</h3>
-              <p className="text-sm font-bold text-ethereal-on-surface-variant uppercase tracking-widest opacity-60">{stat.title}</p>
+              <h3 className="text-5xl font-black text-white mb-2 tracking-tighter relative z-10">{stat.value.toLocaleString()}</h3>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] relative z-10">{stat.title}</p>
             </div>
           ))}
         </div>
 
         {/* Core Operations */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2 glass-card p-10 rounded-[2.5rem] border-none">
+          <div className="lg:col-span-2 bg-gray-800/40 backdrop-blur-xl border border-white/5 p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
             <div className="flex justify-between items-center mb-10">
               <h2 className="text-2xl font-bold text-ethereal-on-surface tracking-tight">Active Pipeline</h2>
               <Link to="/admin/listings?status=PENDING" className="text-ethereal-primary text-sm font-black uppercase tracking-widest hover:underline">Full Audit</Link>
@@ -98,7 +99,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          <div className="glass-card p-10 rounded-[2.5rem] border-none">
+          <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
             <h2 className="text-2xl font-bold text-ethereal-on-surface tracking-tight mb-8">Pulse Report</h2>
             <div className="space-y-6">
               {[
@@ -128,7 +129,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Global Strategy Tools */}
-        <div className="glass-card p-10 rounded-[2.5rem] border-none">
+        <div className="bg-gray-800/40 backdrop-blur-xl border border-white/5 p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
           <h2 className="text-2xl font-bold text-ethereal-on-surface tracking-tight mb-10">Ecosystem Management</h2>
           <div className="flex flex-wrap justify-center gap-6">
             {[

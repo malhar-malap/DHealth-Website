@@ -189,9 +189,9 @@ const HomePage = () => {
                   to={`/listings?category=${category.id}`}
                   className="group relative w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-1.34rem)]"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-3xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                   <div className="bg-gray-900 border border-gray-800 p-6 md:p-10 rounded-3xl h-full relative overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform group-hover:-translate-y-1">
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700 ease-in-out"></div>
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary-900/40 to-secondary-900/40 rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700 ease-in-out"></div>
                     <div className="relative z-10">
                       <div className="w-16 h-16 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:border-primary-200 transition-all duration-300">
                         <IconComponent className="w-8 h-8 text-primary-500 group-hover:scale-110 transition-transform duration-300" />
