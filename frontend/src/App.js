@@ -10,8 +10,8 @@ import Footer from './components/layout/Footer';
 import HomePage from './pages/home/HomePage';
 import AboutUsPage from './pages/home/AboutUsPage';
 import ContactUsPage from './pages/home/ContactUsPage';
-import TermsOfServicePage from './pages/home/TermsOfServicePage';
-import PrivacyPolicyPage from './pages/home/PrivacyPolicyPage';
+
+import LegalCenterPage from './pages/legal/LegalCenterPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
@@ -71,8 +71,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutUsPage />} />
             <Route path="/contact-us" element={<ContactUsPage />} />
-            <Route path="/terms" element={<TermsOfServicePage />} />
-            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<LegalCenterPage />} />
+            <Route path="/privacy" element={<LegalCenterPage />} />
+          <Route path="/refund-policy" element={<LegalCenterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />

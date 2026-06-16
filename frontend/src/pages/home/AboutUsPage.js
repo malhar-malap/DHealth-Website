@@ -4,9 +4,9 @@ import { FiTarget, FiEye, FiAward } from 'react-icons/fi';
 
 const AboutUsPage = () => {
   return (
-    <div className="min-h-screen  pb-20">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 pb-20">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-32 overflow-hidden bg-gray-900/40">
+      <section className="relative pt-24 pb-32 overflow-hidden bg-transparent">
         <div className="absolute inset-0 bg-gradient-to-br from-[#d8572a]/5 via-[#d8572a]/5 to-transparent -z-10"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -32,7 +32,7 @@ const AboutUsPage = () => {
       {/* Mission & Vision Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-24 relative z-20">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/50 p-10 rounded-[2.5rem] border border-white/5 shadow-xl hover:shadow-2xl hover:shadow-[#d8572a]/15 transition-all duration-500 transform hover:-translate-y-2 hover:border-[#d8572a]/30 backdrop-blur-xl">
             <div className="w-14 h-14 bg-[#f7b538]/30 rounded-2xl flex items-center justify-center mb-6">
               <FiEye className="text-[#db7c26] text-2xl" />
             </div>
@@ -42,7 +42,7 @@ const AboutUsPage = () => {
             </p>
           </div>
 
-          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/50 p-10 rounded-[2.5rem] border border-white/5 shadow-xl hover:shadow-2xl hover:shadow-[#d8572a]/15 transition-all duration-500 transform hover:-translate-y-2 hover:border-[#d8572a]/30 backdrop-blur-xl">
             <div className="w-14 h-14 bg-[#f7b538]/20 rounded-2xl flex items-center justify-center mb-6">
               <FiTarget className="text-[#db7c26] text-2xl" />
             </div>
@@ -54,7 +54,7 @@ const AboutUsPage = () => {
             </ul>
           </div>
 
-          <div className="bg-gray-900/40 p-10 rounded-3xl shadow-sm border border-gray-800 transition-transform hover:-translate-y-2 duration-300">
+          <div className="bg-gray-900/50 p-10 rounded-[2.5rem] border border-white/5 shadow-xl hover:shadow-2xl hover:shadow-[#d8572a]/15 transition-all duration-500 transform hover:-translate-y-2 hover:border-[#d8572a]/30 backdrop-blur-xl">
             <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
               <FiAward className="text-blue-600 text-2xl" />
             </div>
@@ -70,7 +70,7 @@ const AboutUsPage = () => {
 
       {/* CEO Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="bg-gray-900/40 rounded-[2.5rem] p-8 md:p-16 shadow-lg border border-gray-800 flex flex-col md:flex-row items-center gap-12">
+        <div className="bg-gray-900/50 rounded-[3rem] p-8 md:p-16 shadow-2xl border border-white/5 hover:border-[#d8572a]/30 flex flex-col md:flex-row items-center gap-12 transition-all duration-500 backdrop-blur-xl">
           <div className="w-full md:w-1/3 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-tr from-[#d8572a] to-[#d8572a] rounded-full blur-2xl opacity-40"></div>
@@ -97,7 +97,7 @@ const AboutUsPage = () => {
 
       {/* CTA Section */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-[#191c1e] to-[#2a3033] rounded-[2.5rem] p-12 text-center relative overflow-hidden shadow-2xl">
+        <div className="bg-gray-900/50 border border-white/5 rounded-[3rem] p-12 text-center relative overflow-hidden shadow-2xl backdrop-blur-2xl hover:border-[#d8572a]/30 transition-all duration-500">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#d8572a]/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#d8572a]/10 rounded-full blur-3xl"></div>
           
@@ -110,7 +110,7 @@ const AboutUsPage = () => {
               <Link to="/register" className="btn bg-gradient-to-r from-[#db7c26] to-[#d8572a] text-white px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto shadow-lg shadow-[#db7c26]/30 hover:shadow-[#db7c26]/50 transition-all hover:-translate-y-1">
                 Join the Network
               </Link>
-              <Link to="/listings" className="px-8 py-4 rounded-xl font-bold text-lg text-white bg-gray-900/40/10 hover:bg-gray-900/40/20 transition-all w-full sm:w-auto backdrop-blur-md">
+              <Link to="/listings" className="px-8 py-4 rounded-xl font-bold text-lg text-white bg-transparent/10 hover:bg-transparent/20 transition-all w-full sm:w-auto backdrop-blur-md">
                 Browse Listings
               </Link>
             </div>

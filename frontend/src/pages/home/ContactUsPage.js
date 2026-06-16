@@ -64,7 +64,8 @@ const ContactUsPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {/* Contact Form / Success State */}
-          <div className="bg-gray-900 rounded-2xl p-8 shadow-sm border border-gray-800">
+          <div className="bg-gray-900/50 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/5 hover:border-[#d8572a]/30 transition-all duration-500 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#d8572a] to-[#db7c26] opacity-[0.03] rounded-full blur-3xl group-hover:opacity-[0.1] transition-opacity duration-500 pointer-events-none"></div>
             {submitted ? (
               <div className="flex flex-col items-center justify-center text-center py-12">
                 <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6">
@@ -80,7 +81,7 @@ const ContactUsPage = () => {
                     setSubmitted(false);
                     setFormData({ name: '', email: '', subject: '', message: '' });
                   }}
-                  className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-sm"
+                  className="bg-gradient-to-r from-cyan-500 to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 text-gray-900 font-bold py-3 px-8 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:-translate-y-1"
                 >
                   Send Another Message
                 </button>
@@ -96,7 +97,7 @@ const ContactUsPage = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 text-white rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition placeholder-gray-500"
+                      className="w-full px-5 py-4 bg-gray-900/40 border border-white/10 text-white rounded-2xl focus:ring-2 focus:ring-[#d8572a] focus:border-[#d8572a]/50 hover:border-white/20 outline-none transition-all duration-300 placeholder-gray-500"
                       placeholder="John Doe"
                     />
                   </div>
@@ -107,7 +108,7 @@ const ContactUsPage = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 text-white rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition placeholder-gray-500"
+                      className="w-full px-5 py-4 bg-gray-900/40 border border-white/10 text-white rounded-2xl focus:ring-2 focus:ring-[#d8572a] focus:border-[#d8572a]/50 hover:border-white/20 outline-none transition-all duration-300 placeholder-gray-500"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -118,7 +119,7 @@ const ContactUsPage = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 text-white rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition placeholder-gray-500"
+                      className="w-full px-5 py-4 bg-gray-900/40 border border-white/10 text-white rounded-2xl focus:ring-2 focus:ring-[#d8572a] focus:border-[#d8572a]/50 hover:border-white/20 outline-none transition-all duration-300 placeholder-gray-500"
                       placeholder="How can we help?"
                     />
                   </div>
@@ -129,14 +130,14 @@ const ContactUsPage = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 text-white rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition placeholder-gray-500 resize-none"
+                      className="w-full px-5 py-4 bg-gray-900/40 border border-white/10 text-white rounded-2xl focus:ring-2 focus:ring-[#d8572a] focus:border-[#d8572a]/50 hover:border-white/20 outline-none transition-all duration-300 placeholder-gray-500"
                       placeholder="Tell us more about your inquiry..."
                     ></textarea>
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-[#d8572a] to-[#db7c26] hover:from-[#db7c26] hover:to-[#f7b538] text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(216,87,42,0.3)] hover:shadow-[0_0_30px_rgba(216,87,42,0.5)] hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>
@@ -157,27 +158,28 @@ const ContactUsPage = () => {
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-gray-900 rounded-2xl p-8 shadow-sm border border-gray-800 h-full flex flex-col justify-start">
-              <h2 className="text-2xl font-bold text-gray-100 mb-8">Contact Information</h2>
+            <div className="bg-gray-900/50 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/5 hover:border-[#d8572a]/30 transition-all duration-500 h-full flex flex-col justify-start relative overflow-hidden group">
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#d8572a] to-[#db7c26] opacity-[0.03] rounded-full blur-3xl group-hover:opacity-[0.1] transition-opacity duration-500 pointer-events-none"></div>
+              <h2 className="text-2xl font-bold text-gray-100 mb-8 relative z-10">Contact Information</h2>
               
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center flex-shrink-0">
-                    <FiMail className="w-6 h-6 text-primary-600" />
+              <div className="space-y-8 relative z-10">
+                <div className="flex items-start gap-5 group/item">
+                  <div className="w-14 h-14 bg-gray-900/40 border border-white/5 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover/item:border-[#d8572a]/50 group-hover/item:shadow-[0_0_20px_rgba(216,87,42,0.3)] transition-all duration-300">
+                    <FiMail className="w-6 h-6 text-[#d8572a] group-hover/item:scale-110 transition-transform duration-300" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-100 mb-1">Email</h3>
-                    <p className="text-gray-400">support@dhacquisitions.com</p>
+                    <h3 className="text-sm font-semibold text-gray-100 mb-1 tracking-wider uppercase">Email</h3>
+                    <p className="text-gray-400 font-medium hover:text-[#d8572a] transition-colors cursor-pointer">support@dhacquisitions.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center flex-shrink-0">
-                    <FiMapPin className="w-6 h-6 text-primary-600" />
+                <div className="flex items-start gap-5 group/item">
+                  <div className="w-14 h-14 bg-gray-900/40 border border-white/5 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover/item:border-[#d8572a]/50 group-hover/item:shadow-[0_0_20px_rgba(216,87,42,0.3)] transition-all duration-300">
+                    <FiMapPin className="w-6 h-6 text-[#d8572a] group-hover/item:scale-110 transition-transform duration-300" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-100 mb-1">Location</h3>
-                    <p className="text-gray-400">We're based in Dadar, Mumbai, India - 400028</p>
+                    <h3 className="text-sm font-semibold text-gray-100 mb-1 tracking-wider uppercase">Location</h3>
+                    <p className="text-gray-400 font-medium">We're based in Dadar, Mumbai, India - 400028</p>
                   </div>
                 </div>
               </div>
