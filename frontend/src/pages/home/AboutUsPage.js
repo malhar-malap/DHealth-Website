@@ -4,7 +4,7 @@ import { FiTarget, FiEye, FiAward } from 'react-icons/fi';
 
 const AboutUsPage = () => {
   return (
-    <div className="min-h-screen bg-gray-800 pb-20">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 pb-20">
       {/* Hero Section */}
       <section className="relative pt-24 pb-32 overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-[#d8572a]/5 via-[#d8572a]/5 to-transparent -z-10"></div>

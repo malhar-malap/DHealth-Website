@@ -6,14 +6,13 @@ import {
   FiSettings, FiShield, FiMenu, FiX, FiActivity
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import DashboardLayout from '../../components/layout/DashboardLayout';
 import { userAPI } from '../../services/api';
 import VerificationModal from '../../components/VerificationModal';
 
 const DashboardPage = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const [verification, setVerification] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showVerModal, setShowVerModal] = useState(false);
 
   useEffect(() => {
@@ -28,20 +27,6 @@ const DashboardPage = () => {
     if (user) fetchVer();
   }, [user]);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
-
-  const navItems = [
-    { title: 'Overview', icon: FiHome, href: '/dashboard', active: true },
-    { title: 'My Listings', icon: FiList, href: '/dashboard/listings' },
-    { title: 'Inquiries', icon: FiMail, href: '/dashboard/inquiries' },
-    { title: 'My Jobs', icon: FiBriefcase, href: '/dashboard/jobs' },
-    { title: 'Applications', icon: FiFileText, href: '/dashboard/applications' },
-    { title: 'Account Settings', icon: FiSettings, href: '/dashboard/profile' },
-  ];
-
   const quickActions = [
     { title: 'Post Listing', icon: FiPlus, href: '/listings/create', color: 'from-blue-500 to-indigo-600' },
     { title: 'Post Job', icon: FiBriefcase, href: '/jobs/create', color: 'from-purple-500 to-pink-600' },
@@ -50,76 +35,8 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex">
-      {/* Sidebar Overlay for Mobile */}
-      {!isSidebarOpen && (
-        <button 
-          onClick={() => setIsSidebarOpen(true)}
-          className="lg:hidden fixed bottom-6 right-6 z-50 w-14 h-14 btn-gradient rounded-full shadow-lg flex items-center justify-center text-white"
-        >
-          <FiMenu className="w-6 h-6" />
-        </button>
-      )}
-
-      {/* Backdrop Overlay for Mobile */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/50 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`fixed top-16 bottom-0 left-0 z-40 w-72 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="h-full glass-card border-r border-[#d8572a]/10 flex flex-col">
-          {/* Sidebar Header */}
-          <div className="p-8 border-b border-[#d8572a]/5">
-            <div className="flex items-center justify-between mb-8 lg:hidden">
-              <span className="font-black text-xl text-gradient">Menu</span>
-              <button onClick={() => setIsSidebarOpen(false)} className="text-[#e5e7eb]"><FiX className="w-6 h-6" /></button>
-            </div>
-            
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#d8572a] to-[#d8572a] flex items-center justify-center text-white shadow-lg shadow-[#d8572a]/20">
-                <FiUser className="w-6 h-6" />
-              </div>
-              <div className="overflow-hidden">
-                <h3 className="font-black text-sm text-white truncate">{user?.fullName || 'Health Professional'}</h3>
-                <p className="text-[10px] font-bold text-[#db7c26] uppercase tracking-widest truncate">{user?.roles?.[0] || 'Member'}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Items */}
-          <nav className="flex-1 p-6 space-y-2 overflow-y-auto">
-            {navItems.map((item) => (
-              <Link 
-                key={item.title} 
-                to={item.href}
-                className={`flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 group ${item.active ? 'btn-gradient text-white shadow-lg shadow-[#d8572a]/20' : 'hover:bg-[#E3FCF9] text-[#e5e7eb] hover:text-[#db7c26]'}`}
-              >
-                <item.icon className={`w-5 h-5 ${item.active ? 'text-white' : 'text-[#d8572a] group-hover:text-[#db7c26]'}`} />
-                <span className="font-black text-xs uppercase tracking-widest">{item.title}</span>
-              </Link>
-            ))}
-          </nav>
-
-          {/* Sidebar Footer */}
-          <div className="p-6 border-t border-[#d8572a]/5">
-            <button 
-              onClick={handleLogout}
-              className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-red-500 hover:bg-red-50 transition-all duration-300 group"
-            >
-              <FiLogOut className="w-5 h-5 opacity-60 group-hover:opacity-100" />
-              <span className="font-black text-xs uppercase tracking-widest">Sign Out</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 min-w-0 overflow-y-auto">
-        <div className="max-w-6xl mx-auto p-6 md:p-10 lg:p-12 space-y-10">
+    <DashboardLayout activeTab="Overview">
+      <div className="max-w-6xl mx-auto p-6 md:p-10 lg:p-12 space-y-10">
           
           {/* Welcome Header */}
           <section className="animate-fadeIn">
@@ -169,7 +86,7 @@ const DashboardPage = () => {
                         </div>
                         <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">Institutional Email</p>
                       </div>
-                      <p className="font-black text-white text-lg tracking-tight truncate pl-14">{user?.email || 'unassigned@dhacquisitions.com'}</p>
+                      <p className="font-black text-white text-lg tracking-tight break-all pl-14">{user?.email || 'unassigned@dhacquisitions.com'}</p>
                     </div>
                     
                     <div className="space-y-2 bg-gray-900/50 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
@@ -278,31 +195,8 @@ const DashboardPage = () => {
             </section>
           </div>
         </div>
-      </main>
-
-      <VerificationModal 
-        isOpen={showVerModal} 
-        onClose={() => setShowVerModal(false)} 
-        onSuccess={() => {
-          // Re-fetch verification status
-          const fetchVer = async () => {
-            try {
-              const res = await userAPI.getVerificationStatus();
-              if (res.data?.data) setVerification(res.data.data);
-            } catch (err) {
-              console.error('Error fetching verification status:', err);
-            }
-          };
-          fetchVer();
-        }}
-      />
-    </div>
+    </DashboardLayout>
   );
 };
 
 export default DashboardPage;
-
-
-
-
-

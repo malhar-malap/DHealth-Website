@@ -94,7 +94,7 @@ const JobsPage = () => {
   const clearFilters = () => { setFilters({ keyword: '', categoryId: '', cityId: '', employmentType: '', experienceLevel: '', sortBy: 'createdAt', sortDirection: 'desc' }); fetchJobs(); };
 
   return (
-    <div className="min-h-screen bg-mesh">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
       {/* Search & Hero Header with Carousel */}
       <div className="relative pt-24 md:pt-44 pb-12 md:pb-24 overflow-hidden min-h-[350px] md:min-h-[500px] flex items-center">
         {/* Background Carousel */}

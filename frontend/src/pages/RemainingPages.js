@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DashboardLayout from '../components/layout/DashboardLayout';
 import { listingsAPI, jobsAPI, userAPI, inquiriesAPI, masterAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-icons/fa';
@@ -57,7 +58,8 @@ export const MyListingsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <DashboardLayout activeTab="My Listings">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="animate-pulse text-ethereal-primary font-medium">Loading your listings...</div>
     </div>
   );
@@ -155,6 +157,7 @@ export const MyListingsPage = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
@@ -182,7 +185,8 @@ export const MyInquiriesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
+    <DashboardLayout activeTab="Inquiries">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center md:text-left">
           <span className="section-label mb-2 block">Communications</span>
@@ -312,7 +316,8 @@ export const MyJobsPage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <DashboardLayout activeTab="My Jobs">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="animate-spin h-10 w-10 border-4 border-ethereal-primary border-t-transparent rounded-full"></div>
     </div>
   );
@@ -361,7 +366,7 @@ export const MyJobsPage = () => {
                     <FaMapMarkerAlt className="mr-2 text-ethereal-primary opacity-70" /> {job.cityName}
                   </div>
                   <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ethereal-primary mr-2"></span> {job.employmentType}
+                    <span className="w-1.5 h-1.5 rounded-full bg-ethereal-primary mr-2"></span> {job.employmentType?.replace(/_/g, " ")}
                   </div>
                 </div>
 
@@ -378,6 +383,7 @@ export const MyJobsPage = () => {
         )}
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 
@@ -415,7 +421,8 @@ export const MyApplicationsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-12 px-4 md:px-8">
+    <DashboardLayout activeTab="Applications">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <span className="section-label mb-2 block">Talent Pipeline</span>
@@ -646,7 +653,8 @@ export const ProfilePage = () => {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 flex items-center justify-center">
+    <DashboardLayout activeTab="Account Settings">
+      <div className="py-10 px-4 md:px-8 w-full">
       <div className="animate-pulse text-ethereal-primary font-medium text-lg">Loading profile...</div>
     </div>
   );
@@ -850,6 +858,7 @@ export const ProfilePage = () => {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

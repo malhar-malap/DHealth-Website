@@ -81,7 +81,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
       {/* Hero Section with Carousel */}
       <section className="relative h-[500px] md:h-[650px] overflow-hidden bg-gray-900">
         {/* Background Carousel */}
@@ -155,7 +155,7 @@ const HomePage = () => {
                   <button 
                     key={tag.name}
                     onClick={() => navigate(`/listings?category=${tag.id}`)}
-                    className="bg-gray-900/80 text-gray-300 hover:text-primary-600 hover:bg-gray-900 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer transition-all border border-gray-700/50 shadow-sm hover:shadow-md hover:border-primary-200"
+                    className="bg-gray-900/80 text-gray-300 hover:text-cyan-400 hover:bg-gray-900 px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer transition-all border border-gray-700/50 shadow-sm hover:shadow-md hover:border-primary-200"
                   >
                     {tag.name}
                   </button>
@@ -278,7 +278,7 @@ const HomePage = () => {
                           <FiMapPin className="inline mr-1 w-4 h-4" />{listing.cityName}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold text-gray-100 mb-4 line-clamp-2 group-hover:text-primary-600 transition-colors leading-tight">
+                      <h3 className="text-xl font-bold text-gray-100 mb-4 line-clamp-2 group-hover:text-cyan-400 transition-colors leading-tight">
                         {listing.displayTitle}
                       </h3>
 
@@ -420,7 +420,7 @@ const HomePage = () => {
                     <div className="absolute right-0 top-0 w-32 h-32 bg-gradient-to-bl from-primary-50 to-transparent rounded-bl-full pointer-events-none" />
                     <div className="flex justify-between items-start mb-6 relative z-10">
                       <div className="flex-1 pr-4">
-                        <h3 className="text-2xl font-bold text-gray-100 mb-2 group-hover:text-primary-600 transition-colors leading-tight">{job.title}</h3>
+                        <h3 className="text-2xl font-bold text-gray-100 mb-2 group-hover:text-cyan-400 transition-colors leading-tight">{job.title}</h3>
                         <p className="text-primary-600 font-semibold text-sm">{job.employerCompany || job.employerName}</p>
                       </div>
                       <span className="bg-gray-100 text-gray-400 text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-lg">

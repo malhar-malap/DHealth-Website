@@ -131,7 +131,7 @@ const PartialPropertiesPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-800">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10">
       {/* Header — matches ListingsPage style */}
       <div className="bg-gray-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">

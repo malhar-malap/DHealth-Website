@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const TermsOfServicePage = () => {
   return (
-    <div className="min-h-screen bg-gray-800 pb-20">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 pb-20">
       {/* Hero */}
       <section className="relative pt-20 pb-16 bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-[#d8572a]/5 via-transparent to-transparent -z-10"></div>

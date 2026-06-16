@@ -177,7 +177,7 @@ const ListingDetailPage = () => {
   const isOwner = isAuthenticated && user?.id === listing?.seller?.id;
 
   return (
-    <div className="min-h-screen bg-gray-800 py-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-gray-900 to-[#d8572a]/10 py-8">
       <div className="max-w-7xl mx-auto px-4">
         <Link to="/listings" className="inline-flex items-center text-gray-400 hover:text-primary-500 mb-6"><FiChevronLeft className="mr-1" />Back to Listings</Link>
 

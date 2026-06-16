@@ -34,7 +34,19 @@ export const AuthProvider = ({ children }) => {
           return;
         }
         
+        // Set immediately for fast UI load
         setUser(parsedUser);
+
+        // Silently fetch the absolute latest user data (roles, etc.) from the backend
+        try {
+          const res = await authAPI.getCurrentUser();
+          if (res.data?.data) {
+            setUser(res.data.data);
+            localStorage.setItem('user', JSON.stringify(res.data.data));
+          }
+        } catch (fetchErr) {
+          console.error("Silent auth sync failed:", fetchErr);
+        }
       } catch (error) {
         logout();
       }
