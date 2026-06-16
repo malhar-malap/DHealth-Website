@@ -179,9 +179,9 @@ const LegalCenterPage = () => {
             <div className="bg-gray-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
               
               {/* Header */}
-              <div className="mb-12 border-b border-white/10 pb-8 relative">
+              <div className="mb-12 border-b border-white/10 pb-8 pt-6 relative">
                 <div className="absolute top-0 left-0 w-32 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
-                <h4 className="text-cyan-500 font-black uppercase tracking-widest text-xs mb-3 mt-4">{activeData.subtitle}</h4>
+                <h4 className="text-cyan-500 font-black uppercase tracking-widest text-xs mb-3">{activeData.subtitle}</h4>
                 <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">{activeData.title}</h1>
                 <p className="text-gray-400 font-medium text-sm">Last Updated: {activeData.lastUpdated}</p>
               </div>
