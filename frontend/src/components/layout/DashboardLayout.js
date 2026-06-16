@@ -51,7 +51,7 @@ const DashboardLayout = ({ children, activeTab = 'Overview' }) => {
 
       {/* Sidebar */}
       {/* Removed border-r, glass-card styles that created sticked look. Kept transparent and seamless. */}
-      <aside className={`fixed top-16 bottom-0 left-0 z-40 w-72 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 bg-gray-900/95 backdrop-blur-xl' : '-translate-x-full'} lg:translate-x-0 lg:fixed lg:top-[72px] lg:bottom-0 lg:bg-transparent`}>
+      <aside className={`fixed top-16 bottom-0 left-0 z-40 w-72 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 bg-gray-900/95 backdrop-blur-xl' : '-translate-x-full'} lg:translate-x-0 lg:sticky lg:top-[72px] lg:h-[calc(100vh-72px)] self-start lg:bg-transparent`}>
         <div className="h-full flex flex-col pt-8">
           {/* Sidebar Header */}
           <div className="p-8 pb-4">
@@ -98,7 +98,7 @@ const DashboardLayout = ({ children, activeTab = 'Overview' }) => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0 pb-16 lg:ml-72 pt-8">
+      <main className="flex-1 min-w-0 pb-16 pt-8">
         {children}
       </main>
     </div>
