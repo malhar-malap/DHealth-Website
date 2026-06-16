@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   FiHome, FiList, FiMail, FiBriefcase, FiFileText, 
   FiUser, FiPlus, FiEdit, FiEye, FiLogOut, 
-  FiSettings, FiShield, FiMenu, FiX, FiActivity
+  FiSettings, FiShield, FiMenu, FiX, FiActivity, FiChevronRight
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import DashboardLayout from '../../components/layout/DashboardLayout';

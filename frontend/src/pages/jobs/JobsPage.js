@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { jobsAPI, masterAPI } from '../../services/api';
-import { FiSearch, FiMapPin, FiFilter, FiBriefcase, FiDollarSign, FiChevronRight } from 'react-icons/fi';
+import { FiSearch, FiMapPin, FiFilter, FiBriefcase, FiDollarSign } from 'react-icons/fi';
 
 const formatExperience = (exp) => {
   if (!exp) return '';
