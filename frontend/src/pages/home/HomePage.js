@@ -23,9 +23,9 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const carouselImages = [
-    'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=2000', // Modern Hospital
-    'https://images.unsplash.com/photo-1576091160550-217359f42f8c?auto=format&fit=crop&q=80&w=2000', // Medical Tech
-    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000'  // Healthcare Profs
+    'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=2000', // Modern Healthcare Professional
+    'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=2000', // Pharmaceutical Labs
+    'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=2000'  // Hospital Environment
   ];
 
   useEffect(() => {
