@@ -262,7 +262,7 @@ const AdminJobDetailModal = ({ jobId, onClose, onUpdated }) => {
               </button>
             )}
             {job.status === 'ACTIVE' && activeTab === 'details' && (
-              <button className="px-10 py-5 bg-ethereal-on-surface text-white rounded-[1.5rem] hover:bg-black transition-all font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
+              <button className="px-10 py-5 bg-white text-gray-900 rounded-[1.5rem] hover:bg-gray-200 transition-all font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
                 Archive Role
               </button>
             )}

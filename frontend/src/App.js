@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 // Layout Components
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import AdminLayout from './components/layout/AdminLayout';
 
 // Main Pages
 import HomePage from './pages/home/HomePage';
@@ -101,13 +102,15 @@ function App() {
             <Route path="/dashboard/profile" element={<ProfilePage />} />
             
             {/* Admin Routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/listings" element={<AdminListingsPage />} />
-            <Route path="/admin/jobs" element={<AdminJobsPage />} />
-            <Route path="/admin/users" element={<AdminUsersPage />} />
-            <Route path="/admin/verifications" element={<AdminVerificationsPage />} />
-            <Route path="/admin/payments" element={<AdminPaymentsPage />} />
-            <Route path="/admin/contact-messages" element={<AdminContactMessagesPage />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="listings" element={<AdminListingsPage />} />
+              <Route path="jobs" element={<AdminJobsPage />} />
+              <Route path="users" element={<AdminUsersPage />} />
+              <Route path="verifications" element={<AdminVerificationsPage />} />
+              <Route path="payments" element={<AdminPaymentsPage />} />
+              <Route path="contact-messages" element={<AdminContactMessagesPage />} />
+            </Route>
           </Routes>
         </main>
         <Footer />

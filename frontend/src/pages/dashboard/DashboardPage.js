@@ -198,6 +198,16 @@ const DashboardPage = () => {
             </section>
           </div>
         </div>
+        {showVerModal && (
+          <VerificationModal
+            isOpen={showVerModal}
+            onClose={() => setShowVerModal(false)}
+            onSuccess={() => {
+              setShowVerModal(false);
+              window.location.reload();
+            }}
+          />
+        )}
     </DashboardLayout>
   );
 };

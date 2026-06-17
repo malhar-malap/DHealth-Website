@@ -51,7 +51,7 @@ const AdminListingsPage = () => {
   const fetchListings = useCallback(async () => {
     try {
       setLoading(true);
-      const params = { page, size: 10 };
+      const params = { page, size: 30 };
       if (statusFilter) params.status = statusFilter;
       if (categoryFilter) params.categoryId = categoryFilter;
       if (cityFilter) params.cityId = cityFilter;
