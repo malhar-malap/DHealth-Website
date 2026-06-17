@@ -241,6 +241,8 @@ public class AdminService {
             if (job.getCity().getState() != null) {
                 response.setStateName(job.getCity().getState().getName());
             }
+        } else {
+            response.setCityName(job.getCityName());
         }
         response.setApplicationDeadline(job.getApplicationDeadline());
         if (job.getEmployer() != null) {
@@ -248,6 +250,9 @@ public class AdminService {
             response.setEmployerCompany(job.getEmployer().getCompanyName());
         }
         response.setCreatedAt(job.getCreatedAt());
+        if (job.getStatus() != null) {
+            response.setStatus(job.getStatus().name());
+        }
         return response;
     }
     @Transactional
