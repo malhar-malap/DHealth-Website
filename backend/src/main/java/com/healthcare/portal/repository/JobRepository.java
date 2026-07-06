@@ -30,6 +30,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     
     List<Job> findByJobCategoryId(Long categoryId);
     
+    List<Job> findByStatusAndApplicationDeadlineBefore(Job.JobStatus status, java.time.LocalDate date);
+    
     List<Job> findByCityId(Long cityId);
     
     @Query("SELECT j FROM Job j JOIN FETCH j.employer e JOIN FETCH j.jobCategory jc " +

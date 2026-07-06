@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.time.LocalDate;
 
 /**
  * Service class for Job operations
@@ -17,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class JobService {
     
+    private static final Logger logger = LoggerFactory.getLogger(JobService.class);
+
     private final JobRepository jobRepository;
     private final JobCategoryRepository jobCategoryRepository;
     private final CityRepository cityRepository;
@@ -382,5 +388,24 @@ public class JobService {
         response.setUpdatedAt(application.getUpdatedAt());
         
         return response;
+    }
+    
+    @Scheduled(cron = "0 0 0 * * ?") // Runs daily at midnight
+    @Transactional
+    public void expireJobsDaily() {
+        logger.info("Running daily job expiration task...");
+        List<Job> expiredJobs = jobRepository.findByStatusAndApplicationDeadlineBefore(
+                Job.JobStatus.ACTIVE, LocalDate.now());
+        
+        if (!expiredJobs.isEmpty()) {
+            for (Job job : expiredJobs) {
+                job.setStatus(Job.JobStatus.EXPIRED);
+                logger.info("Expired job ID: {}", job.getId());
+            }
+            jobRepository.saveAll(expiredJobs);
+            logger.info("Successfully expired {} jobs.", expiredJobs.size());
+        } else {
+            logger.info("No jobs to expire today.");
+        }
     }
 }

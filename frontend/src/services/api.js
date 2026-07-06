@@ -149,10 +149,11 @@ export const adminAPI = {
   bulkApproveListings: (ids) => api.post('/admin/listings/bulk-approve', { ids }),
   bulkDeleteListings: (ids) => api.post('/admin/listings/bulk-delete', { ids }),
   getJobs: (params) => api.get('/admin/jobs', { params }),
-  getJobApplications: (jobId, params) => api.get(`/jobs/${jobId}/applications`, { params }),
   approveJob: (id) => api.post(`/admin/jobs/${id}/approve`),
   rejectJob: (id, reason) => api.post(`/admin/jobs/${id}/reject`, { rejectionReason: reason }),
   deleteJob: (id) => api.delete(`/admin/jobs/${id}`),
+  archiveJob: (id) => api.put(`/admin/jobs/${id}/archive`),
+  getJobApplications: (jobId, params) => api.get(`/admin/jobs/${jobId}/applications`, { params }),
 
   // Verifications
   getVerifications: (params) => api.get('/admin/verifications', { params }),

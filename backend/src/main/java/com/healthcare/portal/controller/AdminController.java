@@ -206,6 +206,23 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success("Job deleted successfully", null));
     }
     
+    @PutMapping("/jobs/{id}/archive")
+    @Operation(summary = "Archive job", description = "Archives an active job")
+    public ResponseEntity<ApiResponse<Void>> archiveJob(@PathVariable Long id) {
+        adminService.archiveJob(id);
+        return ResponseEntity.ok(ApiResponse.success("Job archived successfully", null));
+    }
+    
+    @GetMapping("/jobs/{jobId}/applications")
+    @Operation(summary = "Get job applications", description = "Get all applications for a job")
+    public ResponseEntity<ApiResponse<PageResponse<JobDTO.JobApplicationResponse>>> getJobApplications(
+            @PathVariable Long jobId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageResponse<JobDTO.JobApplicationResponse> response = adminService.getJobApplications(jobId, page, size);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+    
     // User Management
     
     @GetMapping("/users")

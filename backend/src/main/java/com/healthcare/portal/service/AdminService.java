@@ -266,6 +266,42 @@ public class AdminService {
     }
     
     @Transactional
+    public void archiveJob(Long id) {
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        job.setStatus(Job.JobStatus.CLOSED);
+        jobRepository.save(job);
+    }
+    
+    @Transactional(readOnly = true)
+    public PageResponse<JobDTO.JobApplicationResponse> getJobApplications(Long jobId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "appliedAt"));
+        Page<JobApplication> applications = jobApplicationRepository.findByJobId(jobId, pageable);
+        
+        Page<JobDTO.JobApplicationResponse> responsePage = applications.map(this::mapToApplicationResponse);
+        return PageResponse.from(responsePage);
+    }
+    
+    private JobDTO.JobApplicationResponse mapToApplicationResponse(JobApplication application) {
+        JobDTO.JobApplicationResponse response = new JobDTO.JobApplicationResponse();
+        response.setId(application.getId());
+        response.setJobId(application.getJob().getId());
+        response.setJobTitle(application.getJob().getTitle());
+        response.setSeekerName(application.getSeeker().getFullName());
+        response.setSeekerEmail(application.getSeeker().getEmail());
+        response.setSeekerMobile(application.getSeeker().getMobileNumber());
+        response.setEmployerName(application.getJob().getEmployer().getFullName());
+        response.setEmployerCompany(application.getJob().getEmployer().getCompanyName());
+        response.setCvUrl(application.getCvUrl());
+        response.setCoverLetter(application.getCoverLetter());
+        response.setStatus(application.getStatus().name());
+        response.setAppliedAt(application.getAppliedAt());
+        response.setUpdatedAt(application.getUpdatedAt());
+        
+        return response;
+    }
+    
+    @Transactional
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
     }

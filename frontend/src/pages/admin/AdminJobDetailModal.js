@@ -54,6 +54,17 @@ const AdminJobDetailModal = ({ jobId, onClose, onUpdated }) => {
     }
   };
 
+  const handleArchive = async () => {
+    try {
+      await adminAPI.archiveJob(jobId);
+      toast.success('Role archived successfully');
+      fetchJob();
+      if (onUpdated) onUpdated();
+    } catch (error) {
+      toast.error('Failed to archive role');
+    }
+  };
+
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';
     return new Date(dateStr).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -262,7 +273,7 @@ const AdminJobDetailModal = ({ jobId, onClose, onUpdated }) => {
               </button>
             )}
             {job.status === 'ACTIVE' && activeTab === 'details' && (
-              <button className="px-10 py-5 bg-white text-gray-900 rounded-[1.5rem] hover:bg-gray-200 transition-all font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
+              <button onClick={handleArchive} className="px-10 py-5 bg-white text-gray-900 rounded-[1.5rem] hover:bg-gray-200 transition-all font-black text-[10px] uppercase tracking-widest flex items-center gap-3">
                 Archive Role
               </button>
             )}

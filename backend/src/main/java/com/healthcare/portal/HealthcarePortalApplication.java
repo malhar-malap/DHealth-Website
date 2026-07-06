@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
+
 /**
  * Main Application Class for Healthcare Portal
  * DH Acquisitions Marketplace - OLX x LinkedIn for Healthcare
@@ -14,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @version 1.0.0
  */
 @SpringBootApplication
+@EnableScheduling
 public class HealthcarePortalApplication {
 
     public static void main(String[] args) {
