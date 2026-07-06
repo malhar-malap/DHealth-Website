@@ -25,7 +25,7 @@ public class OpenApiConfig {
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Healthcare Portal Team")
-                                .email("support@dhacquisitions.com"))
+                                .email("support@dhacquisitions.co"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("http://www.apache.org/licenses/LICENSE-2.0")))

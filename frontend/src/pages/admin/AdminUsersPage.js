@@ -208,7 +208,7 @@ const AdminUsersPage = () => {
                       <td className="px-6 py-4">
                         <span className={`px-4 py-1.5 rounded-full text-[9px] font-black tracking-[0.15em] uppercase border ${
                           user.status === 'ACTIVE' 
-                            ? 'bg-[#E3FCF9] text-[#3a5578] border-[#f7b538]/50' 
+                            ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50' 
                             : 'bg-rose-50 text-rose-700 border-rose-200/50'
                         }`}>
                           {user.status === 'ACTIVE' ? 'Optimal' : user.status}

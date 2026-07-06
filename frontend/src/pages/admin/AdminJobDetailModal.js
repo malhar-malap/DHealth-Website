@@ -72,7 +72,7 @@ const AdminJobDetailModal = ({ jobId, onClose, onUpdated }) => {
 
   const statusColors = {
     PENDING: 'bg-amber-50 text-amber-700 border-amber-200/50',
-    ACTIVE: 'bg-[#E3FCF9] text-[#3a5578] border-[#f7b538]/50',
+    ACTIVE: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50',
     REJECTED: 'bg-rose-50 text-rose-700 border-rose-200/50',
     CLOSED: 'bg-slate-50 text-slate-700 border-slate-200/50',
   };
@@ -92,7 +92,7 @@ const AdminJobDetailModal = ({ jobId, onClose, onUpdated }) => {
 
   return (
     <div className="fixed inset-0 bg-ethereal-surface/60 backdrop-blur-sm flex items-center justify-center z-[70] p-6 animate-fadeIn">
-      <div className="glass-card bg-gray-900/95 rounded-[3rem] border-none shadow-2xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden animate-scaleIn">
+      <div className="glass-card bg-gray-900/95 rounded-[3rem] border-none shadow-2xl w-full max-w-5xl h-[96vh] flex flex-col overflow-hidden animate-scaleIn">
         {/* Header Section */}
         <div className="bg-ethereal-surface-low/30 px-12 py-10 border-b border-ethereal-surface flex items-center justify-between shrink-0">
           <div className="flex items-center gap-6">

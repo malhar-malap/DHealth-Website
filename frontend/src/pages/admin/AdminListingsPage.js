@@ -229,7 +229,7 @@ const AdminListingsPage = () => {
 
   const statusColors = {
     PENDING: 'bg-amber-100 text-amber-800 border-amber-200/50',
-    ACTIVE: 'bg-[#f7b538]/20 text-emerald-800 border-[#f7b538]/50',
+    ACTIVE: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50',
     REJECTED: 'bg-rose-100 text-rose-800 border-rose-200/50',
     EXPIRED: 'bg-slate-100 text-slate-600 border-slate-200/50',
     SOLD: 'bg-indigo-100 text-indigo-800 border-indigo-200/50',
@@ -617,6 +617,10 @@ const AdminListingsPage = () => {
           listingId={detailModalId}
           onClose={() => setDetailModalId(null)}
           onUpdated={fetchListings}
+          onVerifyClick={(listing) => {
+            setDetailModalId(null);
+            setVerifyingListing(listing);
+          }}
         />
       )}
     </div>

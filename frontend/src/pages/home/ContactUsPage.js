@@ -169,7 +169,7 @@ const ContactUsPage = () => {
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-gray-100 mb-1 tracking-wider uppercase">Email</h3>
-                    <p className="text-gray-400 font-medium hover:text-[#d8572a] transition-colors cursor-pointer">support@dhacquisitions.com</p>
+                    <p className="text-gray-400 font-medium hover:text-[#d8572a] transition-colors cursor-pointer">support@dhacquisitions.co</p>
                   </div>
                 </div>
 

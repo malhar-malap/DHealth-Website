@@ -95,7 +95,7 @@ const AdminUserDetailModal = ({ userId, onClose, onUpdated }) => {
 
   return (
     <div className="fixed inset-0 bg-ethereal-surface/60 backdrop-blur-sm flex items-center justify-center z-[70] p-6 animate-fadeIn">
-      <div className="glass-card bg-gray-900/95 rounded-[3rem] border-none shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-scaleIn">
+      <div className="glass-card bg-gray-900/95 rounded-[3rem] border-none shadow-2xl w-full max-w-5xl h-[96vh] flex flex-col overflow-hidden animate-scaleIn">
         {/* Identity Header */}
         <div className="bg-ethereal-primary px-12 py-10 text-white relative flex items-center justify-between shrink-0 overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-gray-900/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
@@ -110,7 +110,7 @@ const AdminUserDetailModal = ({ userId, onClose, onUpdated }) => {
               <h2 className="text-4xl display-title tracking-tighter uppercase leading-none mb-3">{profile.fullName}</h2>
               <div className="flex items-center gap-4">
                 <span className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border border-gray-900/20 ${
-                  profile.status === 'ACTIVE' ? 'bg-[#d8572a]/20 text-[#f7b538]/20' : 'bg-rose-500/20 text-rose-100'
+                  profile.status === 'ACTIVE' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50' : 'bg-rose-500/20 text-rose-100'
                 }`}>
                   {profile.status}
                 </span>

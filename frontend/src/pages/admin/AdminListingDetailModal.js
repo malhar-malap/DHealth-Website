@@ -4,7 +4,7 @@ import { formatPrice } from '../../utils/formatPrice';
 import toast from 'react-hot-toast';
 import { FiX, FiEdit2, FiSave, FiMapPin, FiDollarSign, FiCalendar, FiUser, FiMail, FiUpload, FiCheck } from 'react-icons/fi';
 
-const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
+const AdminListingDetailModal = ({ listingId, onClose, onUpdated, onVerifyClick }) => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
@@ -12,10 +12,6 @@ const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
   const [editData, setEditData] = useState({});
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
-  const [approveMode, setApproveMode] = useState(false);
-  const [uniqueCode, setUniqueCode] = useState('');
-  const [approveImageUrl, setApproveImageUrl] = useState('');
-  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     fetchListing();
@@ -70,47 +66,9 @@ const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
     setSaving(false);
   };
 
-  const handleApproveImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploadingImage(true);
-    try {
-      const response = await mediaAPI.upload(file);
-      const url = response.data.data || response.data;
-      setApproveImageUrl(url);
-      toast.success('Image uploaded');
-    } catch (error) {
-      toast.error('Image upload failed');
-      console.error(error);
-    }
-    setUploadingImage(false);
-  };
-
-  const handleApprove = async () => {
-    if (!approveMode) {
-      setApproveMode(true);
-      setUniqueCode('');
-      setApproveImageUrl('');
-      return;
-    }
-    if (!uniqueCode.trim()) {
-      toast.error('Please enter a unique code');
-      return;
-    }
-    if (!approveImageUrl) {
-      toast.error('Please upload a sample image');
-      return;
-    }
-    try {
-      await adminAPI.approveListing(listingId, uniqueCode.trim(), [approveImageUrl]);
-      toast.success('Listing approved with code: ' + uniqueCode.trim());
-      setApproveMode(false);
-      setUniqueCode('');
-      setApproveImageUrl('');
-      fetchListing();
-      if (onUpdated) onUpdated();
-    } catch (error) {
-      toast.error('Failed to approve');
+  const handleApprove = () => {
+    if (onVerifyClick && listing) {
+      onVerifyClick(listing);
     }
   };
 
@@ -123,7 +81,7 @@ const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
 
   const statusColors = {
     PENDING: 'bg-amber-50 text-amber-700 border-amber-200/50',
-    ACTIVE: 'bg-[#E3FCF9] text-[#3a5578] border-[#f7b538]/50',
+    ACTIVE: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50',
     REJECTED: 'bg-rose-50 text-rose-700 border-rose-200/50',
     EXPIRED: 'bg-slate-50 text-slate-700 border-slate-200/50',
     SOLD: 'bg-indigo-50 text-indigo-700 border-indigo-200/50',
@@ -145,7 +103,7 @@ const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
 
   return (
     <div className="fixed inset-0 bg-ethereal-surface/60 backdrop-blur-sm flex items-center justify-center z-50 p-6 animate-fadeIn">
-      <div className="glass-card bg-gray-900/90 rounded-[2.5rem] border-none shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col animate-scaleIn">
+      <div className="glass-card bg-gray-900/90 rounded-[2.5rem] border-none shadow-2xl w-full max-w-5xl h-[96vh] overflow-hidden flex flex-col animate-scaleIn">
         {/* Header */}
         <div className="px-10 py-8 border-b border-ethereal-surface flex items-center justify-between shrink-0">
           <div className="flex flex-col gap-1">
@@ -376,71 +334,12 @@ const AdminListingDetailModal = ({ listingId, onClose, onUpdated }) => {
         {/* Dynamic Footer Actions */}
         {!editing && listing.status === 'PENDING' && (
           <div className="shrink-0 bg-ethereal-surface px-10 py-8 border-t border-ethereal-surface">
-            {approveMode ? (
-              <div className="space-y-6">
-                {/* Unique Code */}
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-primary opacity-60 block mb-2">Unique Code</label>
-                  <input
-                    type="text"
-                    value={uniqueCode}
-                    onChange={(e) => setUniqueCode(e.target.value)}
-                    placeholder="e.g. DH-HOS-001"
-                    autoFocus
-                    className="w-full px-6 py-4 bg-gray-900 border border-ethereal-surface rounded-[1.2rem] focus:ring-4 focus:ring-ethereal-primary/20 transition-all outline-none text-base font-bold tracking-wider"
-                  />
-                </div>
-
-                {/* Sample Image Upload */}
-                <div>
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-ethereal-primary opacity-60 block mb-2">Sample Image</label>
-                  {approveImageUrl ? (
-                    <div className="relative group">
-                      <img src={`https://dhacquisitions.co${approveImageUrl}`} alt="Sample" className="w-full h-36 object-cover rounded-[1.2rem] border border-ethereal-surface" />
-                      <button onClick={() => setApproveImageUrl('')}
-                        className="absolute top-2 right-2 p-1.5 bg-gray-900/80 text-white rounded-lg hover:bg-rose-600 transition-all opacity-0 group-hover:opacity-100">
-                        <FiX className="w-3 h-3" />
-                      </button>
-                      <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-emerald-600/90 text-white text-[8px] font-black uppercase tracking-widest rounded-full flex items-center gap-1">
-                        <FiCheck className="w-2.5 h-2.5" /> Uploaded
-                      </div>
-                    </div>
-                  ) : (
-                    <label className="flex flex-col items-center justify-center w-full h-28 bg-gray-900 border-2 border-dashed border-ethereal-surface-low rounded-[1.2rem] cursor-pointer hover:border-ethereal-primary/30 transition-all">
-                      <input type="file" accept="image/*" onChange={handleApproveImageUpload} className="hidden" />
-                      {uploadingImage ? (
-                        <>
-                          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-ethereal-primary"></div>
-                          <p className="text-[9px] font-black uppercase tracking-widest text-ethereal-on-surface-variant mt-2">Uploading...</p>
-                        </>
-                      ) : (
-                        <>
-                          <FiUpload className="w-6 h-6 text-ethereal-on-surface-variant opacity-40 mb-1" />
-                          <p className="text-[9px] font-black uppercase tracking-widest text-ethereal-on-surface-variant opacity-60">Upload sample image</p>
-                        </>
-                      )}
-                    </label>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex justify-end gap-3 pt-2">
-                  <button onClick={() => { setApproveMode(false); setApproveImageUrl(''); }}
-                    className="btn-ethereal-secondary">Cancel</button>
-                  <button onClick={handleApprove} disabled={uploadingImage}
-                    className="px-10 py-5 bg-[#db7c26] text-white rounded-[1.5rem] hover:bg-[#3a5578] shadow-xl shadow-[#db7c26]/20 transition-all font-black text-[10px] uppercase tracking-widest disabled:opacity-50">
-                    Approve & Publish
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-end">
-                <button onClick={handleApprove}
-                  className="px-10 py-5 bg-[#db7c26] text-white rounded-[1.5rem] hover:bg-[#3a5578] shadow-xl shadow-[#db7c26]/20 transition-all font-black text-[10px] uppercase tracking-widest">
-                  Validate Listing
-                </button>
-              </div>
-            )}
+            <div className="flex justify-end">
+              <button onClick={handleApprove}
+                className="px-10 py-5 bg-[#db7c26] text-white rounded-[1.5rem] hover:bg-[#3a5578] shadow-xl shadow-[#db7c26]/20 transition-all font-black text-[10px] uppercase tracking-widest">
+                Validate Listing
+              </button>
+            </div>
           </div>
         )}
       </div>
