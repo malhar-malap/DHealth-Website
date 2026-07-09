@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { adminAPI } from '../../services/api';
-import { FiUsers, FiList, FiBriefcase, FiMail, FiCheck, FiX, FiEye, FiCreditCard, FiChevronRight } from 'react-icons/fi';
+import { FiUsers, FiList, FiBriefcase, FiMail, FiCheck, FiX, FiEye, FiCreditCard, FiChevronRight, FiCheckSquare, FiAward, FiShield } from 'react-icons/fi';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
             <div className="grid gap-4">
               <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
-                  <div className="p-4 rounded-2xl bg-orange-100/50 text-orange-600"><FiList size={22} /></div>
+                  <div className="p-4 rounded-2xl bg-orange-500/20 text-orange-400 border border-orange-500/20"><FiCheckSquare size={22} /></div>
                   <div>
                     <p className="font-bold text-ethereal-on-surface">Listings Vetting</p>
                     <p className="text-xs font-medium text-ethereal-on-surface-variant opacity-60">{stats?.pendingListings || 0} assets awaiting clinical verification</p>
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
               </div>
               <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
-                  <div className="p-4 rounded-2xl bg-purple-100/50 text-purple-600"><FiBriefcase size={22} /></div>
+                  <div className="p-4 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/20"><FiAward size={22} /></div>
                   <div>
                     <p className="font-bold text-ethereal-on-surface">Career Path Approval</p>
                     <p className="text-xs font-medium text-ethereal-on-surface-variant opacity-60">{stats?.pendingJobs || 0} professional roles in processing</p>
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
               </div>
               <div className="flex items-center justify-between p-6 bg-gray-900/50 border border-white/5 rounded-3xl group hover:bg-gray-800/80 hover:border-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                 <div className="flex items-center gap-5">
-                  <div className="p-4 rounded-2xl bg-blue-100/50 text-blue-600"><FiUsers size={22} /></div>
+                  <div className="p-4 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/20"><FiShield size={22} /></div>
                   <div>
                     <p className="font-bold text-ethereal-on-surface">KYC Integrity Suite</p>
                     <p className="text-xs font-medium text-ethereal-on-surface-variant opacity-60">{stats?.pendingVerifications || 0} buyer identity requests</p>
