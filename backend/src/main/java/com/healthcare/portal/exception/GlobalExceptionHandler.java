@@ -39,6 +39,20 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error("Validation failed", errors));
     }
     
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleDataIntegrityViolationException(org.springframework.dao.DataIntegrityViolationException ex) {
+        String message = "A database error occurred. This could be due to a duplicate unique code or email.";
+        if (ex.getCause() != null && ex.getCause().getCause() != null) {
+            String causeMessage = ex.getCause().getCause().getMessage();
+            if (causeMessage != null && (causeMessage.contains("unique_code") || causeMessage.contains("Duplicate entry"))) {
+                message = "The unique code entered already exists. Please use a different one.";
+            }
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(message));
+    }
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGenericException(Exception ex) {
         return ResponseEntity
