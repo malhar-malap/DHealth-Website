@@ -423,6 +423,7 @@ public class JobService {
         jobRepository.save(job);
         
         AuditLog log = new AuditLog();
+        log.setUserId(job.getEmployer().getId());
         log.setAction("CLOSE_OWN_JOB");
         log.setEntityType("Job");
         log.setEntityId(jobId);

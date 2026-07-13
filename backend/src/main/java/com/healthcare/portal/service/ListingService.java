@@ -561,7 +561,7 @@ public class ListingService {
     @Transactional
     public void closeListing(Long id, Long sellerId, String reason) {
         Listing listing = listingRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Listing", "id", id));
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
 
         // Ensure the listing belongs to the current user
         if (!listing.getUser().getId().equals(sellerId)) {
