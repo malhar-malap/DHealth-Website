@@ -58,7 +58,7 @@ const ConfirmationModal = ({
                         <textarea
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
-                            className="w-full bg-ethereal-surface-light border border-ethereal-surface text-white rounded-2xl p-4 min-h-[100px] focus:outline-none focus:border-ethereal-primary transition-colors"
+                            className="w-full bg-gray-900 border border-gray-700 text-gray-100 rounded-2xl p-4 min-h-[100px] focus:outline-none focus:border-ethereal-primary transition-colors"
                             placeholder="Please provide a brief reason..."
                         />
                     </div>
