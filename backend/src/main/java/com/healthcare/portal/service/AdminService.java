@@ -181,9 +181,13 @@ public class AdminService {
     @Transactional
     @LogActivity(action = "DELETE_LISTING", entityType = "Listing")
     public void deleteListing(Long id) {
+        Listing listing = listingRepository.findById(id).orElse(null);
         inquiryRepository.deleteByListingId(id);
         paymentRepository.deleteByListingId(id);
         listingRepository.deleteById(id);
+        if (listing != null && listing.getUser() != null) {
+            emailService.sendItemDeletedEmail(listing.getUser().getEmail(), listing.getUser().getFullName(), "Listing", listing.getTitle());
+        }
     }
     
     @Transactional
@@ -310,7 +314,11 @@ public class AdminService {
     @Transactional
     @LogActivity(action = "DELETE_JOB", entityType = "Job")
     public void deleteJob(Long id) {
+        Job job = jobRepository.findById(id).orElse(null);
         jobRepository.deleteById(id);
+        if (job != null && job.getEmployer() != null) {
+            emailService.sendItemDeletedEmail(job.getEmployer().getEmail(), job.getEmployer().getFullName(), "Job Posting", job.getTitle());
+        }
     }
     
     // User Management

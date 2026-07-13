@@ -280,4 +280,99 @@ public class EmailService {
             log.error("Failed to send email to: {} — Error: {}", to, e.getMessage());
         }
     }
+
+    // ========== Approval/Rejection Notifications ==========
+    @Async
+    public void sendListingApprovedEmail(String toEmail, String fullName, String listingTitle) {
+        String subject = "Your Listing has been Approved — DH Acquisitions";
+        String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
+            + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
+            + "<div style='background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center;border-bottom:3px solid #10b981;'>"
+            + "<h1 style='color:#10b981;margin:0;font-size:28px;'>✅ Listing Approved</h1>"
+            + "</div>"
+            + "<div style='padding:30px;'>"
+            + "<h2 style='color:#e5e7eb;'>Hello " + fullName + ",</h2>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Great news! Your listing <strong>" + listingTitle + "</strong> has been approved by our team.</p>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>It is now live on our marketplace and visible to potential buyers.</p>"
+            + "<div style='text-align:center;margin:30px 0;'>"
+            + "<a href='https://dhacquisitions.co/dashboard' style='background:#10b981;color:#ffffff;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View in Dashboard</a>"
+            + "</div>"
+            + "</div></div></body></html>";
+        sendHtmlEmail(toEmail, subject, body);
+    }
+
+    @Async
+    public void sendListingRejectedEmail(String toEmail, String fullName, String listingTitle, String reason) {
+        String subject = "Update on Your Listing — DH Acquisitions";
+        String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
+            + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
+            + "<div style='background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center;border-bottom:3px solid #ef4444;'>"
+            + "<h1 style='color:#ef4444;margin:0;font-size:28px;'>⚠️ Listing Rejected</h1>"
+            + "</div>"
+            + "<div style='padding:30px;'>"
+            + "<h2 style='color:#e5e7eb;'>Hello " + fullName + ",</h2>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Unfortunately, your listing <strong>" + listingTitle + "</strong> could not be approved at this time.</p>"
+            + "<div style='background:#1e293b;border-left:4px solid #ef4444;padding:15px;margin:20px 0;'>"
+            + "<h3 style='color:#ef4444;margin-top:0;font-size:15px;'>Reason for Rejection:</h3>"
+            + "<p style='color:#d1d5db;margin:0;'>" + reason + "</p>"
+            + "</div>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Please review the feedback and update your listing in the dashboard to submit it again.</p>"
+            + "</div></div></body></html>";
+        sendHtmlEmail(toEmail, subject, body);
+    }
+
+    @Async
+    public void sendJobApprovedEmail(String toEmail, String fullName, String jobTitle) {
+        String subject = "Your Job Posting has been Approved — DH Acquisitions";
+        String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
+            + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
+            + "<div style='background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center;border-bottom:3px solid #10b981;'>"
+            + "<h1 style='color:#10b981;margin:0;font-size:28px;'>✅ Job Approved</h1>"
+            + "</div>"
+            + "<div style='padding:30px;'>"
+            + "<h2 style='color:#e5e7eb;'>Hello " + fullName + ",</h2>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Great news! Your job posting for <strong>" + jobTitle + "</strong> has been approved by our team.</p>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>It is now live on our platform and visible to job seekers.</p>"
+            + "<div style='text-align:center;margin:30px 0;'>"
+            + "<a href='https://dhacquisitions.co/dashboard' style='background:#10b981;color:#ffffff;padding:14px 30px;text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;'>View in Dashboard</a>"
+            + "</div>"
+            + "</div></div></body></html>";
+        sendHtmlEmail(toEmail, subject, body);
+    }
+
+    @Async
+    public void sendJobRejectedEmail(String toEmail, String fullName, String jobTitle, String reason) {
+        String subject = "Update on Your Job Posting — DH Acquisitions";
+        String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
+            + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
+            + "<div style='background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center;border-bottom:3px solid #ef4444;'>"
+            + "<h1 style='color:#ef4444;margin:0;font-size:28px;'>⚠️ Job Rejected</h1>"
+            + "</div>"
+            + "<div style='padding:30px;'>"
+            + "<h2 style='color:#e5e7eb;'>Hello " + fullName + ",</h2>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Unfortunately, your job posting for <strong>" + jobTitle + "</strong> could not be approved at this time.</p>"
+            + "<div style='background:#1e293b;border-left:4px solid #ef4444;padding:15px;margin:20px 0;'>"
+            + "<h3 style='color:#ef4444;margin-top:0;font-size:15px;'>Reason for Rejection:</h3>"
+            + "<p style='color:#d1d5db;margin:0;'>" + reason + "</p>"
+            + "</div>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>Please review the feedback and update your job posting in the dashboard to submit it again.</p>"
+            + "</div></div></body></html>";
+        sendHtmlEmail(toEmail, subject, body);
+    }
+
+    @Async
+    public void sendItemDeletedEmail(String toEmail, String fullName, String itemType, String itemTitle) {
+        String subject = "Notice of Deletion: " + itemTitle + " — DH Acquisitions";
+        String body = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;margin:0;padding:0;background:#0c1222;'>"
+            + "<div style='max-width:600px;margin:30px auto;background:#111827;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3);'>"
+            + "<div style='background:linear-gradient(135deg,#1a1a2e,#16213e);padding:30px;text-align:center;border-bottom:3px solid #ef4444;'>"
+            + "<h1 style='color:#ef4444;margin:0;font-size:28px;'>⚠️ " + itemType + " Deleted</h1>"
+            + "</div>"
+            + "<div style='padding:30px;'>"
+            + "<h2 style='color:#e5e7eb;'>Hello " + fullName + ",</h2>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>This is a notice that your " + itemType.toLowerCase() + " <strong>" + itemTitle + "</strong> has been removed from our platform by an administrator.</p>"
+            + "<p style='color:#9ca3af;font-size:16px;line-height:1.6;'>If you believe this was a mistake or have any questions, please contact our support team.</p>"
+            + "</div></div></body></html>";
+        sendHtmlEmail(toEmail, subject, body);
+    }
 }

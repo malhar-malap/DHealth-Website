@@ -34,9 +34,10 @@ public class ListingService {
     private final InquiryRepository inquiryRepository;
     private final PaymentRepository paymentRepository;
     private final AuditLogService auditLogService;
+    private final EmailService emailService;
 
     @Autowired
-    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository, InquiryRepository inquiryRepository, PaymentRepository paymentRepository, AuditLogService auditLogService) {
+    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository, InquiryRepository inquiryRepository, PaymentRepository paymentRepository, AuditLogService auditLogService, EmailService emailService) {
         this.listingRepository = listingRepository;
         this.categoryRepository = categoryRepository;
         this.dealTypeRepository = dealTypeRepository;
@@ -53,6 +54,7 @@ public class ListingService {
         this.inquiryRepository = inquiryRepository;
         this.paymentRepository = paymentRepository;
         this.auditLogService = auditLogService;
+        this.emailService = emailService;
     }
     
     public PageResponse<ListingDTO.ListingSummaryResponse> searchListings(ListingDTO.ListingSearchRequest request) {
@@ -271,6 +273,7 @@ public class ListingService {
             }
         }
         listingRepository.save(listing);
+        emailService.sendListingApprovedEmail(listing.getUser().getEmail(), listing.getUser().getFullName(), listing.getTitle());
     }
     
     @Transactional
@@ -280,6 +283,7 @@ public class ListingService {
         listing.setStatus(Listing.ListingStatus.REJECTED);
         listing.setRejectionReason(reason);
         listingRepository.save(listing);
+        emailService.sendListingRejectedEmail(listing.getUser().getEmail(), listing.getUser().getFullName(), listing.getTitle(), reason);
     }
     
     @Transactional

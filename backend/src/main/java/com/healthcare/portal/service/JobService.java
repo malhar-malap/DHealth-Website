@@ -293,6 +293,7 @@ public class JobService {
                 .orElseThrow(() -> new RuntimeException("Job not found"));
         job.setStatus(Job.JobStatus.ACTIVE);
         jobRepository.save(job);
+        emailService.sendJobApprovedEmail(job.getEmployer().getEmail(), job.getEmployer().getFullName(), job.getTitle());
     }
     
     @Transactional
@@ -301,6 +302,7 @@ public class JobService {
                 .orElseThrow(() -> new RuntimeException("Job not found"));
         job.setStatus(Job.JobStatus.CLOSED);
         jobRepository.save(job);
+        emailService.sendJobRejectedEmail(job.getEmployer().getEmail(), job.getEmployer().getFullName(), job.getTitle(), reason);
     }
     
     private JobDTO.JobSummaryResponse mapToSummaryResponse(Job job) {

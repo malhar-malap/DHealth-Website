@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { jobsAPI, masterAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-hot-toast';
 
 const CreateJobPage = () => {
   const navigate = useNavigate();
@@ -93,10 +94,10 @@ const CreateJobPage = () => {
 
       if (isEditMode) {
         await jobsAPI.update(id, payload);
-        setSuccess('Job updated successfully!');
+        toast.success('Job updated successfully!');
       } else {
         await jobsAPI.create(payload);
-        setSuccess('Job posted successfully! It will be reviewed by admin.');
+        toast.success('Job posted successfully! Please wait for admins to review and approve it.', { duration: 5000 });
       }
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
@@ -139,7 +140,6 @@ const CreateJobPage = () => {
         ) : error ? (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>
         ) : null}
-        {success && <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">{success}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-6 bg-gray-900 p-6 rounded-xl shadow-sm border">
           {/* Job Title */}

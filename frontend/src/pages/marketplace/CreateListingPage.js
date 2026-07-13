@@ -193,7 +193,7 @@ const CreateListingPage = () => {
         toast.success('Listing updated successfully!');
       } else {
         await listingsAPI.create(payload);
-        toast.success('Listing created successfully!');
+        toast.success('Listing posted successfully! Please wait for admins to review and approve it.', { duration: 5000 });
       }
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
