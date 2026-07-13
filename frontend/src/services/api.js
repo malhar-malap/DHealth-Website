@@ -139,6 +139,7 @@ export const adminAPI = {
   getDashboardStats: () => api.get('/admin/dashboard'),
   getListingStats: () => api.get('/admin/listings/stats'),
   getUserStats: () => api.get('/admin/users/stats'),
+  getAuditLogs: (params) => api.get('/admin/audit-logs', { params }),
   getListings: (params) => api.get('/admin/listings', { params }),
   getListingById: (id) => api.get(`/admin/listings/${id}`),
   editListing: (id, data) => api.put(`/admin/listings/${id}`, data),

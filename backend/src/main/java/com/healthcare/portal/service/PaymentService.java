@@ -126,10 +126,12 @@ public class PaymentService {
         }
     }
 
+
     /**
      * Verify Razorpay payment signature and unlock seller contact details
      */
     @Transactional
+    @LogActivity(action = "VERIFY_PAYMENT", entityType = "Payment")
     public PaymentDTO.PaymentResponse verifyPayment(PaymentDTO.VerifyPaymentRequest request, Long buyerId) {
         // Find the payment record
         Payment payment = paymentRepository.findByRazorpayOrderId(request.getRazorpayOrderId())

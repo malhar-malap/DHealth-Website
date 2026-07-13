@@ -139,6 +139,7 @@ const AdminDashboard = () => {
               { to: '/admin/verifications', icon: FiCheck, label: 'Trust Gateway', color: 'from-orange-500 to-red-600' },
               { to: '/admin/payments', icon: FiCreditCard, label: 'Financial Core', color: 'from-emerald-500 to-teal-600' },
               { to: '/admin/contact-messages', icon: FiMail, label: 'Contact Messages', color: 'from-cyan-500 to-blue-600' },
+              { to: '/admin/logs', icon: FiShield, label: 'System Logs', color: 'from-slate-500 to-gray-600' },
             ].map((link) => (
               <Link 
                   key={link.label} 

@@ -34,6 +34,7 @@ import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminVerificationsPage from './pages/admin/AdminVerificationsPage';
 import AdminPaymentsPage from './pages/admin/AdminPaymentsPage';
 import AdminContactMessagesPage from './pages/admin/AdminContactMessagesPage';
+import AdminLogsPage from './pages/admin/AdminLogsPage';
 
 // Additional Pages (remaining placeholders)
 import {
@@ -110,6 +111,7 @@ function App() {
               <Route path="verifications" element={<AdminVerificationsPage />} />
               <Route path="payments" element={<AdminPaymentsPage />} />
               <Route path="contact-messages" element={<AdminContactMessagesPage />} />
+              <Route path="logs" element={<AdminLogsPage />} />
             </Route>
           </Routes>
         </main>
