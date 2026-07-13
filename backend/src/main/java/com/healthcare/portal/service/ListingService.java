@@ -559,22 +559,28 @@ public class ListingService {
     }
 
     @Transactional
-    public void closeListing(Long listingId, Long sellerId, String reason) {
-        Listing listing = listingRepository.findById(listingId)
-                .orElseThrow(() -> new RuntimeException("Listing not found"));
-        
-        if (!listing.getSeller().getId().equals(sellerId)) {
-            throw new RuntimeException("You do not have permission to close this listing");
+    public void closeListing(Long id, Long sellerId, String reason) {
+        Listing listing = listingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Listing", "id", id));
+
+        // Ensure the listing belongs to the current user
+        if (!listing.getUser().getId().equals(sellerId)) {
+            throw new org.springframework.security.access.AccessDeniedException("You do not have permission to close this listing.");
         }
-        
+
+        if (listing.getStatus() != Listing.ListingStatus.ACTIVE) {
+            throw new IllegalStateException("Only active listings can be closed.");
+        }
+
         listing.setStatus(Listing.ListingStatus.WITHDRAWN);
         listingRepository.save(listing);
-        
+
         AuditLog log = new AuditLog();
+        log.setUserId(listing.getUser().getId());
         log.setAction("CLOSE_OWN_LISTING");
         log.setEntityType("Listing");
-        log.setEntityId(listingId);
-        log.setActorName(listing.getSeller().getFullName());
+        log.setEntityId(id);
+        log.setActorName(listing.getUser().getFullName());
         log.setTargetName(listing.getTitle());
         log.setDetails("Reason: " + reason);
         auditLogService.saveLogAsync(log);
