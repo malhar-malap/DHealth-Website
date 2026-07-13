@@ -32,11 +32,11 @@ public class AuditLogService {
 
     public Page<AuditLog> getAuditLogs(Long userId, String action, Pageable pageable) {
         if (userId != null && action != null && !action.isEmpty()) {
-            return auditLogRepository.findByUserIdAndAction(userId, action, pageable);
+            return auditLogRepository.findByUserIdAndActionContainingIgnoreCase(userId, action, pageable);
         } else if (userId != null) {
             return auditLogRepository.findByUserId(userId, pageable);
         } else if (action != null && !action.isEmpty()) {
-            return auditLogRepository.findByAction(action, pageable);
+            return auditLogRepository.findByActionContainingIgnoreCase(action, pageable);
         }
         return auditLogRepository.findAll(pageable);
     }

@@ -55,7 +55,8 @@ const AdminLogsPage = () => {
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
-    const date = new Date(dateString);
+    const dateStr = dateString.endsWith('Z') ? dateString : `${dateString}Z`;
+    const date = new Date(dateStr);
     return date.toLocaleString();
   };
 

@@ -41,8 +41,14 @@ export const AuthProvider = ({ children }) => {
         try {
           const res = await authAPI.getCurrentUser();
           if (res.data?.data) {
-            setUser(res.data.data);
-            localStorage.setItem('user', JSON.stringify(res.data.data));
+            const freshUser = res.data.data;
+            if (freshUser.status === 'SUSPENDED') {
+                toast.error("Your account has been suspended. For more info contact us.");
+                logout();
+                return;
+            }
+            setUser(freshUser);
+            localStorage.setItem('user', JSON.stringify(freshUser));
           }
         } catch (fetchErr) {
           console.error("Silent auth sync failed:", fetchErr);

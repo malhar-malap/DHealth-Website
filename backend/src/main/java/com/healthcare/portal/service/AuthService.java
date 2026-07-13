@@ -119,6 +119,10 @@ public class AuthService {
         User user = userRepository.findByEmailWithRoles(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         
+        if (user.getStatus() == User.UserStatus.SUSPENDED) {
+            throw new RuntimeException("Your account has been suspended, unable to login. For more info contact us.");
+        }
+        
         // Update last login
         user.setLastLoginAt(java.time.LocalDateTime.now());
         userRepository.save(user);
