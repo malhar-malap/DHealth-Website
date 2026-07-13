@@ -164,10 +164,10 @@ export const adminAPI = {
   // Users
   getUsers: (params) => api.get('/admin/users', { params }),
   getUserDetails: (userId) => api.get(`/admin/users/${userId}`),
+  changeUserRole: (userId, data) => api.put(`/admin/users/${userId}/roles`, data),
   suspendUser: (userId, reason) => api.post(`/admin/users/${userId}/suspend`, { reason }),
   activateUser: (userId) => api.post(`/admin/users/${userId}/activate`),
   deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
-  changeUserRole: (userId, data) => api.put(`/admin/users/${userId}/roles`, data),
 
   // Payments
   getPayments: (params) => api.get('/admin/payments', { params }),

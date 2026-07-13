@@ -136,7 +136,6 @@ const AdminDashboard = () => {
               { to: '/admin/listings', icon: FiList, label: 'Asset Library', color: 'from-blue-500 to-indigo-600' },
               { to: '/admin/jobs', icon: FiBriefcase, label: 'Talent Pool', color: 'from-purple-500 to-pink-600' },
               { to: '/admin/users', icon: FiUsers, label: 'Entity Directory', color: 'from-[#d8572a] to-[#db7c26]' },
-              { to: '/admin/verifications', icon: FiCheck, label: 'Trust Gateway', color: 'from-orange-500 to-red-600' },
               { to: '/admin/payments', icon: FiCreditCard, label: 'Financial Core', color: 'from-emerald-500 to-teal-600' },
               { to: '/admin/contact-messages', icon: FiMail, label: 'Contact Messages', color: 'from-cyan-500 to-blue-600' },
               { to: '/admin/logs', icon: FiShield, label: 'System Logs', color: 'from-slate-500 to-gray-600' },

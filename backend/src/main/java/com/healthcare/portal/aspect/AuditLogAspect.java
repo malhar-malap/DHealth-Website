@@ -6,8 +6,8 @@ import com.healthcare.portal.entity.User;
 import com.healthcare.portal.repository.UserRepository;
 import com.healthcare.portal.service.AuditLogService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,28 +29,53 @@ public class AuditLogAspect {
     @Autowired
     private UserRepository userRepository;
 
-    @AfterReturning(pointcut = "@annotation(logActivity)", returning = "result")
-    public void logActivity(JoinPoint joinPoint, LogActivity logActivity, Object result) {
+    @Around("@annotation(logActivity)")
+    public Object logActivity(ProceedingJoinPoint joinPoint, LogActivity logActivity) throws Throwable {
+        String targetName = null;
+        Long entityId = null;
+
+        // Extract entityId if first argument is Long
+        Object[] args = joinPoint.getArgs();
+        if (args.length > 0 && args[0] instanceof Long) {
+            entityId = (Long) args[0];
+            if ("User".equals(logActivity.entityType())) {
+                Optional<User> targetUser = userRepository.findById(entityId);
+                if (targetUser.isPresent()) {
+                    targetName = targetUser.get().getFullName();
+                }
+            }
+        }
+
+        // Execute the method
+        Object result = joinPoint.proceed();
+
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
-                return;
+                return result;
             }
 
             String email = authentication.getName();
             Optional<User> userOpt = userRepository.findByEmail(email);
             if (!userOpt.isPresent()) {
-                return;
+                return result;
             }
-            Long userId = userOpt.get().getId();
+            User actor = userOpt.get();
+            Long userId = actor.getId();
+            String actorName = actor.getFullName();
+
+            // If actor is the same as target, empty the targetName as requested
+            if (targetName != null && targetName.equals(actorName)) {
+                targetName = null;
+            }
 
             AuditLog log = new AuditLog();
             log.setUserId(userId);
+            log.setActorName(actorName);
             log.setAction(logActivity.action());
             log.setEntityType(logActivity.entityType());
-
-            // Try to extract entity ID from method arguments if possible, or just log basic details
-            // For simplicity, we just save the action.
+            log.setEntityId(entityId);
+            log.setTargetName(targetName);
             log.setDetails("Method: " + joinPoint.getSignature().getName());
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -67,5 +92,7 @@ public class AuditLogAspect {
         } catch (Exception e) {
             System.err.println("Error in AuditLogAspect: " + e.getMessage());
         }
+
+        return result;
     }
 }

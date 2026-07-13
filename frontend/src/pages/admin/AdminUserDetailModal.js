@@ -54,30 +54,43 @@ const AdminUserDetailModal = ({ userId, onClose, onUpdated }) => {
     }
   };
 
-  const handleStatusChange = async (action) => {
-    const confirmMsg = action === 'suspend' 
-      ? 'Are you sure you want to suspend this account?' 
-      : 'Are you sure you want to reactivate this account?';
-    
-    if (!window.confirm(confirmMsg)) return;
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null); // 'suspend', 'activate', 'delete'
+  const [actionReason, setActionReason] = useState('');
 
+  const executeStatusChange = async () => {
+    if ((confirmAction === 'suspend' || confirmAction === 'delete') && !actionReason.trim()) {
+      toast.error('Reason is required');
+      return;
+    }
     setActionLoading(true);
     try {
-      if (action === 'suspend') {
-        const reason = window.prompt('Enter reason for suspension:');
-        if (reason === null) return;
-        await adminAPI.suspendUser(userId, { reason });
-      } else {
+      if (confirmAction === 'suspend') {
+        await adminAPI.suspendUser(userId, actionReason);
+      } else if (confirmAction === 'activate') {
         await adminAPI.activateUser(userId);
+      } else if (confirmAction === 'delete') {
+        await adminAPI.deleteUser(userId);
+        toast.success(`User deleted successfully`);
+        onUpdated();
+        onClose();
+        return;
       }
-      toast.success(`User ${action}ed successfully`);
+      toast.success(`User ${confirmAction}d successfully`);
       onUpdated();
-      onClose();
+      setShowConfirmModal(false);
+      setActionReason('');
     } catch (error) {
-      toast.error(`Failed to ${action} user`);
+      toast.error(`Failed to ${confirmAction} user`);
     } finally {
       setActionLoading(false);
     }
+  };
+
+  const handleStatusChange = (action) => {
+    setConfirmAction(action);
+    setActionReason('');
+    setShowConfirmModal(true);
   };
 
   if (loading) {
@@ -218,7 +231,7 @@ const AdminUserDetailModal = ({ userId, onClose, onUpdated }) => {
                     <FiCheck className="w-4 h-4" /> Restore Access
                   </button>
                 )}
-                <button onClick={() => { if(window.confirm('CRITICAL: Are you sure you want to PERMANENTLY delete this user? This cannot be undone.')) { /* handle delete */ }}}
+                <button onClick={() => handleStatusChange('delete')}
                   className="px-8 py-4 bg-ethereal-surface text-ethereal-on-surface-variant rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all">
                   Erase Data History
                 </button>
@@ -267,6 +280,55 @@ const AdminUserDetailModal = ({ userId, onClose, onUpdated }) => {
           )}
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[80] p-6 animate-fadeIn">
+          <div className="glass-card bg-gray-900 rounded-[2rem] p-8 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-4">
+              {confirmAction === 'suspend' && 'Suspend User Account'}
+              {confirmAction === 'activate' && 'Activate User Account'}
+              {confirmAction === 'delete' && 'Delete User Account'}
+            </h3>
+            <p className="text-sm text-gray-400 mb-6">
+              {confirmAction === 'suspend' && 'Are you sure you want to suspend this account? They will lose access to the platform.'}
+              {confirmAction === 'activate' && 'Are you sure you want to restore access for this account?'}
+              {confirmAction === 'delete' && 'CRITICAL: Are you sure you want to PERMANENTLY delete this user? This cannot be undone.'}
+            </p>
+            
+            {(confirmAction === 'suspend' || confirmAction === 'delete') && (
+              <div className="mb-6">
+                <label className="block text-xs font-medium text-gray-400 mb-2">Reason (Required)</label>
+                <textarea
+                  value={actionReason}
+                  onChange={(e) => setActionReason(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-ethereal-primary"
+                  placeholder="Enter reason..."
+                  rows="3"
+                />
+              </div>
+            )}
+            
+            <div className="flex gap-3 justify-end">
+              <button 
+                onClick={() => setShowConfirmModal(false)}
+                className="px-6 py-2 rounded-xl text-sm font-bold text-gray-400 hover:bg-gray-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={executeStatusChange}
+                disabled={actionLoading}
+                className={`px-6 py-2 rounded-xl text-sm font-bold text-white transition-colors ${
+                  confirmAction === 'delete' ? 'bg-red-500 hover:bg-red-600' : 'bg-ethereal-primary hover:bg-ethereal-primary-high'
+                }`}
+              >
+                {actionLoading ? 'Processing...' : 'Confirm'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

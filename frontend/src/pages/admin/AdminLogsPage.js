@@ -117,9 +117,9 @@ const AdminLogsPage = () => {
             <thead>
               <tr className="bg-gray-900/50 text-gray-400 text-sm uppercase tracking-wider">
                 <th className="p-4 font-semibold w-24">Log ID</th>
-                <th className="p-4 font-semibold">User ID</th>
+                <th className="p-4 font-semibold">Actor</th>
                 <th className="p-4 font-semibold">Action</th>
-                <th className="p-4 font-semibold">Entity</th>
+                <th className="p-4 font-semibold">Target / Entity</th>
                 <th className="p-4 font-semibold">Details / IP</th>
                 <th className="p-4 font-semibold w-48">Timestamp</th>
               </tr>
@@ -144,9 +144,12 @@ const AdminLogsPage = () => {
                   <tr key={log.id} className="hover:bg-gray-800/30 transition-colors">
                     <td className="p-4 text-gray-300">#{log.id}</td>
                     <td className="p-4">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-800 text-gray-300">
-                        <FiUser className="mr-1" /> {log.userId}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-gray-200">
+                          {log.actorName || `User`}
+                        </span>
+                        <span className="text-xs text-gray-500">ID: {log.userId}</span>
+                      </div>
                     </td>
                     <td className="p-4">
                       <span className="text-primary-400 font-semibold text-sm tracking-wide bg-primary-500/10 px-3 py-1 rounded-full">
@@ -154,7 +157,11 @@ const AdminLogsPage = () => {
                       </span>
                     </td>
                     <td className="p-4 text-gray-300">
-                      {log.entityType} {log.entityId ? `#${log.entityId}` : ''}
+                      <div className="flex flex-col">
+                        <span className="text-sm">{log.entityType}</span>
+                        {log.targetName && <span className="text-xs font-semibold text-primary-400">{log.targetName}</span>}
+                        {log.entityId && !log.targetName && <span className="text-xs text-gray-500">#{log.entityId}</span>}
+                      </div>
                     </td>
                     <td className="p-4">
                       <div className="text-sm text-gray-300 max-w-xs truncate" title={log.details}>

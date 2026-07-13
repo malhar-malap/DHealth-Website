@@ -23,6 +23,12 @@ public class AuditLog {
     @Column(name = "entity_id")
     private Long entityId;
 
+    @Column(name = "actor_name")
+    private String actorName;
+
+    @Column(name = "target_name")
+    private String targetName;
+
     @Column(name = "details", columnDefinition = "TEXT")
     private String details;
 
@@ -48,6 +54,10 @@ public class AuditLog {
     public void setEntityId(Long entityId) { this.entityId = entityId; }
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
+    public String getActorName() { return actorName; }
+    public void setActorName(String actorName) { this.actorName = actorName; }
+    public String getTargetName() { return targetName; }
+    public void setTargetName(String targetName) { this.targetName = targetName; }
     public String getIpAddress() { return ipAddress; }
     public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
     public LocalDateTime getTimestamp() { return timestamp; }
