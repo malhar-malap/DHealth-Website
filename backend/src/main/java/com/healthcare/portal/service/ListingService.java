@@ -33,9 +33,10 @@ public class ListingService {
     private final EquipmentTypeRepository equipmentTypeRepository;
     private final InquiryRepository inquiryRepository;
     private final PaymentRepository paymentRepository;
+    private final AuditLogService auditLogService;
 
     @Autowired
-    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository, InquiryRepository inquiryRepository, PaymentRepository paymentRepository) {
+    public ListingService(ListingRepository listingRepository, CategoryRepository categoryRepository, DealTypeRepository dealTypeRepository, CityRepository cityRepository, UserRepository userRepository, ListingImageRepository listingImageRepository, HospitalDetailRepository hospitalDetailRepository, PharmaDetailRepository pharmaDetailRepository, DiagnosticDetailRepository diagnosticDetailRepository, EquipmentDetailRepository equipmentDetailRepository, PharmacyDetailRepository pharmacyDetailRepository, HospitalTypeRepository hospitalTypeRepository, EquipmentTypeRepository equipmentTypeRepository, InquiryRepository inquiryRepository, PaymentRepository paymentRepository, AuditLogService auditLogService) {
         this.listingRepository = listingRepository;
         this.categoryRepository = categoryRepository;
         this.dealTypeRepository = dealTypeRepository;
@@ -51,6 +52,7 @@ public class ListingService {
         this.equipmentTypeRepository = equipmentTypeRepository;
         this.inquiryRepository = inquiryRepository;
         this.paymentRepository = paymentRepository;
+        this.auditLogService = auditLogService;
     }
     
     public PageResponse<ListingDTO.ListingSummaryResponse> searchListings(ListingDTO.ListingSearchRequest request) {
@@ -554,5 +556,27 @@ public class ListingService {
         }
         
         return response;
+    }
+
+    @Transactional
+    public void closeListing(Long listingId, Long sellerId, String reason) {
+        Listing listing = listingRepository.findById(listingId)
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
+        
+        if (!listing.getSeller().getId().equals(sellerId)) {
+            throw new RuntimeException("You do not have permission to close this listing");
+        }
+        
+        listing.setStatus(Listing.ListingStatus.WITHDRAWN);
+        listingRepository.save(listing);
+        
+        AuditLog log = new AuditLog();
+        log.setAction("CLOSE_OWN_LISTING");
+        log.setEntityType("Listing");
+        log.setEntityId(listingId);
+        log.setActorName(listing.getSeller().getFullName());
+        log.setTargetName(listing.getTitle());
+        log.setDetails("Reason: " + reason);
+        auditLogService.saveLogAsync(log);
     }
 }

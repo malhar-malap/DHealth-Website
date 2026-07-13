@@ -29,9 +29,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmailWithRoles(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         
+        boolean enabled = user.getStatus() != User.UserStatus.SUSPENDED;
+        
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPasswordHash(),
+                enabled,
+                true,
+                true,
+                true,
                 user.getRoles().stream()
                         .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole().name()))
                         .collect(Collectors.toList())

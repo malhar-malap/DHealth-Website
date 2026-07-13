@@ -89,6 +89,16 @@ public class JobController {
         return ResponseEntity.ok(ApiResponse.success("Job deleted successfully", null));
     }
     
+    @PostMapping("/{id}/close")
+    @Operation(summary = "Close job", description = "Closes a job posting with a reason")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<ApiResponse<Void>> closeJob(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        User currentUser = authService.getCurrentUserEntity();
+        String reason = payload.getOrDefault("reason", "No reason provided");
+        jobService.closeJob(id, currentUser.getId(), reason);
+        return ResponseEntity.ok(ApiResponse.success("Job closed successfully", null));
+    }
+    
     // Job Applications
     
     @PostMapping(value = "/{jobId}/apply", consumes = org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE)

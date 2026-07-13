@@ -109,6 +109,16 @@ public class ListingController {
         listingService.deleteListing(id, currentUser.getId());
         return ResponseEntity.ok(ApiResponse.success("Listing deleted successfully", null));
     }
+    
+    @PostMapping("/{id}/close")
+    @Operation(summary = "Close listing", description = "Closes a listing with a reason")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<ApiResponse<Void>> closeListing(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        User currentUser = authService.getCurrentUserEntity();
+        String reason = payload.getOrDefault("reason", "No reason provided");
+        listingService.closeListing(id, currentUser.getId(), reason);
+        return ResponseEntity.ok(ApiResponse.success("Listing closed successfully", null));
+    }
 
     @PostMapping("/media/upload")
     @Operation(summary = "Upload a listing image", description = "Uploads a single image for a listing")

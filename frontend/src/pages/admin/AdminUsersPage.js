@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { adminAPI, masterAPI } from '../../services/api';
 import AdminUserDetailModal from './AdminUserDetailModal';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { FiUser, FiSearch, FiFilter, FiEye, FiTrash2, FiChevronLeft, FiChevronRight, FiArrowLeft, FiSlash, FiCheckCircle } from 'react-icons/fi';
 
 const AdminUsersPage = () => {
@@ -21,6 +22,7 @@ const AdminUsersPage = () => {
 
   // Modals
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, userId: null });
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -59,14 +61,19 @@ const AdminUsersPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await adminAPI.deleteUser(id);
-        toast.success("User deleted successfully.");
-        fetchUsers();
-      } catch (error) {
-        toast.error("Failed to delete user.");
-      }
+    setConfirmModal({ isOpen: true, userId: id });
+  };
+
+  const confirmDelete = async () => {
+    const id = confirmModal.userId;
+    setConfirmModal({ isOpen: false, userId: null });
+    if (!id) return;
+    try {
+      await adminAPI.deleteUser(id);
+      toast.success("User deleted successfully.");
+      fetchUsers();
+    } catch (error) {
+      toast.error("Failed to delete user.");
     }
   };
 
@@ -268,6 +275,16 @@ const AdminUsersPage = () => {
           onUpdated={fetchUsers}
         />
       )}
+      
+      <ConfirmationModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ isOpen: false, userId: null })}
+          onConfirm={confirmDelete}
+          title="Delete User"
+          message="Are you sure you want to delete this user? This action cannot be undone."
+          confirmText="Delete"
+          isDanger={true}
+      />
     </div>
   );
 };

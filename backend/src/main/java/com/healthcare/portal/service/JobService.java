@@ -31,9 +31,10 @@ public class JobService {
     private final UserCVRepository userCVRepository;
     private final FileStorageService fileStorageService;
     private final EmailService emailService;
+    private final AuditLogService auditLogService;
 
     @Autowired
-    public JobService(JobRepository jobRepository, JobCategoryRepository jobCategoryRepository, CityRepository cityRepository, UserRepository userRepository, JobApplicationRepository jobApplicationRepository, UserCVRepository userCVRepository, FileStorageService fileStorageService, EmailService emailService) {
+    public JobService(JobRepository jobRepository, JobCategoryRepository jobCategoryRepository, CityRepository cityRepository, UserRepository userRepository, JobApplicationRepository jobApplicationRepository, UserCVRepository userCVRepository, FileStorageService fileStorageService, EmailService emailService, AuditLogService auditLogService) {
         this.jobRepository = jobRepository;
         this.jobCategoryRepository = jobCategoryRepository;
         this.cityRepository = cityRepository;
@@ -42,6 +43,7 @@ public class JobService {
         this.userCVRepository = userCVRepository;
         this.fileStorageService = fileStorageService;
         this.emailService = emailService;
+        this.auditLogService = auditLogService;
     }
     
     public PageResponse<JobDTO.JobSummaryResponse> searchJobs(JobDTO.JobSearchRequest request) {
@@ -407,5 +409,26 @@ public class JobService {
         } else {
             logger.info("No jobs to expire today.");
         }
+    }
+    @Transactional
+    public void closeJob(Long jobId, Long employerId, String reason) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        
+        if (!job.getEmployer().getId().equals(employerId)) {
+            throw new RuntimeException("You do not have permission to close this job");
+        }
+        
+        job.setStatus(Job.JobStatus.CLOSED);
+        jobRepository.save(job);
+        
+        AuditLog log = new AuditLog();
+        log.setAction("CLOSE_OWN_JOB");
+        log.setEntityType("Job");
+        log.setEntityId(jobId);
+        log.setActorName(job.getEmployer().getFullName());
+        log.setTargetName(job.getTitle());
+        log.setDetails("Reason: " + reason);
+        auditLogService.saveLogAsync(log);
     }
 }

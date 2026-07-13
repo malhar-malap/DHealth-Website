@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { adminAPI } from '../../services/api';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { 
   FiArrowLeft, 
   FiChevronLeft,
@@ -23,6 +24,7 @@ const AdminContactMessagesPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [totalElements, setTotalElements] = useState(0);
     const [statusFilter, setStatusFilter] = useState('ALL');
+    const [confirmModal, setConfirmModal] = useState({ isOpen: false, messageId: null });
     const [stats, setStats] = useState(null);
     const [replyModal, setReplyModal] = useState({ open: false, message: null });
     const [replyContent, setReplyContent] = useState('');
@@ -115,9 +117,13 @@ const AdminContactMessagesPage = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this contact message? This action cannot be undone.')) {
-            return;
-        }
+        setConfirmModal({ isOpen: true, messageId: id });
+    };
+
+    const confirmDelete = async () => {
+        const id = confirmModal.messageId;
+        setConfirmModal({ isOpen: false, messageId: null });
+        if (!id) return;
         try {
             await adminAPI.deleteContactMessage(id);
             toast.success('Message deleted successfully');
@@ -436,6 +442,16 @@ const AdminContactMessagesPage = () => {
                     </div>
                 </div>
             )}
+            
+            <ConfirmationModal
+                isOpen={confirmModal.isOpen}
+                onClose={() => setConfirmModal({ isOpen: false, messageId: null })}
+                onConfirm={confirmDelete}
+                title="Delete Message"
+                message="Are you sure you want to delete this contact message? This action cannot be undone."
+                confirmText="Delete Message"
+                isDanger={true}
+            />
         </div>
     );
 };

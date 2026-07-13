@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { adminAPI, masterAPI } from '../../services/api';
 import AdminJobDetailModal from './AdminJobDetailModal';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { FiCheck, FiX, FiTrash2, FiEye, FiFilter, FiSearch, FiChevronLeft, FiChevronRight, FiArrowLeft, FiBriefcase } from 'react-icons/fi';
 
 const AdminJobsPage = () => {
@@ -25,6 +26,7 @@ const AdminJobsPage = () => {
   const [detailModalId, setDetailModalId] = useState(null);
   const [rejectModalId, setRejectModalId] = useState(null);
   const [rejectReason, setRejectReason] = useState('');
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, jobId: null });
 
   // Actions loading
   const [actionLoading, setActionLoading] = useState(null);
@@ -89,7 +91,13 @@ const AdminJobsPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this job posting?')) return;
+    setConfirmModal({ isOpen: true, jobId: id });
+  };
+
+  const confirmDelete = async () => {
+    const id = confirmModal.jobId;
+    setConfirmModal({ isOpen: false, jobId: null });
+    if (!id) return;
     setActionLoading(id);
     try {
       await adminAPI.deleteJob(id);
@@ -324,6 +332,16 @@ const AdminJobsPage = () => {
           onUpdated={fetchJobs}
         />
       )}
+      
+      <ConfirmationModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ isOpen: false, jobId: null })}
+          onConfirm={confirmDelete}
+          title="Delete Job Posting"
+          message="Are you sure you want to delete this job posting? This action cannot be undone."
+          confirmText="Delete Job"
+          isDanger={true}
+      />
     </div>
   );
 };

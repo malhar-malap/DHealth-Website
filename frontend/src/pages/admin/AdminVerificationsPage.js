@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { adminAPI } from '../../services/api';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { 
   FiCheckCircle, 
   FiXCircle, 
@@ -25,6 +26,7 @@ const AdminVerificationsPage = () => {
     const [rejectModalId, setRejectModalId] = useState(null);
     const [rejectReason, setRejectReason] = useState('');
     const [actionLoading, setActionLoading] = useState(null);
+    const [confirmModal, setConfirmModal] = useState({ isOpen: false, verificationId: null });
 
     const fetchVerifications = useCallback(async () => {
         try {
@@ -47,7 +49,14 @@ const AdminVerificationsPage = () => {
     }, [fetchVerifications]);
 
     const handleApprove = async (id) => {
-        if (!window.confirm('Approve this verification request?')) return;
+        setConfirmModal({ isOpen: true, verificationId: id });
+    };
+
+    const confirmApprove = async () => {
+        const id = confirmModal.verificationId;
+        setConfirmModal({ isOpen: false, verificationId: null });
+        if (!id) return;
+        
         setActionLoading(id);
         try {
             await adminAPI.approveVerification(id);
@@ -248,6 +257,16 @@ const AdminVerificationsPage = () => {
                     </div>
                 </div>
             )}
+            
+            <ConfirmationModal
+                isOpen={confirmModal.isOpen}
+                onClose={() => setConfirmModal({ isOpen: false, verificationId: null })}
+                onConfirm={confirmApprove}
+                title="Approve Verification"
+                message="Are you sure you want to approve this verification request?"
+                confirmText="Approve"
+                isDanger={false}
+            />
         </div>
     );
 };

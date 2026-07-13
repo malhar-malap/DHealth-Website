@@ -8,6 +8,8 @@ import { FaBriefcase } from 'react-icons/fa';
 import { listingsAPI, jobsAPI, userAPI, inquiriesAPI, masterAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaRupeeSign, FaLock } from 'react-icons/fa';
+import ConfirmationModal from '../components/common/ConfirmationModal';
+import { FiXCircle } from 'react-icons/fi';
 
 // Generic placeholder component
 const PlaceholderPage = ({ title, description, linkText, linkHref }) => (
@@ -47,6 +49,9 @@ export const MyListingsPage = () => {
     masterAPI.getCategories().then(res => setCategories(res.data?.data || []));
   }, []);
 
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, listingId: null });
+  const [closing, setClosing] = useState(false);
+
   const fetchListings = async () => {
     try {
       const { data } = await listingsAPI.getMy({ size: 100 });
@@ -55,6 +60,27 @@ export const MyListingsPage = () => {
       toast.error('Failed to fetch listings');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCloseClick = (id) => {
+    setConfirmModal({ isOpen: true, listingId: id });
+  };
+
+  const confirmClose = async (reason) => {
+    const id = confirmModal.listingId;
+    setConfirmModal({ isOpen: false, listingId: null });
+    if (!id) return;
+
+    setClosing(true);
+    try {
+      await listingsAPI.close(id, reason);
+      toast.success('Listing closed successfully');
+      fetchListings();
+    } catch (error) {
+      toast.error('Failed to close listing');
+    } finally {
+      setClosing(false);
     }
   };
 
@@ -122,7 +148,13 @@ export const MyListingsPage = () => {
                       </span>
                     )}
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-lg ${
-                      listing.status === 'ACTIVE' ? 'bg-green-500/90 text-white' : 'bg-yellow-500/90 text-white'
+                      listing.status === 'ACTIVE' 
+                        ? 'bg-green-500/90 text-white' 
+                        : listing.status === 'EXPIRED'
+                        ? 'bg-red-500/90 text-white'
+                        : listing.status === 'CLOSED'
+                        ? 'bg-gray-500/90 text-white'
+                        : 'bg-yellow-500/90 text-white'
                     }`}>
                       {listing.status}
                     </span>
@@ -151,6 +183,16 @@ export const MyListingsPage = () => {
                       <Link to={`/listings/${listing.id}/edit`} className="btn-ethereal-secondary !px-4 !py-2 text-sm">
                         Edit
                       </Link>
+                      {listing.status === 'ACTIVE' && (
+                        <button 
+                          onClick={() => handleCloseClick(listing.id)}
+                          disabled={closing}
+                          className="p-2.5 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                          title="Close Listing"
+                        >
+                          <FiXCircle />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -159,6 +201,18 @@ export const MyListingsPage = () => {
           </div>
         )}
       </div>
+
+      <ConfirmationModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ isOpen: false, listingId: null })}
+          onConfirm={confirmClose}
+          title="Close Listing"
+          message="Are you sure you want to close this listing? It will no longer be visible on the marketplace."
+          confirmText="Close Listing"
+          isDanger={true}
+          requireReason={true}
+          reasonLabel="Reason for closing (Required)"
+      />
     </div>
     </DashboardLayout>
   );
@@ -308,6 +362,9 @@ export const MyJobsPage = () => {
     fetchJobs();
   }, []);
 
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, jobId: null });
+  const [closing, setClosing] = useState(false);
+
   const fetchJobs = async () => {
     try {
       const { data } = await jobsAPI.getMy({ size: 100 });
@@ -316,6 +373,27 @@ export const MyJobsPage = () => {
       toast.error('Failed to fetch jobs');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCloseClick = (id) => {
+    setConfirmModal({ isOpen: true, jobId: id });
+  };
+
+  const confirmClose = async (reason) => {
+    const id = confirmModal.jobId;
+    setConfirmModal({ isOpen: false, jobId: null });
+    if (!id) return;
+
+    setClosing(true);
+    try {
+      await jobsAPI.close(id, reason);
+      toast.success('Job closed successfully');
+      fetchJobs();
+    } catch (error) {
+      toast.error('Failed to close job');
+    } finally {
+      setClosing(false);
     }
   };
 
@@ -359,6 +437,10 @@ export const MyJobsPage = () => {
                   <span className={`px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md shadow-sm border ${
                     job.status === 'ACTIVE' 
                       ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                      : job.status === 'EXPIRED'
+                      ? 'bg-red-500/10 text-red-400 border-red-500/20'
+                      : job.status === 'CLOSED'
+                      ? 'bg-gray-500/10 text-gray-400 border-gray-500/20'
                       : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
                   }`}>
                     {job.status}
@@ -376,18 +458,42 @@ export const MyJobsPage = () => {
                   </div>
                 </div>
 
-                <Link 
-                  to={`/jobs/${job.id}/edit`} 
-                  className="flex items-center justify-center w-full py-4 rounded-2xl bg-gray-900/50 border border-white/5 text-white font-bold hover:bg-ethereal-primary hover:border-ethereal-primary transition-all duration-300 group/btn relative z-10 shadow-md"
-                >
-                  Manage Role
-                  <FaEye className="ml-2 transform group-hover/btn:scale-110 transition-transform opacity-70 group-hover/btn:opacity-100" />
-                </Link>
+                <div className="flex gap-4 relative z-10">
+                  <Link 
+                    to={`/jobs/${job.id}/edit`} 
+                    className="flex-1 flex items-center justify-center py-4 rounded-2xl bg-gray-900/50 border border-white/5 text-white font-bold hover:bg-ethereal-primary hover:border-ethereal-primary transition-all duration-300 group/btn shadow-md"
+                  >
+                    Manage
+                    <FaEye className="ml-2 transform group-hover/btn:scale-110 transition-transform opacity-70 group-hover/btn:opacity-100" />
+                  </Link>
+                  {job.status === 'ACTIVE' && (
+                    <button
+                      onClick={() => handleCloseClick(job.id)}
+                      disabled={closing}
+                      className="flex-none px-6 py-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 font-bold hover:bg-red-500 hover:text-white transition-all duration-300 shadow-md"
+                      title="Close Job"
+                    >
+                      <FiXCircle size={20} />
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      <ConfirmationModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ isOpen: false, jobId: null })}
+          onConfirm={confirmClose}
+          title="Close Job Posting"
+          message="Are you sure you want to close this job posting? It will no longer be visible to job seekers."
+          confirmText="Close Job"
+          isDanger={true}
+          requireReason={true}
+          reasonLabel="Reason for closing (Required)"
+      />
     </div>
     </DashboardLayout>
   );

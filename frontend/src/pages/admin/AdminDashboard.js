@@ -27,8 +27,8 @@ const AdminDashboard = () => {
 
   const statCards = [
     { title: 'Total Network Users', value: stats?.totalUsers || 0, icon: FiUsers, gradient: 'from-blue-500/20 to-indigo-500/20', accent: 'text-blue-600', label: stats?.newUsersToday ? `+${stats.newUsersToday} recently` : 'Stable growth' },
-    { title: 'Active Listings', value: stats?.totalListings || 0, icon: FiList, gradient: 'from-[#d8572a]/20 to-[#d8572a]/20', accent: 'text-[#db7c26]', label: stats?.pendingListings ? `${stats.pendingListings} pending review` : 'All caught up' },
-    { title: 'Career Opportunities', value: stats?.totalJobs || 0, icon: FiBriefcase, gradient: 'from-purple-500/20 to-pink-500/20', accent: 'text-purple-600', label: stats?.pendingJobs ? `${stats.pendingJobs} processing` : 'Optimized flow' },
+    { title: 'Active Listings', value: stats?.activeListings || 0, icon: FiList, gradient: 'from-[#d8572a]/20 to-[#d8572a]/20', accent: 'text-[#db7c26]', label: stats?.pendingListings ? `${stats.pendingListings} pending review` : 'All caught up' },
+    { title: 'Career Opportunities', value: stats?.activeJobs || 0, icon: FiBriefcase, gradient: 'from-purple-500/20 to-pink-500/20', accent: 'text-purple-600', label: stats?.pendingJobs ? `${stats.pendingJobs} processing` : 'Optimized flow' },
     { title: 'Strategic Inquiries', value: stats?.inquiriesToday || 0, icon: FiMail, gradient: 'from-orange-500/20 to-red-500/20', accent: 'text-orange-600', label: '24h activity' }
   ];
 

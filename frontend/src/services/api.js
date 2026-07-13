@@ -92,6 +92,7 @@ export const listingsAPI = {
   create: (data) => api.post('/listings', data),
   update: (id, data) => api.put(`/listings/${id}`, data),
   delete: (id) => api.delete(`/listings/${id}`),
+  close: (id, reason) => api.post(`/listings/${id}/close`, null, { params: { reason } }),
 };
 
 // Jobs API
@@ -103,6 +104,7 @@ export const jobsAPI = {
   create: (data) => api.post('/jobs', data),
   update: (id, data) => api.put(`/jobs/${id}`, data),
   delete: (id) => api.delete(`/jobs/${id}`),
+  close: (id, reason) => api.post(`/jobs/${id}/close`, null, { params: { reason } }),
   apply: (jobId, data) => api.post(`/jobs/${jobId}/apply`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
   getApplications: (jobId, params) => api.get(`/jobs/${jobId}/applications`, { params }),
   getMyApplications: (params) => api.get('/jobs/applications/my', { params }),

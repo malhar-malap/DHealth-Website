@@ -4,6 +4,7 @@ import { adminAPI, masterAPI, mediaAPI } from '../../services/api';
 import { formatPrice } from '../../utils/formatPrice';
 import AdminListingDetailModal from './AdminListingDetailModal';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { FiCheck, FiX, FiTrash2, FiStar, FiEye, FiFilter, FiSearch, FiChevronLeft, FiChevronRight, FiArrowLeft, FiUpload, FiImage } from 'react-icons/fi';
 
 const AdminListingsPage = () => {
@@ -42,6 +43,8 @@ const AdminListingsPage = () => {
   const [approveUniqueCode, setApproveUniqueCode] = useState('');
   const [approveImageUrl, setApproveImageUrl] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, listingId: null, isBulk: false });
 
   // Actions loading
   const [actionLoading, setActionLoading] = useState(null);
@@ -138,10 +141,30 @@ const AdminListingsPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this listing?')) return;
-    setActionLoading(id);
+    setConfirmModal({ isOpen: true, listingId: id, isBulk: false });
+  };
+
+  const confirmDelete = async () => {
+    const { listingId, isBulk } = confirmModal;
+    setConfirmModal({ isOpen: false, listingId: null, isBulk: false });
+    
+    if (isBulk) {
+      if (selectedIds.length === 0) return;
+      try {
+        const response = await adminAPI.bulkDeleteListings(selectedIds);
+        const result = response.data.data;
+        toast.success(`${result.successCount} listings deleted`);
+        setSelectedIds([]);
+        setSelectAll(false);
+        fetchListings();
+      } catch (error) { toast.error('Bulk delete failed'); }
+      return;
+    }
+
+    if (!listingId) return;
+    setActionLoading(listingId);
     try {
-      await adminAPI.deleteListing(id);
+      await adminAPI.deleteListing(listingId);
       toast.success('Listing deleted');
       fetchListings();
     } catch (error) { toast.error('Failed to delete'); }
@@ -176,15 +199,7 @@ const AdminListingsPage = () => {
 
   const handleBulkDelete = async () => {
     if (selectedIds.length === 0) { toast.error('No listings selected'); return; }
-    if (!window.confirm(`Delete ${selectedIds.length} listings?`)) return;
-    try {
-      const response = await adminAPI.bulkDeleteListings(selectedIds);
-      const result = response.data.data;
-      toast.success(`${result.successCount} listings deleted`);
-      setSelectedIds([]);
-      setSelectAll(false);
-      fetchListings();
-    } catch (error) { toast.error('Bulk delete failed'); }
+    setConfirmModal({ isOpen: true, listingId: null, isBulk: true });
   };
 
   // Selection helpers
@@ -621,8 +636,19 @@ const AdminListingsPage = () => {
             setDetailModalId(null);
             setVerifyingListing(listing);
           }}
+          onReject={handleReject}
         />
       )}
+      
+      <ConfirmationModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ isOpen: false, listingId: null, isBulk: false })}
+          onConfirm={confirmDelete}
+          title={confirmModal.isBulk ? "Bulk Delete Listings" : "Delete Listing"}
+          message={confirmModal.isBulk ? `Are you sure you want to delete ${selectedIds.length} selected listings? This action cannot be undone.` : "Are you sure you want to delete this listing? This action cannot be undone."}
+          confirmText="Delete"
+          isDanger={true}
+      />
     </div>
   );
 };
