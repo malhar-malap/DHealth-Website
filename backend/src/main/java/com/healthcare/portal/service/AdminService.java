@@ -1,5 +1,6 @@
 package com.healthcare.portal.service;
 
+import com.healthcare.portal.annotation.LogActivity;
 import com.healthcare.portal.dto.*;
 import com.healthcare.portal.entity.*;
 import com.healthcare.portal.repository.*;
@@ -166,16 +167,19 @@ public class AdminService {
     }
     
     @Transactional
+    @LogActivity(action = "APPROVE_LISTING", entityType = "Listing")
     public void approveListing(Long id, String uniqueCode, java.util.List<String> imageUrls) {
         listingService.approveListing(id, uniqueCode, imageUrls);
     }
     
     @Transactional
+    @LogActivity(action = "REJECT_LISTING", entityType = "Listing")
     public void rejectListing(Long id, String reason) {
         listingService.rejectListing(id, reason);
     }
     
     @Transactional
+    @LogActivity(action = "DELETE_LISTING", entityType = "Listing")
     public void deleteListing(Long id) {
         inquiryRepository.deleteByListingId(id);
         paymentRepository.deleteByListingId(id);
@@ -256,11 +260,13 @@ public class AdminService {
         return response;
     }
     @Transactional
+    @LogActivity(action = "APPROVE_JOB", entityType = "Job")
     public void approveJob(Long id) {
         jobService.approveJob(id);
     }
     
     @Transactional
+    @LogActivity(action = "REJECT_JOB", entityType = "Job")
     public void rejectJob(Long id, String reason) {
         jobService.rejectJob(id, reason);
     }
@@ -302,6 +308,7 @@ public class AdminService {
     }
     
     @Transactional
+    @LogActivity(action = "DELETE_JOB", entityType = "Job")
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
     }
@@ -334,11 +341,13 @@ public class AdminService {
         return PageResponse.from(responsePage);
     }
     @Transactional
+    @LogActivity(action = "SUSPEND_USER", entityType = "User")
     public void suspendUser(Long userId, String reason) {
         userService.suspendUser(userId, reason);
     }
     
     @Transactional
+    @LogActivity(action = "ACTIVATE_USER", entityType = "User")
     public void activateUser(Long userId) {
         userService.activateUser(userId);
     }
@@ -361,6 +370,7 @@ public class AdminService {
     }
 
     @Transactional
+    @LogActivity(action = "DELETE_USER", entityType = "User")
     public void deleteUser(Long userId) {
         // Delete BuyerVerifications
         buyerVerificationRepository.deleteAll(buyerVerificationRepository.findByUserId(userId));
@@ -392,6 +402,7 @@ public class AdminService {
     }
 
     @Transactional
+    @LogActivity(action = "UPDATE_USER_ROLES", entityType = "User")
     public void updateUserRoles(Long userId, java.util.List<String> roles) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
@@ -444,6 +455,7 @@ public class AdminService {
     }
     
     @Transactional
+    @LogActivity(action = "APPROVE_VERIFICATION", entityType = "BuyerVerification")
     public void approveVerification(Long id, Long adminId) {
         BuyerVerification verification = buyerVerificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Verification request not found"));
@@ -466,6 +478,7 @@ public class AdminService {
     }
     
     @Transactional
+    @LogActivity(action = "REJECT_VERIFICATION", entityType = "BuyerVerification")
     public void rejectVerification(Long id, Long adminId, String reason) {
         BuyerVerification verification = buyerVerificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Verification request not found"));
