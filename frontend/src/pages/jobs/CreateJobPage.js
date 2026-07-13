@@ -91,8 +91,13 @@ const CreateJobPage = () => {
       if (formData.salaryMinLpa) payload.salaryMinLpa = parseFloat(formData.salaryMinLpa);
       if (formData.salaryMaxLpa) payload.salaryMaxLpa = parseFloat(formData.salaryMaxLpa);
 
-      await jobsAPI.create(payload);
-      setSuccess('Job posted successfully! It will be reviewed by admin.');
+      if (isEditMode) {
+        await jobsAPI.update(id, payload);
+        setSuccess('Job updated successfully!');
+      } else {
+        await jobsAPI.create(payload);
+        setSuccess('Job posted successfully! It will be reviewed by admin.');
+      }
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       const status = err.response?.status;

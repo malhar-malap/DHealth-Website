@@ -118,7 +118,7 @@ const JobDetailPage = () => {
                 <div className="flex items-center gap-2 text-sm text-gray-400"><FiMail className="w-4 h-4" /><span>{job.contactEmail}</span></div>
               </div>
 
-              {isAuthenticated && (user?.id === job.employer?.id || user?._id === job.employer?._id) ? (
+              {isAuthenticated && user && job.employer && user.id === job.employer.id ? (
                 <Link to={`/jobs/${job.id || id}/edit`} className="btn btn-secondary w-full py-3 mb-3 flex items-center justify-center gap-2">
                   <FiBriefcase className="w-5 h-5" /> Manage Job
                 </Link>
