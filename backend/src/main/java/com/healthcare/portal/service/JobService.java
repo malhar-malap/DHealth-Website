@@ -320,6 +320,7 @@ public class JobService {
         response.setEmployerCompany(job.getEmployer().getCompanyName());
         response.setCreatedAt(job.getCreatedAt());
         response.setViewCount(job.getViewCount());
+        response.setStatus(job.getStatus().name());
         
         return response;
     }
